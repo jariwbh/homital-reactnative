@@ -35,7 +35,7 @@ const Slider = [
     }
 ];
 
-const SliderScreen = () => {
+const SliderScreen = ({ navigation }) => {
     const [completed, setCompleted] = React.useState(false);
 
     const scrollX = new Animated.Value(0);
@@ -71,9 +71,12 @@ const SliderScreen = () => {
                         key={`img-${index}`}
                         style={styles.imageAndTextContainer}
                     >
-                        <TouchableOpacity style={{ justifyContent: 'flex-end', alignItems: 'flex-end', marginTop: SIZES.height > 0 ? '10%' : '0%', marginRight: '3%' }}>
+                        <TouchableOpacity style={{ justifyContent: 'flex-end', alignItems: 'flex-end', marginTop: SIZES.height > 0 ? '10%' : '0%', marginRight: '3%' }}
+                            onPress={() => { }}
+                        >
                             <Text style={{ color: '#0C0B52', ...FONTS.h1 }}>Skip</Text>
                         </TouchableOpacity>
+
                         <View style={{ marginTop: SIZES.width > 0 ? '10%' : '0%' }}>
                             <Text style={{ ...FONTS.h1, color: '#0C0B52', textAlign: 'center', }} >{item.title} </Text>
 
@@ -105,19 +108,20 @@ const SliderScreen = () => {
                                 position: 'absolute',
                                 right: 0,
                                 bottom: 0,
-                                width: 150,
-                                height: 60,
+                                width: 120,
+                                height: 50,
                                 paddingLeft: 20,
                                 justifyContent: 'center',
                                 borderTopLeftRadius: 30,
                                 borderBottomLeftRadius: 30,
                                 borderBottomRightRadius: 0,
                                 borderTopRightRadius: 0,
-                                backgroundColor: COLORS.blue
+                                backgroundColor: '#9191B1'
+
                             }}
-                            onPress={() => { console.log("Button on pressed") }}
+                            onPress={() => { navigation.navigate('LoginScreen') }}
                         >
-                            <Text style={{ ...FONTS.h1, color: COLORS.white }}>{completed ? "Let's Go" : "Next"}</Text>
+                            <Text style={{ ...FONTS.h1, color: COLORS.black }}>{completed ? "Let's Go" : "Next"}</Text>
                         </TouchableOpacity>
                     </View>
                 ))}
@@ -148,7 +152,8 @@ const SliderScreen = () => {
                         <Animated.View
                             key={`dot-${index}`}
                             opacity={opacity}
-                            style={[styles.dot, { width: dotSize, height: dotSize, }]}
+                            style={[styles.dot, { width: 20, height: 5, }]}
+
                         />
                     );
                 })}
@@ -181,7 +186,6 @@ const styles = StyleSheet.create({
     },
     imageAndTextContainer: {
         width: SIZES.width,
-        // position: 'relative',
 
     },
     dotsRootContainer: {
@@ -198,7 +202,7 @@ const styles = StyleSheet.create({
     },
     dot: {
 
-        borderRadius: SIZES.radius,
+        borderRadius: 2,
         backgroundColor: '#EF716B',
         marginHorizontal: SIZES.radius / 2
     }

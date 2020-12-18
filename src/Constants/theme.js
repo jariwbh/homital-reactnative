@@ -6,6 +6,7 @@ export const COLORS = {
     white: "#FFFFFF",
     gray: "#6A6A6A",
     blue: "#0682FE",
+    navyblue: "#0C0B52",
 };
 export const SIZES = {
     // global sizes
