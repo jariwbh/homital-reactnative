@@ -28,9 +28,6 @@ export default class LoginScreen extends Component {
                     </View>
                     <View style={{ marginTop: hp('2%'), marginLeft: hp('7%'), flexDirection: 'row' }} >
                         <Text style={styles.sineText}>Please sign in to Continue</Text>
-                        {/* <TouchableOpacity onPress={() => { this.props.navigation.navigate('RegisterScreen') }} >
-                            <Text style={styles.baseText}>Sign up now! </Text>
-                        </TouchableOpacity> */}
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <View style={styles.inputView}>
@@ -42,6 +39,7 @@ export default class LoginScreen extends Component {
                                 type='clear'
                                 returnKeyType="next"
                                 placeholderTextColor="#656565"
+                                underlineColorAndroid="#B9B9B9"
                                 onChangeText={(email) => this.setEmail(email)}
                             />
                         </View>
@@ -56,6 +54,7 @@ export default class LoginScreen extends Component {
                                 placeholderTextColor="#656565"
                                 secureTextEntry={true}
                                 returnKeyType="done"
+                                underlineColorAndroid="#B9B9B9"
                                 onSubmitEditing={() => this.onPressSubmit()}
                                 onChangeText={(password) => this.setPassword(password)}
                             />
@@ -111,20 +110,11 @@ const styles = StyleSheet.create({
 
     inputView: {
         flexDirection: 'row',
-        backgroundColor: "#fff",
-        borderRadius: wp('3%'),
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
-        borderColor: '#fff',
         width: wp('80%'),
-        height: hp('8%'),
         margin: hp('3%'),
         alignItems: "center",
+        marginLeft: 'auto',
+        marginRight: 'auto',
 
     },
     TextInput: {

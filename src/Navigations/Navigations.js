@@ -8,10 +8,10 @@ import RegisterScreen from "../Screen/RegisterScreen/RegisterScreen";
 import HomeScreen from "../Screen/HomeScreen/HomeScreen"
 import RoomDetailScreen from "../Screen/RoomDetailScreen/RoomDetailScreen"
 import BookScreen from '../Screen/BookScreen/BookScreen'
-
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import MyProfileScreen from '../Screen/MyProfileScreen/MyProfileScreen'
 const Stack = createStackNavigator();
-
-
+const Drawer = createDrawerNavigator();
 
 
 export default NavigationsApp = () => {
@@ -25,8 +25,33 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="HomeScreen" component={HomeScreen} />
                 <Stack.Screen name="RoomDetailScreen" component={RoomDetailScreen} />
                 <Stack.Screen name="BookScreen" component={BookScreen} />
+                <Stack.Screen name="MyProfileScreen" component={MyProfileScreen} />
             </Stack.Navigator>
 
         </NavigationContainer>
     );
 };
+
+// const NavigationsDrawer = () => {
+//     return (
+//         <NavigationContainer>
+//             <Drawer.Navigator
+//                 drawerContentOptions={{
+//                     activeTintColor: '#e91e63',
+//                     itemStyle: { marginVertical: 5 },
+//                 }}>
+//                 <Drawer.Screen
+//                     name="HomeScreen"
+//                     options={{ drawerLabel: 'HomeScreen' }}
+//                     component={HomeScreen} />
+//                 <Drawer.Screen
+//                     name="BookScreen"
+//                     options={{ drawerLabel: 'BookScreen' }}
+//                     component={BookScreen} />
+//             </Drawer.Navigator>
+//         </NavigationContainer>
+//     )
+// }
+
+
+

@@ -6,7 +6,7 @@ import {
     heightPercentageToDP as hp,
     widthPercentageToDP as wp,
 } from 'react-native-responsive-screen'
-import { FontAwesome5, AntDesign, Fontisto } from '@expo/vector-icons';
+import { FontAwesome5, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 const { COLORS, FONTS, SIZES } = theme;
@@ -29,8 +29,8 @@ class ForgotPassword extends Component {
                     <View style={{ marginTop: hp('2%'), marginLeft: hp('7%'), flexDirection: 'row' }} >
                         <Text style={styles.sineText}>Enter new password below</Text>
                     </View>
-                    <View >
-
+                    <View style={{ marginTop: hp('2%'), justifyContent: 'center', alignItems: 'center' }} >
+                        <MaterialCommunityIcons name="shield-key-outline" size={60} color="#000000" style={{ paddingLeft: hp('3%') }} />
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <View style={styles.inputview} >
@@ -42,6 +42,7 @@ class ForgotPassword extends Component {
                                 placeholderTextColor="#656565"
                                 secureTextEntry={true}
                                 returnKeyType="done"
+                                underlineColorAndroid="#B9B9B9"
                             // keyboardType="numeric"
                             // onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                             />
@@ -55,6 +56,7 @@ class ForgotPassword extends Component {
                                 placeholderTextColor="#656565"
                                 secureTextEntry={true}
                                 returnKeyType="done"
+                                underlineColorAndroid="#B9B9B9"
                             // keyboardType="numeric"
                             // onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                             />
@@ -108,21 +110,11 @@ const styles = StyleSheet.create({
     },
     inputview: {
         flexDirection: 'row',
-        backgroundColor: "#fff",
-        borderRadius: wp('2%'),
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
-        borderColor: '#fff',
+        marginLeft: 'auto',
+        marginRight: 'auto',
         width: wp('80%'),
-        height: hp('8%'),
         margin: hp('3%'),
         alignItems: "center",
-        // marginLeft: hp('7%')
 
     },
     TextInput: {

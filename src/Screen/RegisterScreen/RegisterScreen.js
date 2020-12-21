@@ -40,6 +40,7 @@ class RegisterScreen extends Component {
                                     type='clear'
                                     placeholderTextColor="#656565"
                                     returnKeyType="next"
+                                    underlineColorAndroid="#B9B9B9"
                                 // onChangeText={(fullname) => this.setFullName(fullname)}
                                 />
                             </View>
@@ -51,6 +52,7 @@ class RegisterScreen extends Component {
                                     type='clear'
                                     placeholderTextColor="#656565"
                                     returnKeyType="next"
+                                    underlineColorAndroid="#B9B9B9"
                                 // onChangeText={(email) => this.setEmail(email)}
                                 />
 
@@ -64,6 +66,7 @@ class RegisterScreen extends Component {
                                     placeholderTextColor="#656565"
                                     secureTextEntry={true}
                                     returnKeyType="done"
+                                    underlineColorAndroid="#B9B9B9"
                                 // keyboardType="numeric"
                                 // onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                                 />
@@ -77,6 +80,7 @@ class RegisterScreen extends Component {
                                     placeholderTextColor="#656565"
                                     secureTextEntry={true}
                                     returnKeyType="done"
+                                    underlineColorAndroid="#B9B9B9"
                                 // keyboardType="numeric"
                                 // onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                                 />
@@ -110,6 +114,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
 
+
     },
     backgroundImage: {
         flex: 1,
@@ -121,18 +126,9 @@ const styles = StyleSheet.create({
     },
     inputview: {
         flexDirection: 'row',
-        backgroundColor: "#fff",
-        borderRadius: wp('2%'),
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
-        borderColor: '#fff',
         width: wp('80%'),
-        height: hp('8%'),
+        marginLeft: 'auto',
+        marginRight: 'auto',
         margin: hp('3%'),
         alignItems: "center",
     },

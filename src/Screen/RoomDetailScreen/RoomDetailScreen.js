@@ -5,7 +5,7 @@ import {
     heightPercentageToDP as hp,
     widthPercentageToDP as wp,
 } from 'react-native-responsive-screen'
-import { MaterialCommunityIcons, MaterialIcons, Fontisto } from '@expo/vector-icons';
+import { MaterialCommunityIcons, MaterialIcons, } from '@expo/vector-icons';
 
 export default class RoomDetailScreen extends Component {
     constructor(props) {
