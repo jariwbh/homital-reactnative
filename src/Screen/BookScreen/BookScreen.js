@@ -8,7 +8,7 @@ import {
 import theme from "../../Constants/theme";
 import { FontAwesome, AntDesign, Fontisto, FontAwesome5 } from '@expo/vector-icons';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, } from 'react-native-gesture-handler';
 
 
 const { COLORS, FONTS, SIZES } = theme;
@@ -165,7 +165,7 @@ class BookScreen extends Component {
                             <Text style={{ fontSize: hp('2.5%'), color: "#FD9B02", }}>$208.00</Text>
                         </View>
                     </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('3%'), }}>
                         <TouchableOpacity style={styles.bookBtn} onPress={() => { this.props.navigation.navigate('MyProfileScreen') }} >
                             <Text style={styles.bookText}>Book Now </Text>
                         </TouchableOpacity>
