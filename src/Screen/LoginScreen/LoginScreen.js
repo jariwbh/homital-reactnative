@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
         fontSize: hp('2%'),
     },
     innerText: {
-        color: '#737373',
+        color: '#ABAFB3',
         fontSize: hp('2%'),
     },
 
