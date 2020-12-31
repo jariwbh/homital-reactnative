@@ -111,7 +111,7 @@ class MyProfileScreen extends Component {
                     {this.userData === null ?
                         <ActivityIndicator size="large" color="#000000" />
                         : <>
-                            <Image style={styles.avatar} source={require('../../../assets/images/userimage.jpg')} />
+                            <Image style={styles.avatar} source={require('../../../assets/Images/userimage.jpg')} />
                             <View style={styles.body}>
                                 <View style={styles.bodyContent}>
                                     <Text style={styles.name}>jon</Text>

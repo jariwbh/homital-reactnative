@@ -39,13 +39,16 @@ class BookScreen extends Component {
                         <Text style={{ fontSize: hp('3%'), marginLeft: hp('7%') }}> Book </Text>
                     </View>
                 </View>
-                <ScrollView>
+                <ScrollView
+                    Vertical
+                    showsVerticalScrollIndicator={false}
+                >
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('2%') }}>
                         <View style={styles.inputview}>
                             <AntDesign name="user" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
                             <TextInput
                                 style={styles.TextInput}
-                                placeholder=" Name"
+                                placeholder="Full Name"
                                 type='clear'
                                 placeholderTextColor="#656565"
                                 returnKeyType="next"
@@ -77,7 +80,7 @@ class BookScreen extends Component {
                                 secureTextEntry={true}
                                 returnKeyType="done"
                                 underlineColorAndroid="#B9B9B9"
-                            // keyboardType="numeric"
+                                keyboardType="numeric"
                             // onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                             />
                         </View>
@@ -166,7 +169,7 @@ class BookScreen extends Component {
                         </View>
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('3%'), }}>
-                        <TouchableOpacity style={styles.bookBtn} onPress={() => { this.props.navigation.navigate('MyProfileScreen') }} >
+                        <TouchableOpacity style={styles.bookBtn} onPress={() => { this.props.navigation.navigate('ThankYouScreen') }} >
                             <Text style={styles.bookText}>Book Now </Text>
                         </TouchableOpacity>
                     </View>

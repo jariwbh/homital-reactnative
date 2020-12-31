@@ -4,7 +4,7 @@ import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ImageBackground, ToastAndroid } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { LoginService } from '../../Services/LoginService/LoginService'
+import { LoginService } from "../../Services/LoginService/LoginService"
 
 const { COLORS, FONTS, SIZES } = theme;
 export default class LoginScreen extends Component {

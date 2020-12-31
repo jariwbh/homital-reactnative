@@ -4,7 +4,7 @@ import {
     heightPercentageToDP as hp,
     widthPercentageToDP as wp,
 } from 'react-native-responsive-screen'
-import { FontAwesome5, Foundation, AntDesign, Fontisto } from '@expo/vector-icons';
+import { FontAwesome5, Foundation } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         borderRadius: hp('2%'),
-        backgroundColor: "pink",
+        backgroundColor: "#FFFFFF",
         width: wp('90%'),
         height: hp('35%'),
 

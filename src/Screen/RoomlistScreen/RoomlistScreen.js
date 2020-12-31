@@ -92,6 +92,8 @@ export default RoomlistScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        marginBottom: hp('5%')
+
     },
     inputview: {
         flexDirection: 'row',
@@ -108,8 +110,5 @@ const styles = StyleSheet.create({
         width: wp('90%'),
         height: hp('10%'),
         marginTop: hp('-0.1%'),
-        // margin: hp('3%'),
-
-
     },
 })
