@@ -10,6 +10,11 @@ import BookScreen from '../Screen/BookScreen/BookScreen'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import MyProfileScreen from '../Screen/MyProfileScreen/MyProfileScreen'
 import { View, TouchableOpacity, Image } from 'react-native';
+import RoomlistScreen from '../Screen/RoomlistScreen/RoomlistScreen'
+import BookService from '../Screen/BookService/BookService'
+import ThankYouScreen from '../Screen/ThankyouScreen/ThankYouScreen'
+import SearchScreen from '../Screen/SearchScreen/SearchScreen'
+import ResortlistScreen from "../Screen/ResortlistScreen/ResortlistScreen";
 
 const NavigationDrawerStructure = (props) => {
     const toggleDrawer = () => {
@@ -33,9 +38,9 @@ function NavigationsDrawer() {
         <Drawer.Navigator initialRouteName="HomeScreen" headerMode="screen"
             drawerContentOptions={{ activeTintColor: '#e91e63', itemStyle: { marginVertical: 5 } }}>
             <Drawer.Screen name="HomeScreen" options={{ drawerLabel: 'Home' }} component={homeScreenStack} />
-            <Drawer.Screen name="BookScreen" options={{ drawerLabel: 'Booking' }} component={BookScreen} />
-            <Drawer.Screen name="RoomDetailScreen" options={{ drawerLabel: 'Room' }} component={RoomDetailScreen} />
+            <Drawer.Screen name="ResortlistScreen" options={{ drawerLabel: 'Book Room' }} component={resortScreenStack} />
             <Drawer.Screen name="MyProfileScreen" options={{ drawerLabel: 'MyProfile' }} component={MyProfileScreen} />
+            <Drawer.Screen name="LoginScreen" options={{ drawerLabel: 'MyProfile' }} component={LoginScreen} />
         </Drawer.Navigator>
     )
 }
@@ -49,6 +54,14 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
                 <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
                 <Stack.Screen name="NavigationsDrawer" component={NavigationsDrawer} />
+                <Stack.Screen name="RoomDetailScreen" component={RoomDetailScreen} />
+                <Stack.Screen name="BookScreen" component={BookScreen} />
+                <Stack.Screen name="MyProfileScreen" component={MyProfileScreen} />
+                <Stack.Screen name="RoomlistScreen" component={RoomlistScreen} />
+                <Stack.Screen name="BookService" component={BookService} />
+                <Stack.Screen name="ThankYouScreen" component={ThankYouScreen} />
+                <Stack.Screen name="SearchScreen" component={SearchScreen} />
+                <Stack.Screen name="ResortlistScreen" component={ResortlistScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -56,10 +69,10 @@ export default NavigationsApp = () => {
 
 function homeScreenStack({ navigation }) {
     return (
-        <Stack.Navigator initialRouteName="HomeScreen">
+        <Stack.Navigator initialRouteName="ResortlistScreen">
             <Stack.Screen
-                name="HomeScreen"
-                component={HomeScreen}
+                name="ResortlistScreen"
+                component={ResortlistScreen}
                 options={{
                     title: '',
                     headerLeft: () =>
@@ -79,6 +92,29 @@ function homeScreenStack({ navigation }) {
     );
 }
 
-
+function resortScreenStack({ navigation }) {
+    return (
+        <Stack.Navigator initialRouteName="RoomlistScreen">
+            <Stack.Screen
+                name="RoomlistScreen"
+                component={RoomlistScreen}
+                options={{
+                    title: '',
+                    headerLeft: () =>
+                        <NavigationDrawerStructure
+                            navigationProps={navigation}
+                        />,
+                    headerStyle: {
+                        backgroundColor: '#F6C455'
+                    },
+                    headerTintColor: '#000000',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                }}
+            />
+        </Stack.Navigator>
+    );
+}
 
 

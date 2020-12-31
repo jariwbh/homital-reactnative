@@ -43,7 +43,7 @@ class ForgotPassword extends Component {
                                 secureTextEntry={true}
                                 returnKeyType="done"
                                 underlineColorAndroid="#B9B9B9"
-                            // keyboardType="numeric"
+                                keyboardType="numeric"
                             // onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                             />
                         </View>
@@ -57,7 +57,7 @@ class ForgotPassword extends Component {
                                 secureTextEntry={true}
                                 returnKeyType="done"
                                 underlineColorAndroid="#B9B9B9"
-                            // keyboardType="numeric"
+                                keyboardType="numeric"
                             // onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                             />
                         </View>
