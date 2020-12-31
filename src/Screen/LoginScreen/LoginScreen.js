@@ -77,7 +77,7 @@ export default class LoginScreen extends Component {
         //                 this.authenticateUser(response.user)
         //                 appConfig.headers["authkey"] = response.user.addedby;
         ToastAndroid.show("SignIn Success!", ToastAndroid.SHORT);
-        this.props.navigation.navigate('HomeScreen')
+        this.props.navigation.navigate('NavigationsDrawer')
         //                 this.resetScreen()
         //                 return
         //             }

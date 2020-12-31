@@ -9,46 +9,76 @@ import RoomDetailScreen from "../Screen/RoomDetailScreen/RoomDetailScreen"
 import BookScreen from '../Screen/BookScreen/BookScreen'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import MyProfileScreen from '../Screen/MyProfileScreen/MyProfileScreen'
-const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
+import { View, TouchableOpacity, Image } from 'react-native';
 
+const NavigationDrawerStructure = (props) => {
+    const toggleDrawer = () => {
+        props.navigationProps.toggleDrawer();
+    };
+    return (
+        <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity onPress={() => toggleDrawer()}>
+                <Image
+                    source={{ uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png' }}
+                    style={{ width: 25, height: 25, marginLeft: 5 }}
+                />
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+const Drawer = createDrawerNavigator();
+function NavigationsDrawer() {
+    return (
+        <Drawer.Navigator initialRouteName="HomeScreen" headerMode="screen"
+            drawerContentOptions={{ activeTintColor: '#e91e63', itemStyle: { marginVertical: 5 } }}>
+            <Drawer.Screen name="HomeScreen" options={{ drawerLabel: 'Home' }} component={homeScreenStack} />
+            <Drawer.Screen name="BookScreen" options={{ drawerLabel: 'Booking' }} component={BookScreen} />
+            <Drawer.Screen name="RoomDetailScreen" options={{ drawerLabel: 'Room' }} component={RoomDetailScreen} />
+            <Drawer.Screen name="MyProfileScreen" options={{ drawerLabel: 'MyProfile' }} component={MyProfileScreen} />
+        </Drawer.Navigator>
+    )
+}
+
+const Stack = createStackNavigator();
 export default NavigationsApp = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator headerMode='none' >
+            <Stack.Navigator headerMode='none' initialRouteName="LoginScreen" >
                 <Stack.Screen name="LoginScreen" component={LoginScreen} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
                 <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-                <Stack.Screen name="HomeScreen" component={HomeScreen} />
-                <Stack.Screen name="RoomDetailScreen" component={RoomDetailScreen} />
-                <Stack.Screen name="BookScreen" component={BookScreen} />
-                <Stack.Screen name="MyProfileScreen" component={MyProfileScreen} />
+                <Stack.Screen name="NavigationsDrawer" component={NavigationsDrawer} />
             </Stack.Navigator>
-
         </NavigationContainer>
     );
 };
 
-// const NavigationsDrawer = () => {
-//     return (
-//         <NavigationContainer>
-//             <Drawer.Navigator
-//                 drawerContentOptions={{
-//                     activeTintColor: '#e91e63',
-//                     itemStyle: { marginVertical: 5 },
-//                 }}>
-//                 <Drawer.Screen
-//                     name="HomeScreen"
-//                     options={{ drawerLabel: 'HomeScreen' }}
-//                     component={HomeScreen} />
-//                 <Drawer.Screen
-//                     name="BookScreen"
-//                     options={{ drawerLabel: 'BookScreen' }}
-//                     component={BookScreen} />
-//             </Drawer.Navigator>
-//         </NavigationContainer>
-//     )
-// }
+function homeScreenStack({ navigation }) {
+    return (
+        <Stack.Navigator initialRouteName="HomeScreen">
+            <Stack.Screen
+                name="HomeScreen"
+                component={HomeScreen}
+                options={{
+                    title: '',
+                    headerLeft: () =>
+                        <NavigationDrawerStructure
+                            navigationProps={navigation}
+                        />,
+                    headerStyle: {
+                        backgroundColor: '#F6C455'
+                    },
+                    headerTintColor: '#000000',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                }}
+            />
+        </Stack.Navigator>
+    );
+}
+
 
 
 
