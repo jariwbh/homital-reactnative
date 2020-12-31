@@ -17,9 +17,7 @@ class RoomlistScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.inputview}>
-
-                </View>
+                <View style={styles.inputview}></View>
                 <ScrollView
                     Vertical
                     showsVerticalScrollIndicator={false}
@@ -94,13 +92,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     inputview: {
-        flexDirection: 'row',
-        backgroundColor: "#F6C455",
-        width: wp('90%'),
-        height: hp('8%'),
-        marginTop: hp('5%'),
-        margin: hp('3%'),
-
+        marginTop: hp('2%'),
     },
     listview: {
         flexDirection: 'column',
@@ -108,8 +100,5 @@ const styles = StyleSheet.create({
         width: wp('90%'),
         height: hp('10%'),
         marginTop: hp('-0.1%'),
-        // margin: hp('3%'),
-
-
-    },
+    }
 })

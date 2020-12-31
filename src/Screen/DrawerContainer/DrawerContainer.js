@@ -1,168 +1,54 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import styles from './styles';
-import { DrawerItem } from '@react-navigation/drawer';
+import React from 'react';
+import { SafeAreaView, View, StyleSheet, Image, Text, Linking } from 'react-native';
+import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {
-    heightPercentageToDP as hp,
-    widthPercentageToDP as wp,
-} from 'react-native-responsive-screen'
 
-export default class DrawerContainer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-
-    render() {
-        const { navigation } = this.props;
-        return (
-            <View style={styles.content}>
-                <View style={{ flex: 1 }}>
-                    <View style={styles.drawerContainer}>
-                        <View style={styles.userInfoSection}>
-                            <View style={{ flexDirection: 'row', marginTop: 15 }}>
-                                <Avatar.Image
-                                    source={{
-                                        uri: 'https://api.adorable.io/avatars/50/abott@adorable.png'
-                                    }}
-                                    size={50}
-                                />
-                                <View style={{ marginLeft: 15, flexDirection: 'column' }}>
-                                    <Title style={styles.title}>John Doe</Title>
-                                    <Caption style={styles.caption}>@j_doe</Caption>
-                                </View>
-                            </View>
-                        </View>
-                        <Drawer.Section style={styles.drawerSection}>
-                            <DrawerItem
-                                icon={({ color, size }) => (
-                                    <Icon
-                                        name="home-outline"
-                                        color={color}
-                                        size={size}
-                                    />
-                                )}
-                                label="Home"
-                                onPress={() => { navigation.navigate('HomeScreen') }}
-                            />
-                            <DrawerItem
-                                icon={({ color, size }) => (
-                                    <Icon
-                                        name="account-outline"
-                                        color={color}
-                                        size={size}
-                                    />
-                                )}
-                                label="Profile"
-                                onPress={() => { navigation.navigate('MyProfile') }}
-                            />
-                            <DrawerItem
-                                icon={({ color, size }) => (
-                                    <FontAwesome
-                                        name="th-list"
-                                        color={color}
-                                        size={size}
-                                    />
-                                )}
-                                label="Categories"
-                                onPress={() => { navigation.navigate('Categories') }}
-                            />
-                            <DrawerItem
-                                icon={({ color, size }) => (
-                                    <Icon
-                                        name="settings-outline"
-                                        color={color}
-                                        size={size}
-                                    />
-                                )}
-                                label="Settings"
-                                onPress={() => { navigation.navigate('SettingScreen') }}
-                            />
-                            <DrawerItem
-                                icon={({ color, size }) => (
-                                    <Icon
-                                        name="account-check-outline"
-                                        color={color}
-                                        size={size}
-                                    />
-                                )}
-                                label="Support"
-                                onPress={() => { navigation.navigate('SupportScreen') }}
-                            />
-                        </Drawer.Section>
-                    </View>
-                    <Drawer.Section style={styles.bottomDrawerSection}>
-                        <DrawerItem
-                            icon={({ color, size }) => (
-                                <Icon
-                                    name="exit-to-app"
-                                    color={color}
-                                    size={size}
-                                />
-                            )}
-                            label="Sign Out"
-                            onPress={() => { signOut() }}
-                        />
-                    </Drawer.Section>
-                </View>
+const DrawerContainer = (props) => {
+    const proileImage = '../../../assets/s1.png';
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <Image
+                source={require(proileImage)}
+                style={styles.sideMenuProfileIcon}
+            />
+            <View style={{ flexDirection: 'row' }}>
+                <Text>Welcome , Mahesh Patel</Text>
+                <Icon name="home" color="orange" size={25} />
             </View>
-        );
-    }
-}
-
+            <DrawerContentScrollView {...props}>
+                <DrawerItemList {...props} />
+                <DrawerItem icon={({ color, size }) => (
+                    <Icon
+                        name="home"
+                        color={color}
+                        size={size}
+                    />
+                )}
+                    label="Log Out"
+                    onPress={() => { props.navigation.navigate('LoginScreen') }} />
+            </DrawerContentScrollView>
+        </SafeAreaView>
+    );
+};
 
 const styles = StyleSheet.create({
-    content: {
-        flex: 1,
-        flexDirection: 'row',
-        marginTop: 40
+    sideMenuProfileIcon: {
+        marginTop: 25,
+        resizeMode: 'center',
+        width: 150,
+        height: 50,
+        alignSelf: 'center',
     },
-    container: {
-        flex: 1,
-        alignItems: 'flex-start',
-        paddingHorizontal: 20
+    iconStyle: {
+        width: 15,
+        height: 15,
+        marginHorizontal: 5,
     },
-    userInfoSection: {
-        paddingLeft: 20,
-    },
-    title: {
-        fontSize: 16,
-        marginTop: 3,
-        fontWeight: 'bold',
-    },
-    caption: {
-        fontSize: 14,
-        lineHeight: 14,
-    },
-    row: {
-        marginTop: 20,
+    customItem: {
+        padding: 16,
         flexDirection: 'row',
         alignItems: 'center',
-    },
-    section: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginRight: 15,
-    },
-    paragraph: {
-        fontWeight: 'bold',
-        marginRight: 3,
-    },
-    drawerSection: {
-        marginTop: 15,
-    },
-    bottomDrawerSection: {
-        marginBottom: 15,
-        borderTopColor: '#f4f4f4',
-        borderTopWidth: 1
-    },
-    preference: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingVertical: 12,
-        paddingHorizontal: 16,
     },
 });
+
+export default DrawerContainer;
