@@ -48,7 +48,7 @@ export default class DrawerContainer extends Component {
                                 label="Home"
                                 onPress={() => { navigation.navigate('HomeScreen') }}
                             />
-                            {/* <DrawerItem
+                            <DrawerItem
                                 icon={({ color, size }) => (
                                     <Icon
                                         name="account-outline"
@@ -69,29 +69,29 @@ export default class DrawerContainer extends Component {
                                 )}
                                 label="Categories"
                                 onPress={() => { navigation.navigate('Categories') }}
-                            /> */}
-                            {/* <DrawerItem
-                icon={({ color, size }) => (
-                  <Icon
-                    name="settings-outline"
-                    color={color}
-                    size={size}
-                  />
-                )}
-                label="Settings"
-                onPress={() => { navigation.navigate('SettingScreen') }}
-              />
-              <DrawerItem
-                icon={({ color, size }) => (
-                  <Icon
-                    name="account-check-outline"
-                    color={color}
-                    size={size}
-                  />
-                )}
-                label="Support"
-                onPress={() => { navigation.navigate('SupportScreen') }}
-              /> */}
+                            />
+                            <DrawerItem
+                                icon={({ color, size }) => (
+                                    <Icon
+                                        name="settings-outline"
+                                        color={color}
+                                        size={size}
+                                    />
+                                )}
+                                label="Settings"
+                                onPress={() => { navigation.navigate('SettingScreen') }}
+                            />
+                            <DrawerItem
+                                icon={({ color, size }) => (
+                                    <Icon
+                                        name="account-check-outline"
+                                        color={color}
+                                        size={size}
+                                    />
+                                )}
+                                label="Support"
+                                onPress={() => { navigation.navigate('SupportScreen') }}
+                            />
                         </Drawer.Section>
                     </View>
                     <Drawer.Section style={styles.bottomDrawerSection}>
