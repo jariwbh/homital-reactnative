@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
 import {
     heightPercentageToDP as hp,
     widthPercentageToDP as wp,
 } from 'react-native-responsive-screen'
-import { FontAwesome5, AntDesign, Fontisto } from '@expo/vector-icons';
+import { FontAwesome5, Foundation, AntDesign, Fontisto } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
+
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -17,68 +18,95 @@ class HomeScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.inputview}>
+                <View style={styles.headerview}>
+                    <TouchableOpacity >
+                        <Foundation name="list" size={30} color="#000000" style={{ marginLeft: hp('2%') }} />
 
+                    </TouchableOpacity>
+                    <TouchableOpacity >
+                        <FontAwesome5 name="search" size={24} color='#000000' style={{ marginRight: hp('2%') }} />
+                    </TouchableOpacity>
                 </View>
-                <ScrollView
-                    Vertical
-                    showsVerticalScrollIndicator={false}
-                >
-                    <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('7%') }}>
-                        <Image source={require('../../../assets/Images/1.png')} style={{ width: wp('90') }} />
-                        <View style={styles.listview}>
-                            <Text style={{ fontSize: hp('2.5%'), flex: 0.7, marginLeft: hp('1%') }}>Luxurious Single Room</Text>
-                            <View style={{ flexDirection: 'row', }}>
-                                <Text style={{ fontSize: hp('2.5%'), flex: 1, marginLeft: hp('1%') }}>$ 79 / night</Text>
-                                <TouchableOpacity style={{ marginRight: '5%', flexDirection: 'row' }} onPress={() => { this.props.navigation.navigate('RoomDetailScreen') }}>
-                                    <Text style={{ fontSize: hp('2.5%'), color: '#FD9B02' }}>View Details</Text>
-                                    <FontAwesome5 name="arrow-right" size={24} color="#FD9B02" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
-                                </TouchableOpacity>
-
-                            </View>
-                        </View>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <View style={{ marginLeft: hp('3%'), marginTop: hp('2%') }}>
+                        <Text style={{ fontSize: hp('3%') }}> Location</Text>
                     </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('7%') }}>
-                        <Image source={require('../../../assets/Images/2.png')} style={{ width: wp('90') }} />
-                        <View style={styles.listview}>
-                            <Text style={{ fontSize: hp('2.5%'), flex: 0.7, marginLeft: hp('1%') }}>Luxurious Double Room</Text>
-                            <View style={{ flexDirection: 'row', }}>
-                                <Text style={{ fontSize: hp('2.5%'), flex: 1, marginLeft: hp('1%') }}>$ 119 / night</Text>
-                                <TouchableOpacity style={{ marginRight: '5%', flexDirection: 'row' }}>
-                                    <Text style={{ fontSize: hp('2.5%'), color: '#FD9B02' }}>View Details</Text>
-                                    <FontAwesome5 name="arrow-right" size={24} color="#FD9B02" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
-                                </TouchableOpacity>
+                    <View style={styles.inputview}>
 
+                        <ScrollView
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        >
+                            <View >
+                                <TouchableOpacity style={styles.slider} onPress={() => { this.props.navigation.navigate('ResortlistScreen') }}>
+                                    <Image source={require('../../../assets/Images/1.png')} style={{ alignItems: 'center', height: hp('20%'), width: wp('50%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: hp('2.5%'), color: '#43434C' }}>Goa</Text>
+                                </TouchableOpacity>
                             </View>
-                        </View>
+                            <View>
+                                <TouchableOpacity style={styles.slider} onPress={() => { }}>
+                                    <Image source={require('../../../assets/Images/3.png')} style={{ alignItems: 'center', height: hp('20%'), width: wp('50%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: hp('2.5%'), color: '#43434C' }}>Mahabaleshwar</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View>
+                                <TouchableOpacity style={styles.slider} onPress={() => { }}>
+                                    <Image source={require('../../../assets/Images/2.png')} style={{ alignItems: 'center', height: hp('20%'), width: wp('50%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: hp('2.5%'), color: '#43434C' }}>Mumbai</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ScrollView>
                     </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('7%') }}>
-                        <Image source={require('../../../assets/Images/3.png')} style={{ width: wp('90') }} />
-                        <View style={styles.listview}>
-                            <Text style={{ fontSize: hp('2.5%'), flex: 0.7, marginLeft: hp('1%') }}>Luxurious Single Room</Text>
-                            <View style={{ flexDirection: 'row', }}>
-                                <Text style={{ fontSize: hp('2.5%'), flex: 1, marginLeft: hp('1%') }}>$ 80 / night</Text>
-                                <TouchableOpacity style={{ marginRight: '5%', flexDirection: 'row' }}>
-                                    <Text style={{ fontSize: hp('2.5%'), color: '#FD9B02' }}>View Details</Text>
-                                    <FontAwesome5 name="arrow-right" size={24} color="#FD9B02" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
-                                </TouchableOpacity>
-
-                            </View>
-                        </View>
+                    <View style={{ marginLeft: hp('3%'), marginTop: hp('2%') }}>
+                        <Text style={{ fontSize: hp('3%') }}>Tops Resort</Text>
                     </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('7%') }}>
-                        <Image source={require('../../../assets/Images/4.png')} style={{ width: wp('90') }} />
-                        <View style={styles.listview}>
-                            <Text style={{ fontSize: hp('2.5%'), flex: 0.7, marginLeft: hp('1%') }}>Luxurious Double Room</Text>
-                            <View style={{ flexDirection: 'row', }}>
-                                <Text style={{ fontSize: hp('2.5%'), flex: 1, marginLeft: hp('1%') }}>$ 120 / night</Text>
-                                <TouchableOpacity style={{ marginRight: '5%', flexDirection: 'row' }}>
-                                    <Text style={{ fontSize: hp('2.5%'), color: '#FD9B02' }}>View Details</Text>
-                                    <FontAwesome5 name="arrow-right" size={24} color="#FD9B02" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
-                                </TouchableOpacity>
+                    <View style={{ alignItems: 'center', marginTop: hp('3%'), flex: 1, }}>
+                        <TouchableOpacity style={styles.listview}>
+                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Rosewood Resort</Text>
+                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>124,Maub Street,Goa</Text>
+                            <TouchableOpacity style={{ marginLeft: hp('2%') }} onPress={() => { }}>
+                                <Image source={require('../../../assets/Images/3.png')} style={{ alignItems: 'center', height: hp('20%'), width: wp('70%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
+                                />
+                            </TouchableOpacity>
+                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>$79 / night onwards </Text>
 
-                            </View>
+                        </TouchableOpacity>
+
+                    </View>
+                    <View style={{ alignItems: 'center', marginTop: hp('3%'), }}>
+                        <View style={styles.listview}>
+                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Rosewood Resort</Text>
+                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>124,Maub Street,Goa</Text>
+                            <TouchableOpacity style={{ marginLeft: hp('2%') }} onPress={() => { }}>
+                                <Image source={require('../../../assets/Images/3.png')} style={{ alignItems: 'center', height: hp('20%'), width: wp('70%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
+                                />
+                            </TouchableOpacity>
+                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>$79 / night onwards </Text>
+
                         </View>
+
+                    </View>
+                    <View style={{ alignItems: 'center', marginTop: hp('3%'), }}>
+                        <View style={styles.listview}>
+                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Rosewood Resort</Text>
+                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>124,Maub Street,Goa</Text>
+                            <TouchableOpacity style={{ marginLeft: hp('2%') }} onPress={() => { }}>
+                                <Image source={require('../../../assets/Images/3.png')} style={{ alignItems: 'center', height: hp('20%'), width: wp('70%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
+                                />
+                            </TouchableOpacity>
+                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>$79 / night onwards </Text>
+
+                        </View>
+
                     </View>
                 </ScrollView>
             </View>
@@ -91,23 +119,33 @@ export default HomeScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        marginBottom: hp('5%')
     },
-    inputview: {
+    headerview: {
         flexDirection: 'row',
         backgroundColor: "#F6C455",
         width: wp('90%'),
         height: hp('8%'),
         marginTop: hp('5%'),
         margin: hp('3%'),
+        justifyContent: "space-between",
+        alignItems: 'center',
 
     },
+    inputview: {
+        flexDirection: 'row',
+        marginLeft: hp('1%'),
+    },
+    slider: {
+        margin: hp('2%'),
+    },
     listview: {
+        flex: 1,
         flexDirection: 'column',
-        backgroundColor: "#FFFFFF",
+        borderRadius: hp('2%'),
+        backgroundColor: "pink",
         width: wp('90%'),
-        height: hp('10%'),
-        marginTop: hp('-0.1%'),
-        // margin: hp('3%'),
+        height: hp('35%'),
 
 
     },

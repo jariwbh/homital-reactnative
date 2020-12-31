@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SliderScreen from '../Screen/SliderScreen/SliderScreen';
 import LoginScreen from "../Screen/LoginScreen/LoginScreen";
 import ForgotPassword from "../Screen/ForgotpassScreen/ForgotPassword";
 import RegisterScreen from "../Screen/RegisterScreen/RegisterScreen";
@@ -10,6 +9,15 @@ import RoomDetailScreen from "../Screen/RoomDetailScreen/RoomDetailScreen"
 import BookScreen from '../Screen/BookScreen/BookScreen'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import MyProfileScreen from '../Screen/MyProfileScreen/MyProfileScreen'
+import RoomlistScreen from '../Screen/RoomlistScreen/RoomlistScreen'
+import BookService from '../Screen/BookService/BookService'
+import ThankYouScreen from '../Screen/ThankyouScreen/ThankYouScreen'
+import SearchScreen from '../Screen/SearchScreen/SearchScreen'
+import ResortlistScreen from "../Screen/ResortlistScreen/ResortlistScreen";
+
+
+
+
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -18,7 +26,7 @@ export default NavigationsApp = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator headerMode='none' >
-                {/* <Stack.Screen name="SliderScreen" component={SliderScreen} /> */}
+
                 <Stack.Screen name="LoginScreen" component={LoginScreen} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
                 <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
@@ -26,6 +34,11 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="RoomDetailScreen" component={RoomDetailScreen} />
                 <Stack.Screen name="BookScreen" component={BookScreen} />
                 <Stack.Screen name="MyProfileScreen" component={MyProfileScreen} />
+                <Stack.Screen name="RoomlistScreen" component={RoomlistScreen} />
+                <Stack.Screen name="BookService" component={BookService} />
+                <Stack.Screen name="ThankYouScreen" component={ThankYouScreen} />
+                <Stack.Screen name="SearchScreen" component={SearchScreen} />
+                <Stack.Screen name="ResortlistScreen" component={ResortlistScreen} />
             </Stack.Navigator>
 
         </NavigationContainer>
