@@ -21,7 +21,6 @@ import ResortlistScreen from "../Screen/ResortlistScreen/ResortlistScreen";
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-
 export default NavigationsApp = () => {
     return (
         <NavigationContainer>
