@@ -41,15 +41,15 @@ class ResortlistScreen extends Component {
                             </View>
                             <View style={{ marginTop: hp('1%'), flex: 1, flexDirection: 'row', justifyContent: 'space-around', }}>
                                 <TouchableOpacity>
-                                    <MaterialIcons name="wifi" size={24} color="#000000" style={{ alignItems: 'center', justifyContent: 'center' }} />
+                                    <MaterialIcons name="wifi" size={24} color="#000000" style={{ alignItems: 'center', justifyContent: 'center', marginLeft: hp('1%') }} />
                                     <Text style={{ fontSize: hp('2.5%'), }}> wifi</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity>
-                                    <FontAwesome5 name="dumbbell" size={24} color="#000000" />
+                                    <FontAwesome5 name="dumbbell" size={24} color="#000000" style={{ marginLeft: hp('1%') }} />
                                     <Text style={{ fontSize: hp('2.5%'), }}>Gym</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity>
-                                    <MaterialIcons name="pool" size={24} color="#000000" />
+                                    <MaterialIcons name="pool" size={24} color="#000000" style={{ marginLeft: hp('1%') }} />
                                     <Text style={{ fontSize: hp('2.5%'), }}>Pool</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity>
