@@ -10,7 +10,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import MyProfileScreen from '../Screen/MyProfileScreen/MyProfileScreen'
 import { View, TouchableOpacity, Image, Text } from 'react-native';
 import RoomlistScreen from '../Screen/RoomlistScreen/RoomlistScreen'
-import BookService from '../Screen/BookService/BookService'
+// import BookService from '../Screen/BookService/BookService'
 import ThankYouScreen from '../Screen/ThankyouScreen/ThankYouScreen'
 import SearchScreen from '../Screen/SearchScreen/SearchScreen'
 import ResortlistScreen from "../Screen/ResortlistScreen/ResortlistScreen";
@@ -84,7 +84,7 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="RoomDetailScreen" component={RoomDetailScreen} />
                 <Stack.Screen name="MyProfileScreen" component={MyProfileScreen} />
                 <Stack.Screen name="RoomlistScreen" component={RoomlistScreen} />
-                <Stack.Screen name="BookService" component={BookService} />
+                {/* <Stack.Screen name="BookService" component={BookService} /> */}
                 <Stack.Screen name="ThankYouScreen" component={ThankYouScreen} />
                 <Stack.Screen name="SearchScreen" component={SearchScreen} />
                 <Stack.Screen name="ResortlistScreen" component={ResortlistScreen} />

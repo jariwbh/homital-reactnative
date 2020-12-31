@@ -90,6 +90,8 @@ export default RoomlistScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        marginBottom: hp('5%')
+
     },
     inputview: {
         marginTop: hp('2%'),
