@@ -196,8 +196,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: wp('30%'),
         backgroundColor: "#F6C455",
-        borderRadius: wp('6%'),
-        height: hp('7%'),
+        borderRadius: wp('7%'),
+        height: hp('6%'),
         alignItems: "center",
         justifyContent: "center",
         marginRight: hp('4%')
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
         fontSize: hp('2%'),
     },
     innerText: {
-        color: '#737373',
+        color: '#ABAFB3',
         fontSize: hp('2%'),
     },
 
