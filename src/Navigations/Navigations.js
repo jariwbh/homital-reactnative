@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SliderScreen from '../Screen/SliderScreen/SliderScreen';
 import LoginScreen from "../Screen/LoginScreen/LoginScreen";
 import ForgotPassword from "../Screen/ForgotpassScreen/ForgotPassword";
 import RegisterScreen from "../Screen/RegisterScreen/RegisterScreen";
@@ -13,12 +12,10 @@ import MyProfileScreen from '../Screen/MyProfileScreen/MyProfileScreen'
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-
 export default NavigationsApp = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator headerMode='none' >
-                {/* <Stack.Screen name="SliderScreen" component={SliderScreen} /> */}
                 <Stack.Screen name="LoginScreen" component={LoginScreen} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
                 <Stack.Screen name="RegisterScreen" component={RegisterScreen} />

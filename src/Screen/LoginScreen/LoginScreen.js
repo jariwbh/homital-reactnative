@@ -1,23 +1,93 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import theme from "../../Constants/theme";
-import {
-    heightPercentageToDP as hp,
-    widthPercentageToDP as wp,
-} from 'react-native-responsive-screen'
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
-import Fontisto from 'react-native-vector-icons/Fontisto';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, ImageBackground, ToastAndroid } from 'react-native';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { LoginService } from '../../Services/LoginService/LoginService'
 
 const { COLORS, FONTS, SIZES } = theme;
-
 export default class LoginScreen extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props)
         this.state = {
+            username: null,
+            usererror: null,
+            password: null,
+            passworderror: null,
+            loading: false,
         };
+        this.setEmail = this.setEmail.bind(this);
+        this.setPassword = this.setPassword.bind(this);
+        this.onPressSubmit = this.onPressSubmit.bind(this);
     }
 
+    setEmail(email) {
+        if (!email || email.length <= 0) {
+            return this.setState({ usererror: 'User Name cannot be empty' });
+        }
+        return this.setState({ username: email, usererror: null })
+    }
+
+    setPassword(password) {
+        if (!password || password.length <= 0) {
+            return this.setState({ passworderror: 'Password cannot be empty' });
+        }
+        return this.setState({ password: password, passworderror: null })
+    }
+
+    resetScreen() {
+        this.setState({
+            username: null,
+            usererror: null,
+            password: null,
+            passworderror: null,
+            loading: false,
+        })
+    }
+
+    authenticateUser = (user) => (
+        AsyncStorage.setItem('@authuser', JSON.stringify(user))
+    )
+
+    onPressSubmit = async () => {
+        // const { username, password } = this.state;
+        // if (!username || !password) {
+        //     this.setEmail(username)
+        //     this.setPassword(password)
+        //     return;
+        // }
+
+        // const body = {
+        //     username: username,
+        //     password: password
+        // }
+        // this.setState({ loading: true })
+        // try {
+        //     await LoginService(body)
+        //         .then(response => {
+        //             if (response.type === "Error") {
+        //                 this.setState({ loading: false })
+        //                 ToastAndroid.show("Username and Password Invalid!", ToastAndroid.LONG);
+        //                 this.resetScreen()
+        //                 return
+        //             }
+
+        //             if (response != null || response != 'undefind') {
+        //                 this.authenticateUser(response.user)
+        //                 appConfig.headers["authkey"] = response.user.addedby;
+        ToastAndroid.show("SignIn Success!", ToastAndroid.SHORT);
+        this.props.navigation.navigate('HomeScreen')
+        //                 this.resetScreen()
+        //                 return
+        //             }
+        //         })
+        // }
+        // catch (error) {
+        //     this.setState({ loading: false })
+        //     ToastAndroid.show("SignIn Failed!", ToastAndroid.LONG)
+        // }
+    }
 
     render() {
         return (
@@ -31,10 +101,10 @@ export default class LoginScreen extends Component {
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <View style={styles.inputView}>
-                            <Fontisto name="email" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
+                            <FontAwesome name="user-o" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
                             <TextInput
                                 style={styles.TextInput}
-                                placeholder="Email"
+                                placeholder="User Name"
                                 defaultValue={this.state.username}
                                 type='clear'
                                 returnKeyType="next"
@@ -71,7 +141,7 @@ export default class LoginScreen extends Component {
                     </View>
 
                     <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', }}>
-                        <TouchableOpacity style={styles.loginBtn} onPress={() => { this.props.navigation.navigate('HomeScreen') }}>
+                        <TouchableOpacity style={styles.loginBtn} onPress={() => this.onPressSubmit()}>
                             <Text style={styles.loginText}>Sign In</Text>
                             <FontAwesome5 name="arrow-right" size={24} color="#000000" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
                         </TouchableOpacity>
