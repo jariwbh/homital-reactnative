@@ -17,12 +17,6 @@ export default class RoomDetailScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{ flexDirection: 'row', marginBottom: hp('2%') }}>
-                    <BackButton />
-                    <View style={{ marginTop: hp('6%'), justifyContent: 'center', alignItems: 'center', marginLeft: hp('10%') }}>
-                        <Text style={{ fontSize: hp('3%') }}>Room Details</Text>
-                    </View>
-                </View>
                 <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('7%'), flex: 1 }}>
                     <Image source={require('../../../assets/Images/1.png')} style={{ width: wp('95') }} />
                     <View style={styles.listview}>
