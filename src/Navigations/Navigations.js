@@ -59,7 +59,7 @@ function NavigationsDrawer(props) {
                         color={focused ? '#F6C455' : '#ccc'}
                     />
                 )
-            }} component={resortScreenStack} />
+            }} component={ResortDetailsScreen} />
 
             <Drawer.Screen name="MyProfileScreen" options={{
                 drawerLabel: 'My Profile', drawerIcon: ({ focused, size }) => (
@@ -86,7 +86,6 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="MyProfileScreen" component={MyProfileScreen} />
                 <Stack.Screen name="ThankYouScreen" component={ThankYouScreen} />
                 <Stack.Screen name="SearchScreen" component={SearchScreen} />
-                <Stack.Screen name="ResortDetailsScreen" component={ResortDetailsScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -191,22 +190,14 @@ function homeScreenStack({ navigation }) {
                     },
                 }}
             />
-        </Stack.Navigator>
-    );
-}
-
-function resortScreenStack({ navigation }) {
-    return (
-        <Stack.Navigator headerMode='none' initialRouteName="ResortDetailsScreen">
             <Stack.Screen
                 name="ResortDetailsScreen"
                 component={ResortDetailsScreen}
                 options={{
                     title: '',
+                    headerShown: false
                 }}
             />
         </Stack.Navigator>
     );
 }
-
-
