@@ -30,7 +30,8 @@ class HomeScreen extends Component {
 
     getResortList() {
         ResortListService().then(response => {
-            this.setState({ ResortList: response })
+            const slice = response.slice(0, 4)
+            this.setState({ ResortList: slice })
         })
     }
 
@@ -52,6 +53,7 @@ class HomeScreen extends Component {
 
     renderResortLocation = ({ item }) => (
         <View>
+
             <TouchableOpacity style={styles.slider} onPress={() => this.props.navigation.navigate('ResortlistScreen', { item })}>
                 <Image source={{ uri: item.property.image_icon ? item.property.image_icon : 'https://www.icon0.com/static2/preview2/stock-photo-photo-icon-illustration-design-70325.jpg' }}
                     style={{ alignItems: 'center', height: hp('20%'), width: wp('50%'), marginTop: hp('1%'), borderRadius: hp('2%') }} />
@@ -62,8 +64,22 @@ class HomeScreen extends Component {
         </View>
     )
 
+    renderResortList = ({ item }) => (
+        <View style={{ alignItems: 'center', marginTop: hp('3%'), flex: 1, }}>
+            <TouchableOpacity style={styles.listview}>
+                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>{item.resortname}</Text>
+                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>{item.property.address}</Text>
+                <TouchableOpacity style={{ marginLeft: hp('2%') }} onPress={() => { }}>
+                    <Image source={{ uri: item.property.images[0] ? item.property.images[0].attachment : 'https://www.icon0.com/static2/preview2/stock-photo-photo-icon-illustration-design-70325.jpg' }} style={{ alignItems: 'center', height: hp('20%'), width: wp('70%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
+                    />
+                </TouchableOpacity>
+
+            </TouchableOpacity>
+        </View>
+    )
+
     render() {
-        const { ResortLocationList } = this.state;
+        const { ResortLocationList, ResortList } = this.state;
         return (
             <View style={styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -84,39 +100,11 @@ class HomeScreen extends Component {
                     <View style={{ marginLeft: hp('3%'), marginTop: hp('2%') }}>
                         <Text style={{ fontSize: hp('3%') }}>Tops Resort</Text>
                     </View>
-                    <View style={{ alignItems: 'center', marginTop: hp('3%'), flex: 1, }}>
-                        <TouchableOpacity style={styles.listview}>
-                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Rosewood Resort</Text>
-                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>124,Maub Street,Goa</Text>
-                            <TouchableOpacity style={{ marginLeft: hp('2%') }} onPress={() => { }}>
-                                <Image source={require('../../../assets/Images/3.png')} style={{ alignItems: 'center', height: hp('20%'), width: wp('70%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
-                                />
-                            </TouchableOpacity>
-                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>$79 / night onwards </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ alignItems: 'center', marginTop: hp('3%'), }}>
-                        <View style={styles.listview}>
-                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Rosewood Resort</Text>
-                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>124,Maub Street,Goa</Text>
-                            <TouchableOpacity style={{ marginLeft: hp('2%') }} onPress={() => { }}>
-                                <Image source={require('../../../assets/Images/3.png')} style={{ alignItems: 'center', height: hp('20%'), width: wp('70%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
-                                />
-                            </TouchableOpacity>
-                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>$79 / night onwards </Text>
-                        </View>
-                    </View>
-                    <View style={{ alignItems: 'center', marginTop: hp('3%'), }}>
-                        <View style={styles.listview}>
-                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Rosewood Resort</Text>
-                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>124,Maub Street,Goa</Text>
-                            <TouchableOpacity style={{ marginLeft: hp('2%') }} onPress={() => { }}>
-                                <Image source={require('../../../assets/Images/3.png')} style={{ alignItems: 'center', height: hp('20%'), width: wp('70%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
-                                />
-                            </TouchableOpacity>
-                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>$79 / night onwards </Text>
-                        </View>
-                    </View>
+                    <FlatList
+                        data={ResortList}
+                        renderItem={this.renderResortList}
+                        keyExtractor={item => `${item._id}`}
+                    />
                 </ScrollView>
             </View>
         );
