@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
-import {
-    heightPercentageToDP as hp,
-    widthPercentageToDP as wp,
-} from 'react-native-responsive-screen'
-import { FontAwesome5, Foundation } from '@expo/vector-icons';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { ScrollView } from 'react-native-gesture-handler';
-
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -18,21 +13,8 @@ class HomeScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.headerview}>
-                    <TouchableOpacity >
-                        <Foundation name="list" size={30} color="#000000" style={{ marginLeft: hp('2%') }} />
-
-                    </TouchableOpacity>
-                    <TouchableOpacity >
-                        <FontAwesome5 name="search" size={24} color='#000000' style={{ marginRight: hp('2%') }} />
-                    </TouchableOpacity>
-                </View>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <View style={{ marginLeft: hp('3%'), marginTop: hp('2%') }}>
-                        <Text style={{ fontSize: hp('3%') }}> Location</Text>
-                    </View>
                     <View style={styles.inputview}>
-
                         <ScrollView
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
@@ -78,9 +60,7 @@ class HomeScreen extends Component {
                                 />
                             </TouchableOpacity>
                             <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>$79 / night onwards </Text>
-
                         </TouchableOpacity>
-
                     </View>
                     <View style={{ alignItems: 'center', marginTop: hp('3%'), }}>
                         <View style={styles.listview}>
@@ -91,9 +71,7 @@ class HomeScreen extends Component {
                                 />
                             </TouchableOpacity>
                             <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>$79 / night onwards </Text>
-
                         </View>
-
                     </View>
                     <View style={{ alignItems: 'center', marginTop: hp('3%'), }}>
                         <View style={styles.listview}>
@@ -104,9 +82,7 @@ class HomeScreen extends Component {
                                 />
                             </TouchableOpacity>
                             <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>$79 / night onwards </Text>
-
                         </View>
-
                     </View>
                 </ScrollView>
             </View>
@@ -146,7 +122,5 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         width: wp('90%'),
         height: hp('35%'),
-
-
-    },
+    }
 })

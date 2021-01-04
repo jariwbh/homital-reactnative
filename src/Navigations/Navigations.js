@@ -6,15 +6,18 @@ import ForgotPassword from "../Screen/ForgotpassScreen/ForgotPassword";
 import RegisterScreen from "../Screen/RegisterScreen/RegisterScreen";
 import HomeScreen from "../Screen/HomeScreen/HomeScreen"
 import RoomDetailScreen from "../Screen/RoomDetailScreen/RoomDetailScreen"
-import BookScreen from '../Screen/BookScreen/BookScreen'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import MyProfileScreen from '../Screen/MyProfileScreen/MyProfileScreen'
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity, Image, Text } from 'react-native';
 import RoomlistScreen from '../Screen/RoomlistScreen/RoomlistScreen'
 // import BookService from '../Screen/BookService/BookService'
 import ThankYouScreen from '../Screen/ThankyouScreen/ThankYouScreen'
 import SearchScreen from '../Screen/SearchScreen/SearchScreen'
 import ResortlistScreen from "../Screen/ResortlistScreen/ResortlistScreen";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import DrawerContainer from '../Screen/DrawerContainer/DrawerContainer'
+import { FontAwesome5, Foundation, AntDesign, Fontisto } from '@expo/vector-icons';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 const NavigationDrawerStructure = (props) => {
     const toggleDrawer = () => {
@@ -23,24 +26,48 @@ const NavigationDrawerStructure = (props) => {
     return (
         <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity onPress={() => toggleDrawer()}>
-                <Image
-                    source={{ uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png' }}
-                    style={{ width: 25, height: 25, marginLeft: 5 }}
-                />
+                <Foundation name="list" size={30} color="#000000" style={{ marginLeft: hp('2%') }} />
             </TouchableOpacity>
         </View>
     );
 }
 
 const Drawer = createDrawerNavigator();
-function NavigationsDrawer() {
+function NavigationsDrawer(props) {
     return (
         <Drawer.Navigator initialRouteName="HomeScreen" headerMode="screen"
-            drawerContentOptions={{ activeTintColor: '#e91e63', itemStyle: { marginVertical: 5 } }}>
-            <Drawer.Screen name="HomeScreen" options={{ drawerLabel: 'Home' }} component={homeScreenStack} />
-            <Drawer.Screen name="ResortlistScreen" options={{ drawerLabel: 'Book Room' }} component={resortScreenStack} />
-            <Drawer.Screen name="MyProfileScreen" options={{ drawerLabel: 'MyProfile' }} component={MyProfileScreen} />
-            <Drawer.Screen name="LoginScreen" options={{ drawerLabel: 'MyProfile' }} component={LoginScreen} />
+            drawerContentOptions={{ activeTintColor: '#000000', itemStyle: { marginVertical: 5 } }}
+            drawerContent={(props) => <DrawerContainer {...props} />}>
+
+            <Drawer.Screen name="HomeScreen" options={{
+                drawerLabel: 'Home', drawerIcon: ({ focused, size }) => (
+                    <Ionicons
+                        name="md-home"
+                        size={size}
+                        color={focused ? '#F6C455' : '#ccc'}
+                    />
+                )
+            }} component={homeScreenStack} />
+
+            <Drawer.Screen name="ResortlistScreen" options={{
+                drawerLabel: 'Book Room', drawerIcon: ({ focused, size }) => (
+                    <Ionicons
+                        name="md-home"
+                        size={size}
+                        color={focused ? '#F6C455' : '#ccc'}
+                    />
+                )
+            }} component={resortScreenStack} />
+
+            <Drawer.Screen name="MyProfileScreen" options={{
+                drawerLabel: 'My Profile', drawerIcon: ({ focused, size }) => (
+                    <Ionicons
+                        name="md-home"
+                        size={size}
+                        color={focused ? '#F6C455' : '#ccc'}
+                    />
+                )
+            }} component={MyProfileScreen} />
         </Drawer.Navigator>
     )
 }
@@ -55,7 +82,6 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
                 <Stack.Screen name="NavigationsDrawer" component={NavigationsDrawer} />
                 <Stack.Screen name="RoomDetailScreen" component={RoomDetailScreen} />
-                <Stack.Screen name="BookScreen" component={BookScreen} />
                 <Stack.Screen name="MyProfileScreen" component={MyProfileScreen} />
                 <Stack.Screen name="RoomlistScreen" component={RoomlistScreen} />
                 {/* <Stack.Screen name="BookService" component={BookService} /> */}
@@ -69,16 +95,18 @@ export default NavigationsApp = () => {
 
 function homeScreenStack({ navigation }) {
     return (
-        <Stack.Navigator initialRouteName="ResortlistScreen">
+        <Stack.Navigator initialRouteName="HomeScreen">
             <Stack.Screen
-                name="ResortlistScreen"
-                component={ResortlistScreen}
+                name="HomeScreen"
+                component={HomeScreen}
                 options={{
                     title: '',
                     headerLeft: () =>
                         <NavigationDrawerStructure
                             navigationProps={navigation}
                         />,
+                    headerRight: () =>
+                        <FontAwesome5 name="search" size={24} color='#000000' style={{ marginRight: hp('2%') }} />,
                     headerStyle: {
                         backgroundColor: '#F6C455'
                     },
