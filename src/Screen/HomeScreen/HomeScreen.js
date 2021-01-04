@@ -52,7 +52,7 @@ class HomeScreen extends Component {
 
     renderResortLocation = ({ item }) => (
         <View>
-            <TouchableOpacity style={styles.slider} onPress={() => this.props.navigation.navigate('Resort')}>
+            <TouchableOpacity style={styles.slider} onPress={() => this.props.navigation.navigate('ResortlistScreen', { item })}>
                 <Image source={{ uri: item.property.image_icon ? item.property.image_icon : 'https://www.icon0.com/static2/preview2/stock-photo-photo-icon-illustration-design-70325.jpg' }}
                     style={{ alignItems: 'center', height: hp('20%'), width: wp('50%'), marginTop: hp('1%'), borderRadius: hp('2%') }} />
             </TouchableOpacity>
