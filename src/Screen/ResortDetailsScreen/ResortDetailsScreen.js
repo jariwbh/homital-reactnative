@@ -7,7 +7,7 @@ import {
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 
-class ResortlistScreen extends Component {
+class ResortDetailsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -92,7 +92,7 @@ class ResortlistScreen extends Component {
     }
 }
 
-export default ResortlistScreen;
+export default ResortDetailsScreen;
 
 
 const styles = StyleSheet.create({

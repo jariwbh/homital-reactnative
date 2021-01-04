@@ -20,7 +20,7 @@ class HomeScreen extends Component {
                             showsHorizontalScrollIndicator={false}
                         >
                             <View >
-                                <TouchableOpacity style={styles.slider} onPress={() => { this.props.navigation.navigate('ResortlistScreen') }}>
+                                <TouchableOpacity style={styles.slider} onPress={() => { this.props.navigation.navigate('ResortDetailsScreen') }}>
                                     <Image source={require('../../../assets/Images/1.png')} style={{ alignItems: 'center', height: hp('20%'), width: wp('50%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
                                     />
                                 </TouchableOpacity>

@@ -10,14 +10,15 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import MyProfileScreen from '../Screen/MyProfileScreen/MyProfileScreen'
 import { View, TouchableOpacity, Image, Text } from 'react-native';
 import RoomlistScreen from '../Screen/RoomlistScreen/RoomlistScreen'
-// import BookService from '../Screen/BookService/BookService'
 import ThankYouScreen from '../Screen/ThankyouScreen/ThankYouScreen'
 import SearchScreen from '../Screen/SearchScreen/SearchScreen'
-import ResortlistScreen from "../Screen/ResortlistScreen/ResortlistScreen";
+import ResortDetailsScreen from "../Screen/ResortDetailsScreen/ResortDetailsScreen";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DrawerContainer from '../Screen/DrawerContainer/DrawerContainer'
 import { FontAwesome5, Foundation, AntDesign, Fontisto } from '@expo/vector-icons';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import BackButton from '../Components/BackButton/BackButton'
+import BookScreen from '../Screen/BookScreen/BookScreen'
 
 const NavigationDrawerStructure = (props) => {
     const toggleDrawer = () => {
@@ -49,7 +50,7 @@ function NavigationsDrawer(props) {
                 )
             }} component={homeScreenStack} />
 
-            <Drawer.Screen name="ResortlistScreen" options={{
+            <Drawer.Screen name="ResortDetailsScreen" options={{
                 drawerLabel: 'Book Room', drawerIcon: ({ focused, size }) => (
                     <Ionicons
                         name="md-home"
@@ -81,13 +82,10 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
                 <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
                 <Stack.Screen name="NavigationsDrawer" component={NavigationsDrawer} />
-                <Stack.Screen name="RoomDetailScreen" component={RoomDetailScreen} />
                 <Stack.Screen name="MyProfileScreen" component={MyProfileScreen} />
-                <Stack.Screen name="RoomlistScreen" component={RoomlistScreen} />
-                {/* <Stack.Screen name="BookService" component={BookService} /> */}
                 <Stack.Screen name="ThankYouScreen" component={ThankYouScreen} />
                 <Stack.Screen name="SearchScreen" component={SearchScreen} />
-                <Stack.Screen name="ResortlistScreen" component={ResortlistScreen} />
+                <Stack.Screen name="ResortDetailsScreen" component={ResortDetailsScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -106,7 +104,7 @@ function homeScreenStack({ navigation }) {
                             navigationProps={navigation}
                         />,
                     headerRight: () =>
-                        <FontAwesome5 name="search" size={24} color='#000000' style={{ marginRight: hp('2%') }} />,
+                        <FontAwesome5 name="search" size={24} color='#000000' style={{ marginRight: hp('2%') }} onPress={() => navigation.navigate("SearchScreen")} />,
                     headerStyle: {
                         backgroundColor: '#F6C455'
                     },
@@ -116,13 +114,6 @@ function homeScreenStack({ navigation }) {
                     },
                 }}
             />
-        </Stack.Navigator>
-    );
-}
-
-function resortScreenStack({ navigation }) {
-    return (
-        <Stack.Navigator initialRouteName="RoomlistScreen">
             <Stack.Screen
                 name="RoomlistScreen"
                 component={RoomlistScreen}
@@ -132,6 +123,8 @@ function resortScreenStack({ navigation }) {
                         <NavigationDrawerStructure
                             navigationProps={navigation}
                         />,
+                    headerRight: () =>
+                        <FontAwesome5 name="search" size={24} color='#000000' style={{ marginRight: hp('2%') }} onPress={() => navigation.navigate("SearchScreen")} />,
                     headerStyle: {
                         backgroundColor: '#F6C455'
                     },
@@ -139,6 +132,56 @@ function resortScreenStack({ navigation }) {
                     headerTitleStyle: {
                         fontWeight: 'bold',
                     },
+                }}
+            />
+            <Stack.Screen
+                name="RoomDetailScreen"
+                component={RoomDetailScreen}
+                options={{
+                    title: 'Room Details', headerStyle: {
+                        backgroundColor: '#FFFFFF',
+                        elevation: 0,
+                        shadowOpacity: 0,
+                        borderBottomWidth: 0,
+                    },
+                    headerLeft: () =>
+                        <BackButton
+                            onPress={() => navigation.navigate("RoomlistScreen")}
+                        />,
+                    headerTintColor: '#000000',
+                    headerTitleAlign: 'center'
+                }}
+            />
+            <Stack.Screen
+                name="BookScreen"
+                component={BookScreen}
+                options={{
+                    title: 'Book', headerStyle: {
+                        backgroundColor: '#FFFFFF',
+                        elevation: 0,
+                        shadowOpacity: 0,
+                        borderBottomWidth: 0,
+                    },
+                    headerLeft: () =>
+                        <BackButton
+                            onPress={() => navigation.navigate("RoomDetailScreen")}
+                        />,
+                    headerTintColor: '#000000',
+                    headerTitleAlign: 'center'
+                }}
+            />
+        </Stack.Navigator>
+    );
+}
+
+function resortScreenStack({ navigation }) {
+    return (
+        <Stack.Navigator headerMode='none' initialRouteName="ResortDetailsScreen">
+            <Stack.Screen
+                name="ResortDetailsScreen"
+                component={ResortDetailsScreen}
+                options={{
+                    title: '',
                 }}
             />
         </Stack.Navigator>

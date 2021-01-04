@@ -33,12 +33,6 @@ class BookScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{ flexDirection: 'row', marginBottom: hp('2%') }}>
-                    <BackButton />
-                    <View style={{ marginTop: hp('6%'), justifyContent: 'center', alignItems: 'center', marginLeft: hp('10%') }}>
-                        <Text style={{ fontSize: hp('3%'), marginLeft: hp('7%') }}> Book </Text>
-                    </View>
-                </View>
                 <ScrollView
                     Vertical
                     showsVerticalScrollIndicator={false}
