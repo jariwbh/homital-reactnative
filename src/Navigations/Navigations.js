@@ -19,6 +19,7 @@ import { FontAwesome5, Foundation, AntDesign, Fontisto } from '@expo/vector-icon
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import BackButton from '../Components/BackButton/BackButton'
 import BookScreen from '../Screen/BookScreen/BookScreen'
+import ResortlistScreen from '../Screen/ResortlistScreen/ResortlistScreen'
 
 const NavigationDrawerStructure = (props) => {
     const toggleDrawer = () => {
@@ -168,6 +169,26 @@ function homeScreenStack({ navigation }) {
                         />,
                     headerTintColor: '#000000',
                     headerTitleAlign: 'center'
+                }}
+            />
+            <Stack.Screen
+                name="ResortlistScreen"
+                component={ResortlistScreen}
+                options={{
+                    title: '',
+                    headerLeft: () =>
+                        <NavigationDrawerStructure
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () =>
+                        <FontAwesome5 name="search" size={24} color='#000000' style={{ marginRight: hp('2%') }} onPress={() => navigation.navigate("SearchScreen")} />,
+                    headerStyle: {
+                        backgroundColor: '#F6C455'
+                    },
+                    headerTintColor: '#000000',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
                 }}
             />
         </Stack.Navigator>
