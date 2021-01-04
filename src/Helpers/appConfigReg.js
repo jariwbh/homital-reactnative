@@ -1,4 +1,4 @@
-const appConfig = {
+const appConfigReg = {
     baseUrl: "https://live.membroz.com/api/",
     headers: {
         'Content-Type': 'application/json',
@@ -6,5 +6,4 @@ const appConfig = {
     }
 }
 
-
-export default appConfig;
+export default appConfigReg;

@@ -1,16 +1,69 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, FlatList, BackHandler } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { ScrollView } from 'react-native-gesture-handler';
+import { ResortLocationService, ResortListService } from '../../Services/ResortService/ResortService';
 
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            ResortLocationList: [],
+            ResortList: []
         };
+
+        this._unsubscribeSiFocus = this.props.navigation.addListener('focus', e => {
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        });
+
+        this._unsubscribeSiBlur = this.props.navigation.addListener('blur', e => {
+            BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton,
+            );
+        });
     }
 
+    getResortLocationList() {
+        ResortLocationService().then(response => {
+            this.setState({ ResortLocationList: response })
+        })
+    }
+
+    getResortList() {
+        ResortListService().then(response => {
+            this.setState({ ResortList: response })
+        })
+    }
+
+    componentDidMount() {
+        this.getResortLocationList();
+        this.getResortList();
+    }
+
+    componentWillUnmount() {
+        this._unsubscribeSiFocus();
+        this._unsubscribeSiBlur();
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    handleBackButton = () => {
+        BackHandler.exitApp()
+        return true;
+    }
+
+    renderResortLocation = ({ item }) => (
+        <View>
+            <TouchableOpacity style={styles.slider} onPress={() => this.props.navigation.navigate('Resort')}>
+                <Image source={{ uri: item.property.image_icon ? item.property.image_icon : 'https://www.icon0.com/static2/preview2/stock-photo-photo-icon-illustration-design-70325.jpg' }}
+                    style={{ alignItems: 'center', height: hp('20%'), width: wp('50%'), marginTop: hp('1%'), borderRadius: hp('2%') }} />
+            </TouchableOpacity>
+            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ fontSize: hp('2.5%'), color: '#43434C' }}>{item.property.locationname}</Text>
+            </TouchableOpacity>
+        </View>
+    )
+
     render() {
+        const { ResortLocationList } = this.state;
         return (
             <View style={styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -19,33 +72,13 @@ class HomeScreen extends Component {
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
                         >
-                            <View >
-                                <TouchableOpacity style={styles.slider} onPress={() => { this.props.navigation.navigate('ResortDetailsScreen') }}>
-                                    <Image source={require('../../../assets/Images/1.png')} style={{ alignItems: 'center', height: hp('20%'), width: wp('50%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
-                                    />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: hp('2.5%'), color: '#43434C' }}>Goa</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View>
-                                <TouchableOpacity style={styles.slider} onPress={() => { }}>
-                                    <Image source={require('../../../assets/Images/3.png')} style={{ alignItems: 'center', height: hp('20%'), width: wp('50%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
-                                    />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: hp('2.5%'), color: '#43434C' }}>Mahabaleshwar</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View>
-                                <TouchableOpacity style={styles.slider} onPress={() => { }}>
-                                    <Image source={require('../../../assets/Images/2.png')} style={{ alignItems: 'center', height: hp('20%'), width: wp('50%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
-                                    />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: hp('2.5%'), color: '#43434C' }}>Mumbai</Text>
-                                </TouchableOpacity>
-                            </View>
+                            <FlatList
+                                style={{ flexDirection: 'column' }}
+                                numColumns={10000}
+                                data={ResortLocationList}
+                                renderItem={this.renderResortLocation}
+                                keyExtractor={item => `${item._id}`}
+                            />
                         </ScrollView>
                     </View>
                     <View style={{ marginLeft: hp('3%'), marginTop: hp('2%') }}>
