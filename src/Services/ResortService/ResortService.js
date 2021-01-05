@@ -44,5 +44,27 @@ const ResortListService = () => {
         });
 }
 
+const ResortListByLocationService = (id) => {
+    const body =
+    {
+        "search": [{
+            "searchfield": "location",
+            "searchvalue": id,
+            "criteria": "eq",
+            "datatype": "ObjectId"
+        }, { "searchfield": "status", "searchvalue": "active", "criteria": "eq" }]
+    }
 
-export { ResortLocationService, ResortListService };
+    const requestOptions = {
+        method: 'POST',
+        headers: appConfig.headers,
+        body: JSON.stringify(body)
+    };
+
+    return fetch(appConfig.baseUrl + 'resorts/filter', requestOptions)
+        .then(response => response.json()).catch(error => {
+            console.error('There was an error!', error);
+        });
+}
+
+export { ResortLocationService, ResortListService, ResortListByLocationService };

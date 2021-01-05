@@ -10,6 +10,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 class ResortDetailsScreen extends Component {
     constructor(props) {
         super(props);
+        //this.resortlist = this.props.route.params.item._id;
+        console.log('this.props.route.params.item', this.props.route.params)
         this.state = {
         };
     }
