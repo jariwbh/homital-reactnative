@@ -69,8 +69,8 @@ class HomeScreen extends Component {
             <TouchableOpacity style={styles.listview}>
                 <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>{item.resortname}</Text>
                 <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>{item.property.address}</Text>
-                <TouchableOpacity style={{ marginLeft: hp('2%') }} onPress={() => { }}>
-                    <Image source={{ uri: item.property.images[0] ? item.property.images[0].attachment : 'https://www.icon0.com/static2/preview2/stock-photo-photo-icon-illustration-design-70325.jpg' }} style={{ alignItems: 'center', height: hp('20%'), width: wp('70%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
+                <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => { }}>
+                    <Image source={{ uri: item.property.images[0] ? item.property.images[0].attachment : 'https://www.icon0.com/static2/preview2/stock-photo-photo-icon-illustration-design-70325.jpg' }} style={{ alignItems: 'center', height: hp('25%'), width: wp('80%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
                     />
                 </TouchableOpacity>
 
@@ -116,7 +116,8 @@ export default HomeScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginBottom: hp('5%')
+        backgroundColor: '#FFFFFF',
+
     },
     headerview: {
         flexDirection: 'row',
@@ -142,6 +143,13 @@ const styles = StyleSheet.create({
         borderRadius: hp('2%'),
         backgroundColor: "#FFFFFF",
         width: wp('90%'),
-        height: hp('35%'),
+        height: hp('40%'),
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
+        shadowOffset: {
+            height: 0,
+            width: 0,
+        },
+        elevation: 2,
     }
 })
