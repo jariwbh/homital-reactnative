@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, InteractionManager } from 'react-native';
 import {
     heightPercentageToDP as hp,
     widthPercentageToDP as wp,
@@ -10,13 +10,18 @@ import { ScrollView } from 'react-native-gesture-handler';
 class ResortDetailsScreen extends Component {
     constructor(props) {
         super(props);
-        //this.resortlist = this.props.route.params.item._id;
-        console.log('this.props.route.params.item', this.props.route.params)
+        this.resortlist = this.props.route.params.item;
+        //  console.log('this.props.route.params.item', this.props.route.params)
         this.state = {
+            resortname: this.resortlist.resortname,
+            address: this.resortlist.property.address,
+            amenities: this.resortlist.property.amenities,
+            description: this.resortlist.property.description,
         };
     }
 
     render() {
+        const { resortname, address, amenities, description } = this.state;
         return (
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', marginBottom: hp('2%') }}>
@@ -31,37 +36,27 @@ class ResortDetailsScreen extends Component {
                     <View style={{ position: 'absolute', flex: 1 }}>
                         <View style={styles.listview}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), }}>Rosewood Resort</Text>
-                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), marginRight: hp('2%') }}>$79.00 </Text>
+                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), }}>{resortname}</Text>
+                                {/* <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), marginRight: hp('2%') }}>$79.00 </Text> */}
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>124,Maub Street,Goa</Text>
-                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), marginRight: hp('2%') }}>Per night </Text>
+                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>{address}</Text>
+                                {/* <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), marginRight: hp('2%') }}>Per night </Text> */}
                             </View>
                             <View style={{ marginTop: hp('1%'), }}>
                                 <Text style={{ fontSize: hp('3%') }}>Amenities</Text>
                             </View>
-                            <View style={{ marginTop: hp('1%'), flex: 1, flexDirection: 'row', justifyContent: 'space-around', }}>
-                                <TouchableOpacity>
-                                    <MaterialIcons name="wifi" size={24} color="#000000" style={{ alignItems: 'center', justifyContent: 'center', marginLeft: hp('1%') }} />
-                                    <Text style={{ fontSize: hp('2.5%'), }}> wifi</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity>
-                                    <FontAwesome5 name="dumbbell" size={24} color="#000000" style={{ marginLeft: hp('1%') }} />
-                                    <Text style={{ fontSize: hp('2.5%'), }}>Gym</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity>
-                                    <MaterialIcons name="pool" size={24} color="#000000" style={{ marginLeft: hp('1%') }} />
-                                    <Text style={{ fontSize: hp('2.5%'), }}>Pool</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity>
-                                    <MaterialIcons name="restaurant-menu" size={24} color="#000000" style={{ marginLeft: hp('3.5%') }} />
-                                    <Text style={{ fontSize: hp('2.5%'), }}>Resturant</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity >
-                                    <FontAwesome5 name="car-side" size={24} color="#000000" style={{ marginLeft: hp('2%') }} />
-                                    <Text style={{ fontSize: hp('2.5%'), }}>Parking</Text>
-                                </TouchableOpacity>
+                            <View style={{ flexDirection: 'row', marginTop: hp('1%') }}>
+                                <View style={styles.inputview}>
+                                    <TouchableOpacity>
+                                        <Text style={{ fontSize: hp('2%'), flex: 1, }}>{amenities}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.inputview}>
+                                    <TouchableOpacity>
+                                        <Text style={{ fontSize: hp('2%'), flex: 1, }}>{amenities}</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
 
@@ -72,13 +67,8 @@ class ResortDetailsScreen extends Component {
                     <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
 
                         <Text style={{ fontSize: hp('2%'), marginLeft: hp('3%'), marginRight: hp('3%') }}>
-                            Located in Mahabaleshwar near the market,
-                            Laxmi Residency offers 12 well-designed rooms
-                            (Deluxe , Super Deluxe and Family rooms) with modern amenities.
-                            The hotel is close to main tourist spots like Wilson Point, Venna Lake,
-                            Pratapgadh Fort and Arthurs Seat. The property has a shared
-                            kitchen and it offers cars on rental basis.
-                            </Text>
+                            {description}
+                        </Text>
 
                     </View>
                     <View style={{ marginLeft: hp('25%') }}>
@@ -115,6 +105,15 @@ const styles = StyleSheet.create({
         width: wp('90%'),
         height: hp('60%'),
 
+    },
+    inputview: {
+        flex: 1,
+        backgroundColor: "#FAB64B",
+        borderRadius: wp('2%'),
+        height: hp('5%'),
+        margin: hp('1%'),
+        alignItems: "center",
+        justifyContent: 'center'
     },
     bookBtn: {
         flexDirection: 'row',
