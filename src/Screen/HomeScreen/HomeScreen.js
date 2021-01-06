@@ -31,7 +31,11 @@ class HomeScreen extends Component {
     getResortList() {
         ResortListService().then(response => {
             const slice = response.slice(0, 4)
-            this.setState({ ResortList: slice })
+            this.setState({
+                ResortList: slice
+
+
+            })
         })
     }
 
@@ -70,7 +74,7 @@ class HomeScreen extends Component {
                 <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>{item.resortname}</Text>
                 <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>{item.property.address}</Text>
                 <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => { }}>
-                    <Image source={{ uri: item.property.images[0] ? item.property.images.attachment : 'https://www.icon0.com/static2/preview2/stock-photo-photo-icon-illustration-design-70325.jpg' }} style={{ alignItems: 'center', height: hp('25%'), width: wp('80%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
+                    <Image source={{ uri: item.property.images[0].attachment ? item.property.images[0].attachment : 'https://www.icon0.com/static2/preview2/stock-photo-photo-icon-illustration-design-70325.jpg' }} style={{ alignItems: 'center', height: hp('25%'), width: wp('80%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
                     />
                 </TouchableOpacity>
 
