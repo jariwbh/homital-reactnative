@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
 import theme from "../../Constants/theme";
 import BackButton from '../../Components/BackButton/BackButton';
 import {
@@ -32,51 +32,53 @@ class ForgotPassword extends Component {
                     <View style={{ marginTop: hp('2%'), justifyContent: 'center', alignItems: 'center' }} >
                         <MaterialCommunityIcons name="shield-key-outline" size={60} color="#000000" style={{ paddingLeft: hp('3%') }} />
                     </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={styles.inputview} >
-                            <AntDesign name="unlock" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
-                            <TextInput
-                                style={styles.TextInput}
-                                placeholder="Password"
-                                type='clear'
-                                placeholderTextColor="#656565"
-                                secureTextEntry={true}
-                                returnKeyType="done"
-                                underlineColorAndroid="#B9B9B9"
-                                keyboardType="numeric"
-                            // onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
-                            />
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <View style={styles.inputview} >
+                                <AntDesign name="unlock" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
+                                <TextInput
+                                    style={styles.TextInput}
+                                    placeholder="Password"
+                                    type='clear'
+                                    placeholderTextColor="#656565"
+                                    secureTextEntry={true}
+                                    returnKeyType="done"
+                                    underlineColorAndroid="#B9B9B9"
+                                    keyboardType="numeric"
+                                // onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
+                                />
+                            </View>
+                            <View style={styles.inputview} >
+                                <AntDesign name="unlock" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
+                                <TextInput
+                                    style={styles.TextInput}
+                                    placeholder="Confrim Password"
+                                    type='clear'
+                                    placeholderTextColor="#656565"
+                                    secureTextEntry={true}
+                                    returnKeyType="done"
+                                    underlineColorAndroid="#B9B9B9"
+                                    keyboardType="numeric"
+                                // onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
+                                />
+                            </View>
+
                         </View>
-                        <View style={styles.inputview} >
-                            <AntDesign name="unlock" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
-                            <TextInput
-                                style={styles.TextInput}
-                                placeholder="Confrim Password"
-                                type='clear'
-                                placeholderTextColor="#656565"
-                                secureTextEntry={true}
-                                returnKeyType="done"
-                                underlineColorAndroid="#B9B9B9"
-                                keyboardType="numeric"
-                            // onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
-                            />
+                        <View style={{ marginTop: hp('1%'), flexDirection: 'row', marginLeft: hp('6%') }} >
+                            <Text style={styles.innerText}> Back to </Text>
+                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('LoginScreen') }} >
+                                <Text style={styles.baseText}>Login</Text>
+                            </TouchableOpacity>
+
                         </View>
-
-                    </View>
-                    <View style={{ marginTop: hp('1%'), flexDirection: 'row', marginLeft: hp('6%') }} >
-                        <Text style={styles.innerText}> Back to </Text>
-                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('LoginScreen') }} >
-                            <Text style={styles.baseText}>Login</Text>
-                        </TouchableOpacity>
-
-                    </View>
-                    <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-                        <TouchableOpacity style={styles.forBtn} onPress={() => { }}>
-                            <Text style={styles.forText}>Save</Text>
-                            <FontAwesome5 name="arrow-right" size={24} color="#000000" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
-                        </TouchableOpacity>
-                    </View>
-
+                        <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+                            <TouchableOpacity style={styles.forBtn} onPress={() => { }}>
+                                <Text style={styles.forText}>Save</Text>
+                                <FontAwesome5 name="arrow-right" size={24} color="#000000" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
+                            </TouchableOpacity>
+                        </View>
+                    </ScrollView>
                 </View>
             </ImageBackground>
         );
@@ -92,7 +94,9 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         flex: 1,
-        resizeMode: 'cover'
+        resizeMode: 'cover',
+        height: hp('100%'),
+        width: wp('100%')
     },
     forgotview: {
         marginLeft: hp('6%'),

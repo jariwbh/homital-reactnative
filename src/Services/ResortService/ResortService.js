@@ -6,7 +6,8 @@ const ResortLocationService = () => {
         "search": [{
             "searchfield": "status",
             "searchvalue": "active",
-            "criteria": "eq"
+            "criteria": "eq",
+            "datatype": "text"
         }]
     }
 
@@ -29,7 +30,7 @@ const ResortListService = () => {
             "searchfield": "status",
             "searchvalue": "active",
             "criteria": "eq"
-        }]
+        }, { "searchfield": "addedby", "searchvalue": "5fec158fd8353d4d7ecec742", "criteria": "eq" }]
     }
 
     const requestOptions = {
@@ -52,7 +53,9 @@ const ResortListByLocationService = (id) => {
             "searchvalue": id,
             "criteria": "eq",
             "datatype": "ObjectId"
-        }, { "searchfield": "status", "searchvalue": "active", "criteria": "eq" }]
+        },
+
+        { "searchfield": "status", "searchvalue": "active", "criteria": "eq" }]
     }
 
     const requestOptions = {

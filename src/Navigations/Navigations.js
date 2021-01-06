@@ -53,8 +53,8 @@ function NavigationsDrawer(props) {
 
             <Drawer.Screen name="ResortDetailsScreen" options={{
                 drawerLabel: 'Book Room', drawerIcon: ({ focused, size }) => (
-                    <Ionicons
-                        name="md-home"
+                    <AntDesign
+                        name="profile"
                         size={size}
                         color={focused ? '#F6C455' : '#ccc'}
                     />
@@ -63,8 +63,8 @@ function NavigationsDrawer(props) {
 
             <Drawer.Screen name="MyProfileScreen" options={{
                 drawerLabel: 'My Profile', drawerIcon: ({ focused, size }) => (
-                    <Ionicons
-                        name="md-home"
+                    <FontAwesome5
+                        name="user"
                         size={size}
                         color={focused ? '#F6C455' : '#ccc'}
                     />

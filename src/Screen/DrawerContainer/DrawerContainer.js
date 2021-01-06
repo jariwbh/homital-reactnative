@@ -1,25 +1,21 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet, Image, Text, Linking } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Image, Avatar, Text, Linking } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import { AntDesign } from 'react-native-vector-icons';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 const DrawerContainer = (props) => {
     const proileImage = '../../../assets/s1.png';
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <Image
-                source={require(proileImage)}
-                style={styles.sideMenuProfileIcon}
-            />
-            <View style={{ flexDirection: 'row' }}>
-                <Text>Welcome , Mahesh Patel</Text>
-                <Icon name="home" color="orange" size={25} />
+            <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <Image style={styles.avatar} source={require('../../../assets/Images/userimage.jpg')} />
+                <Text style={{ fontSize: hp('2%') }}>Welcome , Mahesh Patel</Text>
             </View>
             <DrawerContentScrollView {...props}>
                 <DrawerItemList {...props} />
                 <DrawerItem icon={({ color, size }) => (
-                    <Icon
-                        name="home"
+                    <AntDesign
+                        name="logout"
                         color={color}
                         size={size}
                     />
@@ -39,15 +35,18 @@ const styles = StyleSheet.create({
         height: 50,
         alignSelf: 'center',
     },
-    iconStyle: {
-        width: 15,
-        height: 15,
-        marginHorizontal: 5,
-    },
     customItem: {
         padding: 16,
         flexDirection: 'row',
         alignItems: 'center',
+    },
+    avatar: {
+        width: hp('10%'),
+        height: hp('10%'),
+        borderRadius: wp('20%'),
+        alignSelf: 'center',
+        marginTop: wp('10%'),
+        marginBottom: hp('2%')
     },
 });
 

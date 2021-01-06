@@ -105,7 +105,8 @@ class RegisterScreen extends Component {
                     <View style={styles.sineupview}>
                         <Text style={{ fontSize: SIZES.body1, color: COLORS.black, }}>Create Account </Text>
                     </View>
-                    <ScrollView>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                             <View style={styles.inputview}>
                                 <AntDesign name="user" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
@@ -183,7 +184,9 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         flex: 1,
-        resizeMode: 'cover'
+        resizeMode: 'cover',
+        height: hp('100%'),
+        width: wp('100%')
     },
     sineupview: {
         marginLeft: hp('5%'),
