@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        marginTop: hp('2%'),
+        marginTop: hp('5%'),
         width: wp('90%'),
         height: hp('6.5%'),
         marginLeft: hp('2.5%'),
