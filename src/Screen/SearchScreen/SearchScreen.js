@@ -35,9 +35,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-
     statusbar: {
-
         flexDirection: 'row',
         backgroundColor: "#fff",
         shadowOpacity: 0.5,
@@ -52,8 +50,7 @@ const styles = StyleSheet.create({
         height: hp('6.5%'),
         marginLeft: hp('2.5%'),
         justifyContent: "flex-end",
-        alignItems: "flex-end"
-
+        alignItems: "center"
     },
     statInput: {
         fontSize: hp('2.5%'),

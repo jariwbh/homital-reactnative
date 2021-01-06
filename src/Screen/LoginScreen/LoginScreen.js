@@ -5,15 +5,18 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { View, Text, ScrollView, TextInput, StyleSheet, TouchableOpacity, ImageBackground, ToastAndroid } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { LoginService } from "../../Services/LoginService/LoginService"
-
+import Loader from '../../Components/Loader/Loader';
+import AsyncStorage from '@react-native-community/async-storage';
+import appConfig from '../../Helpers/appConfig'
 const { COLORS, FONTS, SIZES } = theme;
+
 export default class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: null,
+            username: 'HOTEL-69711',
             usererror: null,
-            password: null,
+            password: 'HOTEL-69711',
             passworderror: null,
             loading: false,
         };
@@ -51,42 +54,44 @@ export default class LoginScreen extends Component {
     )
 
     onPressSubmit = async () => {
-        // const { username, password } = this.state;
-        // if (!username || !password) {
-        //     this.setEmail(username)
-        //     this.setPassword(password)
-        //     return;
-        // }
+        const { username, password } = this.state;
+        if (!username || !password) {
+            this.setEmail(username)
+            this.setPassword(password)
+            return;
+        }
 
-        // const body = {
-        //     username: username,
-        //     password: password
-        // }
-        // this.setState({ loading: true })
-        // try {
-        //     await LoginService(body)
-        //         .then(response => {
-        //             if (response.type === "Error") {
-        //                 this.setState({ loading: false })
-        //                 ToastAndroid.show("Username and Password Invalid!", ToastAndroid.LONG);
-        //                 this.resetScreen()
-        //                 return
-        //             }
+        const body = {
+            username: username,
+            password: password
+        }
 
-        //             if (response != null || response != 'undefind') {
-        //                 this.authenticateUser(response.user)
-        //                 appConfig.headers["authkey"] = response.user.addedby;
-        ToastAndroid.show("SignIn Success!", ToastAndroid.SHORT);
-        this.props.navigation.navigate('NavigationsDrawer')
-        //                 this.resetScreen()
-        //                 return
-        //             }
-        //         })
-        // }
-        // catch (error) {
-        //     this.setState({ loading: false })
-        //     ToastAndroid.show("SignIn Failed!", ToastAndroid.LONG)
-        // }
+        this.setState({ loading: true })
+
+        try {
+            await LoginService(body)
+                .then(response => {
+                    if (response.type === "Error") {
+                        this.setState({ loading: false })
+                        ToastAndroid.show("Username and Password Invalid!", ToastAndroid.LONG);
+                        this.resetScreen()
+                        return
+                    }
+
+                    if (response != null || response != 'undefind') {
+                        this.authenticateUser(response.user)
+                        appConfig.headers["authkey"] = response.user.addedby;
+                        ToastAndroid.show("SignIn Success!", ToastAndroid.SHORT);
+                        this.props.navigation.navigate('NavigationsDrawer')
+                        this.resetScreen()
+                        return
+                    }
+                })
+        }
+        catch (error) {
+            this.setState({ loading: false })
+            ToastAndroid.show("SignIn Failed!", ToastAndroid.LONG)
+        }
     }
 
     render() {
@@ -134,18 +139,18 @@ export default class LoginScreen extends Component {
                             <Text style={{ marginTop: hp('-3%'), marginLeft: wp('10%'), color: '#ff0000' }}>{this.state.passworderror && this.state.passworderror}</Text>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginLeft: hp('6%'), marginTop: hp('1%'), marginRight: hp('5%') }}>
-
                             <View >
                                 <TouchableOpacity onPress={() => { this.props.navigation.navigate('ForgotPassword') }}>
                                     <Text style={{ fontSize: SIZES.body3, color: '#F4AE3A', marginTop: hp('0.5%') }}>Forgot password?</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
-
                         <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', }}>
                             <TouchableOpacity style={styles.loginBtn} onPress={() => this.onPressSubmit()}>
-                                <Text style={styles.loginText}>Sign In</Text>
-                                <FontAwesome5 name="arrow-right" size={24} color="#000000" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
+                                {this.state.loading === true ? <Loader /> : <>
+                                    <Text style={styles.loginText}>Sign In</Text>
+                                    <FontAwesome5 name="arrow-right" size={24} color="#000000" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
+                                </>}
                             </TouchableOpacity>
                         </View>
                         <View style={{ marginTop: hp('20%'), justifyContent: 'center', flexDirection: 'row' }} >
@@ -153,7 +158,6 @@ export default class LoginScreen extends Component {
                             <TouchableOpacity onPress={() => { this.props.navigation.navigate('RegisterScreen') }} >
                                 <Text style={styles.baseText}>Signup</Text>
                             </TouchableOpacity>
-
                         </View>
                     </ScrollView>
                 </View>

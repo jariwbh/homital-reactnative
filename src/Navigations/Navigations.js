@@ -15,11 +15,12 @@ import SearchScreen from '../Screen/SearchScreen/SearchScreen'
 import ResortDetailsScreen from "../Screen/ResortDetailsScreen/ResortDetailsScreen";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DrawerContainer from '../Screen/DrawerContainer/DrawerContainer'
-import { FontAwesome5, Foundation, AntDesign, Fontisto } from '@expo/vector-icons';
+import { FontAwesome5, Foundation, AntDesign } from '@expo/vector-icons';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import BackButton from '../Components/BackButton/BackButton'
 import BookScreen from '../Screen/BookScreen/BookScreen'
 import ResortlistScreen from '../Screen/ResortlistScreen/ResortlistScreen'
+import Feather from "react-native-vector-icons/Feather";
 
 const NavigationDrawerStructure = (props) => {
     const toggleDrawer = () => {
@@ -28,7 +29,7 @@ const NavigationDrawerStructure = (props) => {
     return (
         <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity onPress={() => toggleDrawer()}>
-                <Foundation name="list" size={30} color="#000000" style={{ marginLeft: hp('2%') }} />
+                <Feather name="menu" size={35} color="#262626" style={{ marginLeft: hp('2%') }} />
             </TouchableOpacity>
         </View>
     );
@@ -104,7 +105,7 @@ function homeScreenStack({ navigation }) {
                             navigationProps={navigation}
                         />,
                     headerRight: () =>
-                        <FontAwesome5 name="search" size={24} color='#000000' style={{ marginRight: hp('2%') }} onPress={() => navigation.navigate("SearchScreen")} />,
+                        <FontAwesome5 name="search" size={24} color='#262626' style={{ marginRight: hp('2%') }} onPress={() => navigation.navigate("SearchScreen")} />,
                     headerStyle: {
                         backgroundColor: '#F6C455'
                     },
@@ -123,8 +124,6 @@ function homeScreenStack({ navigation }) {
                         <NavigationDrawerStructure
                             navigationProps={navigation}
                         />,
-                    headerRight: () =>
-                        <FontAwesome5 name="search" size={24} color='#000000' style={{ marginRight: hp('2%') }} onPress={() => navigation.navigate("SearchScreen")} />,
                     headerStyle: {
                         backgroundColor: '#F6C455'
                     },
@@ -179,8 +178,6 @@ function homeScreenStack({ navigation }) {
                         <NavigationDrawerStructure
                             navigationProps={navigation}
                         />,
-                    headerRight: () =>
-                        <FontAwesome5 name="search" size={24} color='#000000' style={{ marginRight: hp('2%') }} onPress={() => navigation.navigate("SearchScreen")} />,
                     headerStyle: {
                         backgroundColor: '#F6C455'
                     },

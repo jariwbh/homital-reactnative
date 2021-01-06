@@ -11,22 +11,24 @@ class ResortDetailsScreen extends Component {
     constructor(props) {
         super(props);
         this.resortlist = this.props.route.params.item;
-        //  console.log('this.props.route.params.item', this.props.route.params)
+        console.log('this.props.route.params.item', this.props.route.params.item)
         this.state = {
             resortname: this.resortlist.resortname,
             address: this.resortlist.property.address,
             amenities: this.resortlist.property.amenities,
             description: this.resortlist.property.description,
+            resortImage: this.resortlist.property.images[0].attachment
         };
     }
 
     render() {
-        const { resortname, address, amenities, description } = this.state;
+        const { resortname, address, amenities, description, resortImage } = this.state;
+
         return (
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', marginBottom: hp('2%') }}>
                     <View >
-                        <Image source={require('../../../assets/Images/1.png')} style={{ width: wp('100%'), height: hp('50%') }} />
+                        <Image source={{ uri: resortImage }} style={{ width: wp('100%'), height: hp('50%') }} />
                         <TouchableOpacity style={styles.backIcon} onPress={() => this.props.navigation.goBack()} >
                             <MaterialIcons name="arrow-back" size={24} color="#FFFFFF" />
                         </TouchableOpacity>
@@ -37,39 +39,33 @@ class ResortDetailsScreen extends Component {
                         <View style={styles.listview}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), }}>{resortname}</Text>
-                                {/* <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), marginRight: hp('2%') }}>$79.00 </Text> */}
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>{address}</Text>
-                                {/* <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), marginRight: hp('2%') }}>Per night </Text> */}
                             </View>
                             <View style={{ marginTop: hp('1%'), }}>
                                 <Text style={{ fontSize: hp('3%') }}>Amenities</Text>
                             </View>
                             <View style={{ flexDirection: 'row', marginTop: hp('1%') }}>
-                                <View style={styles.inputview}>
-                                    <TouchableOpacity>
-                                        <Text style={{ fontSize: hp('2%'), flex: 1, }}>{amenities}</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={styles.inputview}>
-                                    <TouchableOpacity>
-                                        <Text style={{ fontSize: hp('2%'), flex: 1, }}>{amenities}</Text>
-                                    </TouchableOpacity>
-                                </View>
+                                {amenities.map((item, index) => (
+                                    <View style={styles.inputview}>
+                                        <View>
+                                            <Text key={index} style={{ fontSize: hp('2%'), flex: 1 }}>
+                                                {item}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                ))}
                             </View>
                         </View>
-
                     </View>
                     <View style={{ marginTop: hp('20%'), marginRight: hp('40%') }}>
                         <Text style={{ fontSize: hp('3%') }}>Details</Text>
                     </View>
                     <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
-
                         <Text style={{ fontSize: hp('2%'), marginLeft: hp('3%'), marginRight: hp('3%') }}>
                             {description}
                         </Text>
-
                     </View>
                     <View style={{ marginLeft: hp('25%') }}>
                         <TouchableOpacity style={styles.bookBtn} onPress={() => { this.props.navigation.navigate('RoomlistScreen') }} >
@@ -77,8 +73,6 @@ class ResortDetailsScreen extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-
-
             </View>
         );
     }

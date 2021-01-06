@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, TextInput, ToastAndroid } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import {
-    heightPercentageToDP as hp,
-    widthPercentageToDP as wp,
-} from 'react-native-responsive-screen'
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import theme from "../../Constants/theme";
 import { FontAwesome5, AntDesign, Fontisto } from '@expo/vector-icons';
-import BackButton from '../../Components/BackButton/BackButton';
 import { RegisterService } from '../../Services/RegisterService/RegisterService';
 const { COLORS, FONTS, SIZES } = theme;
 
@@ -72,30 +68,30 @@ class RegisterScreen extends Component {
     }
 
     onPressSubmit = async () => {
-        // const { fullname, username, mobilenumber } = this.state;
-        // if (!fullname || !username || !mobilenumber) {
-        //     this.setFullName(fullname)
-        //     this.setUserName(username)
-        //     this.setMobileNumber(mobilenumber)
-        //     return;
-        // }
+        const { fullname, username, mobilenumber } = this.state;
+        if (!fullname || !username || !mobilenumber) {
+            this.setFullName(fullname)
+            this.setUserName(username)
+            this.setMobileNumber(mobilenumber)
+            return;
+        }
 
-        // const body = {
-        //     property: {
-        //         fullname: fullname,
-        //         email: username,
-        //         mobile_number: mobilenumber,
-        //     }
-        // }
+        const body = {
+            property: {
+                fullname: fullname,
+                email: username,
+                mobile_number: mobilenumber,
+            }
+        }
 
-        // this.setState({ loading: true })
-        // await RegisterService(body).then(response => {
-        //     if (response != null) {
-        ToastAndroid.show("SignUp Success!", ToastAndroid.LONG);
-        this.props.navigation.navigate('LoginScreen')
-        //         this.resetScreen()
-        //     }
-        // })
+        this.setState({ loading: true })
+        await RegisterService(body).then(response => {
+            if (response != null) {
+                ToastAndroid.show("SignUp Success!", ToastAndroid.LONG);
+                this.props.navigation.navigate('LoginScreen')
+                this.resetScreen()
+            }
+        })
     }
 
     render() {
