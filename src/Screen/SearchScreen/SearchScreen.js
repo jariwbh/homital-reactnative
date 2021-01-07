@@ -1,16 +1,53 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, TextInput, } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { FontAwesome5, Foundation, AntDesign, Fontisto } from '@expo/vector-icons';
-
+import { FontAwesome5 } from '@expo/vector-icons';
+import { ScrollView } from 'react-native-gesture-handler';
+import { ResortLocationService } from '../../Services/ResortService/ResortService';
 class SearchScreen extends Component {
     constructor(props) {
         super(props);
+        this.searchproductList = [];
         this.state = {
+            ResortLocationList: []
         };
     }
+    getResortLocationList() {
+        ResortLocationService().then(response => {
+            this.setState({ ResortLocationList: response })
+            this.searchproductList = response;
+        })
+    }
+    componentDidMount() {
+        this.getResortLocationList();
+    }
+
+    async searchFilterFunction(text) {
+        const newData = this.searchproductList.filter(item => {
+            const itemData = `${item.locationname.toUpperCase()}`
+            const textData = text.toUpperCase();
+            console.log('itemData', itemData)
+            return itemData.indexOf(textData) > -1;
+        });
+        this.setState({ ResortLocationList: newData });
+    };
+    renderResortLocationList = ({ item }) => (
+
+        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('2%') }}>
+
+            <TouchableOpacity style={styles.slider} onPress={() => this.props.navigation.navigate('ResortlistScreen', { item })}>
+                <Image source={{ uri: item.property.image_icon ? item.property.image_icon : 'https://www.icon0.com/static2/preview2/stock-photo-photo-icon-illustration-design-70325.jpg' }}
+                    style={{ alignItems: 'center', height: hp('25%'), width: wp('80%'), marginTop: hp('1%'), borderRadius: hp('2%') }} />
+            </TouchableOpacity>
+            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', }}>
+                <Text style={{ fontSize: hp('2.5%'), color: '#43434C' }}>{item.property.locationname}</Text>
+            </TouchableOpacity>
+        </View>
+
+    )
 
     render() {
+        const { ResortLocationList } = this.state
         return (
             <View style={styles.container}>
                 <View style={styles.statusbar}>
@@ -18,11 +55,28 @@ class SearchScreen extends Component {
                         style={styles.statInput}
                         placeholder="Type here to search"
                         type='clear'
-                        placeholderTextColor="#D3D4DA"
+                        placeholderTextColor="#737373"
                         returnKeyType="next"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        onChangeText={(value) => this.searchFilterFunction(value)}
                     />
-                    <FontAwesome5 name="search" size={24} color='#000000' style={{ alignItems: "flex-end", justifyContent: 'flex-end', marginRight: hp('2%') }} />
+                    <FontAwesome5 name="search" size={24} color='#737373' style={{ alignItems: "flex-end", justifyContent: 'flex-end', marginRight: hp('2%') }} />
                 </View>
+
+                <ScrollView
+                    showsVerticalScrollIndicator={false}>
+                    {ResortLocationList.length == 0 ? <Text style={{ fontSize: hp('3%'), textAlign: 'center', marginTop: hp('30%') }}>No Resort Available</Text> :
+                        <View style={{ marginTop: hp('1%') }}>
+                            <FlatList
+                                data={ResortLocationList}
+                                renderItem={this.renderResortLocationList}
+                                keyExtractor={item => `${item._id}`}
+                            />
+                        </View>
+                    }
+                </ScrollView>
+
             </View>
         );
     }
@@ -34,9 +88,11 @@ export default SearchScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#FFFFFF'
     },
     statusbar: {
         flexDirection: 'row',
+        borderRadius: hp('1%'),
         backgroundColor: "#fff",
         shadowOpacity: 0.5,
         shadowRadius: 2,
