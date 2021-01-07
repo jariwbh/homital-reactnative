@@ -21,6 +21,7 @@ import BackButton from '../Components/BackButton/BackButton'
 import BookScreen from '../Screen/BookScreen/BookScreen'
 import ResortlistScreen from '../Screen/ResortlistScreen/ResortlistScreen'
 import Feather from "react-native-vector-icons/Feather";
+import BookHistory from "../Screen/BookHistory/BookHistory";
 
 const NavigationDrawerStructure = (props) => {
     const toggleDrawer = () => {
@@ -52,15 +53,15 @@ function NavigationsDrawer(props) {
                 )
             }} component={homeScreenStack} />
 
-            <Drawer.Screen name="ResortDetailsScreen" options={{
-                drawerLabel: 'Book Room', drawerIcon: ({ focused, size }) => (
+            <Drawer.Screen name="BookHistory" options={{
+                drawerLabel: 'Book History', drawerIcon: ({ focused, size }) => (
                     <AntDesign
                         name="profile"
                         size={size}
                         color={focused ? '#F6C455' : '#ccc'}
                     />
                 )
-            }} component={ResortDetailsScreen} />
+            }} component={BookHistoryStack} />
 
             <Drawer.Screen name="MyProfileScreen" options={{
                 drawerLabel: 'My Profile', drawerIcon: ({ focused, size }) => (
@@ -70,7 +71,7 @@ function NavigationsDrawer(props) {
                         color={focused ? '#F6C455' : '#ccc'}
                     />
                 )
-            }} component={MyProfileScreen} />
+            }} component={MyProfileScreenStack} />
         </Drawer.Navigator>
     )
 }
@@ -84,13 +85,60 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
                 <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
                 <Stack.Screen name="NavigationsDrawer" component={NavigationsDrawer} />
-                <Stack.Screen name="MyProfileScreen" component={MyProfileScreen} />
+                <Stack.Screen name="MyProfileScreen" component={MyProfileScreenStack} />
                 <Stack.Screen name="ThankYouScreen" component={ThankYouScreen} />
                 <Stack.Screen name="SearchScreen" component={SearchScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
 };
+
+
+function MyProfileScreenStack({ navigation }) {
+    return (
+        <Stack.Navigator initialRouteName="MyProfileScreen">
+            <Stack.Screen
+                name="MyProfileScreen"
+                component={MyProfileScreen}
+                options={{
+                    title: 'Update Profile',
+                    headerLeft: () =>
+                        <NavigationDrawerStructure
+                            navigationProps={navigation}
+                        />,
+                    headerStyle: {
+                        backgroundColor: '#F6C455'
+                    },
+                    headerTintColor: '#000000',
+                    headerTitleAlign: 'center',
+                }}
+            />
+        </Stack.Navigator>
+    )
+}
+
+function BookHistoryStack({ navigation }) {
+    return (
+        <Stack.Navigator initialRouteName="BookHistory">
+            <Stack.Screen
+                name="BookHistory"
+                component={BookHistory}
+                options={{
+                    title: 'Book History',
+                    headerLeft: () =>
+                        <NavigationDrawerStructure
+                            navigationProps={navigation}
+                        />,
+                    headerStyle: {
+                        backgroundColor: '#F6C455'
+                    },
+                    headerTintColor: '#000000',
+                    headerTitleAlign: 'center',
+                }}
+            />
+        </Stack.Navigator>
+    )
+}
 
 function homeScreenStack({ navigation }) {
     return (
@@ -110,9 +158,7 @@ function homeScreenStack({ navigation }) {
                         backgroundColor: '#F6C455'
                     },
                     headerTintColor: '#000000',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    },
+                    headerTitleAlign: 'center',
                 }}
             />
             <Stack.Screen
@@ -128,9 +174,6 @@ function homeScreenStack({ navigation }) {
                         backgroundColor: '#F6C455'
                     },
                     headerTintColor: '#000000',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    },
                 }}
             />
             <Stack.Screen
@@ -182,9 +225,6 @@ function homeScreenStack({ navigation }) {
                         backgroundColor: '#F6C455'
                     },
                     headerTintColor: '#000000',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    },
                 }}
             />
             <Stack.Screen
@@ -193,6 +233,23 @@ function homeScreenStack({ navigation }) {
                 options={{
                     title: '',
                     headerShown: false
+                }}
+            />
+            <Stack.Screen
+                name="MainScreen"
+                component={HomeScreen}
+                options={{
+                    title: '',
+                    headerLeft: () =>
+                        <NavigationDrawerStructure
+                            navigationProps={navigation}
+                        />,
+                    headerRight: () =>
+                        <FontAwesome5 name="search" size={24} color='#262626' style={{ marginRight: hp('2%') }} onPress={() => navigation.navigate("SearchScreen")} />,
+                    headerStyle: {
+                        backgroundColor: '#F6C455'
+                    },
+                    headerTintColor: '#000000',
                 }}
             />
         </Stack.Navigator>

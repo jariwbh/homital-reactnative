@@ -113,13 +113,10 @@ class MyProfileScreen extends Component {
         const { fullname, username, mobilenumber, profileName } = this.state;
         return (
             <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.text_header}>Update Profile</Text>
-                </View>
                 <ScrollView>
                     {this.userData === null ?
                         <ActivityIndicator size="large" color="#000000" />
-                        : <>
+                        : <View style={{ marginTop: hp('5%') }}>
                             <Image style={styles.avatar} source={require('../../../assets/Images/userimage.jpg')} />
                             <View style={styles.body}>
                                 <View style={styles.bodyContent}>
@@ -181,7 +178,7 @@ class MyProfileScreen extends Component {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                        </>}
+                        </View>}
                 </ScrollView>
             </View>
 

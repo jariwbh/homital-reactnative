@@ -1,41 +1,162 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button, TextInput } from 'react-native';
-import BackButton from '../../Components/BackButton/BackButton';
+import { View, Text, StyleSheet, TouchableOpacity, ToastAndroid, TextInput } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import theme from "../../Constants/theme";
 import { FontAwesome, AntDesign, Fontisto, FontAwesome5 } from '@expo/vector-icons';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { ScrollView, } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-community/async-storage';
+import { BookService } from '../../Services/BookService/BookService'
+import HTML from 'react-native-render-html';
+import moment from 'moment';
 const { COLORS, FONTS, SIZES } = theme;
 
 class BookScreen extends Component {
     constructor(props) {
         super(props);
         this.roomDetails = this.props.route.params.roomID;
-        console.log('this.props.route.params.roomID', this.props.route.params.roomID)
         this.state = {
-        };
+            userID: null,
+            fullname: null,
+            fullnameError: null,
+            username: null,
+            usernameError: null,
+            mobilenumber: null,
+            mobilenumberError: null,
+            CheckDate: null,
+            CheckDateError: null,
+            CheckOutDate: null,
+            CheckOutDateError: null,
+            isCheckDatePickerVisible: false,
+            isCheckOutDatePickerVisible: false
+        }
+        this.setFullName = this.setFullName.bind(this);
+        this.setUserName = this.setUserName.bind(this);
+        this.setMobileNumber = this.setMobileNumber.bind(this);
+        this.setCheckDate = this.setCheckDate.bind(this);
+        this.setCheckOutDate = this.setCheckOutDate.bind(this);
+        this.onPressSubmit = this.onPressSubmit.bind(this);
     }
 
-    showDatePicker = () => {
-        this.setState({ isDatePickerVisible: true });
+    showCheckDatePicker = () => {
+        this.setState({ isCheckDatePickerVisible: true });
+    };
+    hideCheckDatePicker = () => {
+        this.setState({ isCheckDatePickerVisible: false });
+    };
+    handleConfirmCheckDate = (date) => {
+        this.setState({ CheckDate: moment(date).format('YYYY-MM-DD') });
+        this.hideCheckDatePicker();
     };
 
-    hideDatePicker = () => {
-        this.setState({ isDatePickerVisible: false });
+    showOutDateDatePicker = () => {
+        this.setState({ isCheckOutDatePickerVisible: true });
+    };
+    hideOutDateDatePicker = () => {
+        this.setState({ isCheckOutDatePickerVisible: false });
+    };
+    handleConfirmCheckOutDate = (date) => {
+        this.setState({ CheckOutDate: moment(date).format('YYYY-MM-DD') });
+        this.hideOutDateDatePicker();
     };
 
-    handleConfirmDate = (date) => {
-        this.hideDatePicker();
-    };
+    setFullName(fullname) {
+        if (!fullname || fullname.length <= 0) {
+            return this.setState({ fullnameError: 'User Name cannot be empty' });
+        }
+        return this.setState({ fullname: fullname, fullnameError: null })
+    }
+
+    setUserName(email) {
+        const re = /\S+@\S+\.\S+/;
+        if (!email || email.length <= 0) {
+            return this.setState({ usernameError: 'Email cannot be empty' });
+        }
+        if (!re.test(email)) {
+            return this.setState({ usernameError: 'Ooops! We need a valid email address' });
+        }
+        return this.setState({ username: email, usernameError: null })
+    }
+
+    setMobileNumber(mobilenumber) {
+        const reg = /^[0]?[789]\d{9}$/;
+        if (!mobilenumber || mobilenumber.length <= 0) {
+            return this.setState({ mobilenumberError: 'Mobile Number cannot be empty' });
+        }
+        if (!reg.test(mobilenumber)) {
+            return this.setState({ mobilenumberError: 'Ooops! We need a valid Mobile Number' });
+        }
+        return this.setState({ mobilenumber: mobilenumber, mobilenumberError: null })
+    }
+
+    setCheckDate(checkDate) {
+        if (!checkDate || checkDate.length <= 0) {
+            return this.setState({ CheckDateError: 'Arrival Date cannot be empty' });
+        }
+        return this.setState({ CheckDate: checkDate, CheckDateError: null })
+    }
+
+    setCheckOutDate(checkOutDate) {
+        if (!checkOutDate || checkOutDate.length <= 0) {
+            return this.setState({ CheckOutDateError: 'Departure Date cannot be empty' });
+        }
+        return this.setState({ CheckOutDate: checkOutDate, CheckOutDateError: null })
+    }
+
+    componentDidMount() {
+        this.getdata()
+    }
+
+    onPressSubmit = () => {
+        const { fullname, username, mobilenumber, userID, CheckDate, CheckOutDate } = this.state;
+        if (!fullname || !username || !mobilenumber || !CheckDate || !CheckOutDate) {
+            this.setFullName(fullname)
+            this.setUserName(username)
+            this.setMobileNumber(mobilenumber)
+            this.setCheckDate(CheckDate)
+            this.setCheckOutDate(CheckOutDate)
+            return;
+        }
+
+        const body = {
+            bookingdate: moment().format('YYYY-MM-DD'),
+            customerid: userID,
+            onModel: "Member",
+            refid: this.roomDetails,
+            checkin: CheckDate,
+            checkout: CheckOutDate
+        }
+
+        BookService(body).then(response => {
+            if (response != null) {
+                ToastAndroid.show("Booking Sucess!", ToastAndroid.LONG);
+                this.props.navigation.navigate('ThankYouScreen', { response })
+            }
+        })
+    }
+
+    getdata = async () => {
+        var getUser = await AsyncStorage.getItem('@authuser')
+        if (getUser == null || getUser && getUser.length == 0) {
+            setTimeout(() => {
+                this.props.navigation.replace('LoginScreen')
+            }, 5000);
+        } else {
+            this.userData = JSON.parse(getUser)
+            this.setState({
+                userID: this.userData._id,
+                fullname: this.userData.property.fullname,
+                username: this.userData.property.email,
+                mobilenumber: this.userData.property.mobile_number,
+            })
+        }
+    }
 
     render() {
+        const { fullname, fullnameError, username, usernameError, mobilenumber, mobilenumberError, CheckOutDate, CheckOutDateError, CheckDate, CheckDateError } = this.state;
         return (
             <View style={styles.container}>
-                <ScrollView
-                    Vertical
-                    showsVerticalScrollIndicator={false}
-                >
+                <ScrollView Vertical showsVerticalScrollIndicator={false}>
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('2%') }}>
                         <View style={styles.inputview}>
                             <AntDesign name="user" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
@@ -46,10 +167,11 @@ class BookScreen extends Component {
                                 placeholderTextColor="#656565"
                                 returnKeyType="next"
                                 underlineColorAndroid="#B9B9B9"
-                            // onChangeText={(fullname) => this.setFullName(fullname)}
+                                defaultValue={fullname}
+                                onChangeText={(fullname) => this.setFullName(fullname)}
                             />
-
                         </View>
+                        <Text style={{ marginTop: hp('-2%'), marginRight: wp('27%'), color: '#ff0000' }}>{fullnameError && fullnameError}</Text>
                         <View style={styles.inputview}>
                             <Fontisto name="email" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
                             <TextInput
@@ -59,10 +181,11 @@ class BookScreen extends Component {
                                 placeholderTextColor="#656565"
                                 returnKeyType="next"
                                 underlineColorAndroid="#B9B9B9"
-                            // onChangeText={(email) => this.setEmail(email)}
+                                defaultValue={username}
+                                onChangeText={(email) => this.setUserName(email)}
                             />
-
                         </View>
+                        <Text style={{ marginTop: hp('-2%'), marginRight: wp('21%'), color: '#ff0000' }}>{usernameError && usernameError}</Text>
                         <View style={styles.inputview} >
                             <FontAwesome name="mobile-phone" size={30} color="#000000" style={{ paddingLeft: hp('4.3%') }} />
                             <TextInput
@@ -70,13 +193,14 @@ class BookScreen extends Component {
                                 placeholder="Phone Number"
                                 type='clear'
                                 placeholderTextColor="#656565"
-                                secureTextEntry={true}
                                 returnKeyType="done"
                                 underlineColorAndroid="#B9B9B9"
                                 keyboardType="numeric"
-                            // onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
+                                defaultValue={mobilenumber}
+                                onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                             />
                         </View>
+                        <Text style={{ marginTop: hp('-2%'), marginRight: wp('21%'), color: '#ff0000' }}>{mobilenumberError && mobilenumberError}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: hp('1%'), }}>
                         <View>
@@ -93,17 +217,19 @@ class BookScreen extends Component {
                                 style={styles.dateInput}
                                 placeholder="YYYY-MM-DD"
                                 type='clear'
-                                // defaultValue={serviceDate}
+                                defaultValue={CheckDate}
                                 placeholderTextColor="#000000"
-                                onTouchStart={this.showDatePicker}
-                            // onChangeText={(serviceDate) => this.setServiceDate(serviceDate)}
+                                onTouchStart={this.showCheckDatePicker}
+                                onChangeText={(CheckDate) => this.setCheckDate(CheckDate)}
                             >
                             </TextInput>
+                            <Text style={{ marginTop: hp('4%'), marginRight: wp('21%'), color: '#ff0000' }}>{CheckDateError && CheckDateError}</Text>
                             <DateTimePickerModal
-                                isVisible={this.state.isDatePickerVisible}
+                                isVisible={this.state.isCheckDatePickerVisible}
                                 mode="date"
-                                onConfirm={this.handleConfirmDate}
-                                onCancel={this.hideDatePicker}
+                                onDateChange={(CheckDate) => this.setCheckDate(CheckDate)}
+                                onConfirm={this.handleConfirmCheckDate}
+                                onCancel={this.hideCheckDatePicker}
                             />
                         </View>
                         <View style={styles.date}>
@@ -112,22 +238,24 @@ class BookScreen extends Component {
                                 style={styles.dateInput}
                                 placeholder="YYYY-MM-DD"
                                 type='clear'
-                                // defaultValue={serviceDate}
+                                defaultValue={CheckOutDate}
                                 placeholderTextColor="#000000"
-                                onTouchStart={this.showDatePicker}
-                            // onChangeText={(serviceDate) => this.setServiceDate(serviceDate)}
+                                onTouchStart={this.showOutDateDatePicker}
+                                onChangeText={(CheckOutDate) => this.setCheckOutDate(CheckOutDate)}
                             >
                             </TextInput>
+                            <Text style={{ marginTop: hp('4%'), marginRight: wp('21%'), color: '#ff0000' }}>{CheckOutDateError && CheckOutDateError}</Text>
                             <DateTimePickerModal
-                                isVisible={this.state.isDatePickerVisible}
+                                isVisible={this.state.isCheckOutDatePickerVisible}
                                 mode="date"
-                                onConfirm={this.handleConfirmDate}
-                                onCancel={this.hideDatePicker}
+                                onDateChange={(CheckOutDate) => this.setCheckDate(CheckOutDate)}
+                                onConfirm={this.handleConfirmCheckOutDate}
+                                onCancel={this.hideOutDateDatePicker}
                             />
                         </View>
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('3%'), }}>
-                        <TouchableOpacity style={styles.bookBtn} onPress={() => { this.props.navigation.navigate('ThankYouScreen') }} >
+                        <TouchableOpacity style={styles.bookBtn} onPress={() => this.onPressSubmit()} >
                             <Text style={styles.bookText}>Book Now </Text>
                         </TouchableOpacity>
                     </View>

@@ -8,11 +8,15 @@ import {
 export default class ThankYouScreen extends Component {
     constructor(props) {
         super(props);
+        this.BookingID = this.props.route.params.response;
         this.state = {
+            prefix: this.BookingID.prefix,
+            bookingnumber: this.BookingID.bookingnumber,
         };
     }
 
     render() {
+        const { prefix, bookingnumber } = this.state;
         return (
             <ImageBackground source={require('../../../assets/Images/BG2.png')} style={styles.backgroundImage}>
                 <View style={styles.container}>
@@ -26,10 +30,10 @@ export default class ThankYouScreen extends Component {
                         <Text style={{ fontSize: hp('3%'), color: '#605C5C' }}>Your booking is confirmed</Text>
                     </View>
                     <View style={{ alignItems: 'center', marginTop: hp('3%'), }}>
-                        <Text style={{ fontSize: hp('2.5%'), color: '#605C5C' }}>BookingID : AHJSJ34HY </Text>
+                        <Text style={{ fontSize: hp('2.5%'), color: '#605C5C' }}>BookingID : {prefix + bookingnumber} </Text>
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center', }}>
-                        <TouchableOpacity style={styles.Continueview} onPress={() => { this.props.navigation.navigate('NavigationsDrawer') }}>
+                        <TouchableOpacity style={styles.Continueview} onPress={() => { this.props.navigation.navigate('MainScreen') }}>
                             <Text style={styles.ContinueText}>Continue</Text>
                         </TouchableOpacity>
                     </View>
