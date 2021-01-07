@@ -64,7 +64,7 @@ export default RoomlistScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginBottom: hp('4%')
+        backgroundColor: "#FFFFFF",
     },
     inputview: {
         marginTop: hp('3%'),
@@ -75,5 +75,12 @@ const styles = StyleSheet.create({
         width: wp('90%'),
         height: hp('10%'),
         marginTop: hp('-0.1%'),
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 0,
+            width: 0,
+        },
+        elevation: 2,
     }
 })

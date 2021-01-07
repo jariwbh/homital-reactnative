@@ -54,7 +54,7 @@ class ResortDetailsScreen extends Component {
                             </View>
                         </View>
                     </View>
-                    <View style={{ marginTop: hp('20%'), marginRight: hp('40%') }}>
+                    <View style={{ marginTop: hp('20%'), marginRight: hp('40%'), }}>
                         <Text style={{ fontSize: hp('3%') }}>Details</Text>
                     </View>
                     <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
@@ -78,7 +78,7 @@ export default ResortDetailsScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginBottom: hp('5%')
+        backgroundColor: "#FFFFFF",
     },
     backIcon: {
         marginTop: hp('4.5%'),
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         borderRadius: hp('2%'),
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#f2f2f2",
         width: wp('90%'),
         height: hp('60%'),
     },
@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
         height: hp('5%'),
         margin: hp('1%'),
         alignItems: "center",
-        justifyContent: 'center'
+        justifyContent: 'center',
+
     },
     bookBtn: {
         flexDirection: 'row',
