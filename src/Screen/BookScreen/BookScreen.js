@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button, TextInput } from 'react-native';
 import BackButton from '../../Components/BackButton/BackButton';
-import {
-    heightPercentageToDP as hp,
-    widthPercentageToDP as wp,
-} from 'react-native-responsive-screen'
+import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import theme from "../../Constants/theme";
 import { FontAwesome, AntDesign, Fontisto, FontAwesome5 } from '@expo/vector-icons';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { ScrollView, } from 'react-native-gesture-handler';
-
-
 const { COLORS, FONTS, SIZES } = theme;
 
 class BookScreen extends Component {
     constructor(props) {
         super(props);
+        this.roomDetails = this.props.route.params.roomID;
+        console.log('this.props.route.params.roomID', this.props.route.params.roomID)
         this.state = {
         };
     }
+
     showDatePicker = () => {
         this.setState({ isDatePickerVisible: true });
     };
@@ -30,6 +28,7 @@ class BookScreen extends Component {
     handleConfirmDate = (date) => {
         this.hideDatePicker();
     };
+
     render() {
         return (
             <View style={styles.container}>
@@ -125,41 +124,6 @@ class BookScreen extends Component {
                                 onConfirm={this.handleConfirmDate}
                                 onCancel={this.hideDatePicker}
                             />
-                        </View>
-                    </View>
-
-                    <View style={{ flexDirection: 'column', marginBottom: hp('5%') }}>
-                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('5.5%'), marginBottom: hp('1%') }}>Luxurious Single Room</Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', }}>
-                            <Text style={{ fontSize: hp('2.5%'), color: '#605C5C' }}>$ 79 / night</Text>
-                            <TouchableOpacity style={{ marginRight: '5%', flexDirection: 'row' }} onPress={() => { this.props.navigation.navigate('RoomDetailScreen') }}>
-                                <Text style={{ fontSize: hp('2.5%'), color: '#FD9B02' }}>View Details</Text>
-                                <FontAwesome5 name="arrow-right" size={24} color="#FD9B02" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
-                            </TouchableOpacity>
-
-                        </View>
-                    </View>
-                    <View>
-                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('5%'), marginBottom: hp('2%') }}> Payment </Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: hp('1%') }}>
-                            <Text style={{ fontSize: hp('2.5%'), color: '#605C5C' }}>One Single Room * 2 night</Text>
-                            <Text style={{ color: '#605C5C' }}>$158.00</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', }}>
-                            <Text style={{ fontSize: hp('2.5%'), marginRight: hp('25%'), color: '#605C5C' }}>Tax</Text>
-                            <Text style={{ color: '#605C5C', }}>$50.00</Text>
-                        </View>
-                        <TextInput
-                            underlineColorAndroid="#B9B9B9"
-                            style={{
-                                width: '50%',
-                                marginLeft: 'auto',
-                                marginBottom: hp('1%')
-                            }}
-                        />
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: hp('2%') }} >
-                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('20%') }} >Totel</Text>
-                            <Text style={{ fontSize: hp('2.5%'), color: "#FD9B02", }}>$208.00</Text>
                         </View>
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('3%'), }}>

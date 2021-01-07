@@ -8,7 +8,7 @@ import { FontAwesome5, Foundation, AntDesign, Fontisto } from '@expo/vector-icon
 class ResortlistScreen extends Component {
     constructor(props) {
         super(props);
-        this.resortlist = this.props.route.params.item._id;
+        this.resortLocationID = this.props.route.params.item._id;
         this.searchproductList = [];
         this.state = {
             ResortList: []
@@ -16,7 +16,7 @@ class ResortlistScreen extends Component {
     }
 
     getResortList() {
-        let id = this.resortlist
+        let id = this.resortLocationID
         ResortListByLocationService(id).then(response => {
             this.setState({ ResortList: response })
             this.searchproductList = response;
@@ -67,7 +67,7 @@ class ResortlistScreen extends Component {
                     <FontAwesome5 name="search" size={24} color='#737373' style={{ alignItems: "flex-end", justifyContent: 'flex-end', marginRight: hp('2%') }} />
                 </View>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    {ResortList.length == 0 ? <Text style={{ fontSize: hp('3%'), textAlign: 'center', marginTop: hp('30%') }}>No Resort Available</Text> :
+                    {(ResortList == null) || (ResortList && ResortList.length == 0) ? <Text>No Resort Available</Text> :
                         <View style={{ marginTop: hp('1%') }}>
                             <FlatList
                                 data={ResortList}

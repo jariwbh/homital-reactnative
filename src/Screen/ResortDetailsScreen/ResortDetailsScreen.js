@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, InteractionManager } from 'react-native';
-import {
-    heightPercentageToDP as hp,
-    widthPercentageToDP as wp,
-} from 'react-native-responsive-screen'
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
-import { ScrollView } from 'react-native-gesture-handler';
 
 class ResortDetailsScreen extends Component {
     constructor(props) {
         super(props);
         this.resortlist = this.props.route.params.item;
-        console.log('this.props.route.params.item', this.props.route.params.item)
         this.state = {
+            resortDetails: this.resortlist,
             resortname: this.resortlist.resortname,
             address: this.resortlist.property.address,
             amenities: this.resortlist.property.amenities,
@@ -22,8 +18,7 @@ class ResortDetailsScreen extends Component {
     }
 
     render() {
-        const { resortname, address, amenities, description, resortImage } = this.state;
-
+        const { resortname, address, amenities, description, resortImage, resortDetails } = this.state;
         return (
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', marginBottom: hp('2%') }}>
@@ -68,7 +63,7 @@ class ResortDetailsScreen extends Component {
                         </Text>
                     </View>
                     <View style={{ marginLeft: hp('25%') }}>
-                        <TouchableOpacity style={styles.bookBtn} onPress={() => { this.props.navigation.navigate('RoomlistScreen') }} >
+                        <TouchableOpacity style={styles.bookBtn} onPress={() => { this.props.navigation.navigate('RoomlistScreen', { resortDetails }) }} >
                             <Text style={styles.bookText}>Choose Room</Text>
                         </TouchableOpacity>
                     </View>
@@ -79,7 +74,6 @@ class ResortDetailsScreen extends Component {
 }
 
 export default ResortDetailsScreen;
-
 
 const styles = StyleSheet.create({
     container: {
@@ -98,7 +92,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         width: wp('90%'),
         height: hp('60%'),
-
     },
     inputview: {
         flex: 1,
@@ -119,7 +112,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         marginRight: hp('4%'),
         marginTop: hp('2%')
-
     },
     bookText: {
         color: '#000000',

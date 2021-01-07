@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, } from 'react-native';
 import BackButton from '../../Components/BackButton/BackButton';
-import {
-    heightPercentageToDP as hp,
-    widthPercentageToDP as wp,
-} from 'react-native-responsive-screen'
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { MaterialCommunityIcons, MaterialIcons, } from '@expo/vector-icons';
 
 export default class RoomDetailScreen extends Component {
     constructor(props) {
         super(props);
+        this.roomDetails = this.props.route.params.item;
         this.state = {
+            roomID: this.roomDetails._id,
+            roomDetails: this.roomDetails,
+            roombookingtype: this.roomDetails.bookingtype,
+            roomcharges: this.roomDetails.charges,
+            roomtitle: this.roomDetails.title,
+            roomamenities: null,
+            roomdescription: this.roomDetails.description,
+            roomImage: this.roomDetails.gallery[0].attachment,
         };
     }
 
     render() {
+        const { roomDetails, roombookingtype, roomcharges, roomtitle, roomamenities, roomdescription, roomImage, roomID } = this.state;
         return (
             <View style={styles.container}>
                 <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('7%'), flex: 1 }}>
-                    <Image source={require('../../../assets/Images/1.png')} style={{ width: wp('95') }} />
+                    <Image source={{ uri: roomImage }} style={{ width: wp('90%'), height: hp('30%') }} />
                     <View style={styles.listview}>
                         <View style={{ flexDirection: 'row', marginTop: hp('1%') }}>
-                            <Text style={{ fontSize: hp('2.5%'), flex: 1, marginLeft: hp('1%') }}>Luxurious Single Room</Text>
-                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('1%'), marginRight: '3%', }}>$ 79 / night</Text>
+                            <Text style={{ fontSize: hp('2.5%'), flex: 1, marginLeft: hp('1%') }}>{roomtitle}</Text>
+                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('1%'), marginRight: '3%', }}>₹ {roomcharges} / {roombookingtype}</Text>
                         </View>
                         <View style={{ flexDirection: 'row', }}>
                             <View style={{ flexDirection: 'row', marginTop: hp('1%') }}>
@@ -59,16 +66,11 @@ export default class RoomDetailScreen extends Component {
                         </View>
                         <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
                             <Text style={{ fontSize: hp('2%'), marginRight: hp('2%') }}>
-                                Located in Mahabaleshwar near the market,
-                                Laxmi Residency offers 12 well-designed rooms
-                                (Deluxe , Super Deluxe and Family rooms) with modern amenities.
-                                The hotel is close to main tourist spots like Wilson Point, Venna Lake,
-                                Pratapgadh Fort and Arthurs Seat. The property has a shared
-                                kitchen and it offers cars on rental basis.
+                                {roomdescription}
                             </Text>
                         </View>
                         <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', }}>
-                            <TouchableOpacity style={styles.bookBtn} onPress={() => { this.props.navigation.navigate('BookScreen') }} >
+                            <TouchableOpacity style={styles.bookBtn} onPress={() => { this.props.navigation.navigate('BookScreen', { roomID }) }} >
                                 <Text style={styles.bookText}>Book Now</Text>
                             </TouchableOpacity>
                         </View>
@@ -84,12 +86,13 @@ export default class RoomDetailScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#FFFFFF',
     },
     listview: {
         flex: 1,
         flexDirection: 'column',
         backgroundColor: '#FFFFFF',
-        width: wp('95%'),
+        width: wp('90%'),
         height: hp('50%'),
         marginTop: hp('-0.1%'),
     },
