@@ -27,11 +27,10 @@ class ResortlistScreen extends Component {
         this.getResortList();
     }
 
-    async searchFilterFunction(text) {
+    searchFilterFunction(text) {
         const newData = this.searchproductList.filter(item => {
             const itemData = `${item.resortname.toUpperCase()}`
             const textData = text.toUpperCase();
-            console.log('itemData', itemData)
             return itemData.indexOf(textData) > -1;
         });
         this.setState({ ResortList: newData });

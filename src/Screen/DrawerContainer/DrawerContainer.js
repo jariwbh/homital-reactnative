@@ -1,15 +1,32 @@
-import React from 'react';
-import { SafeAreaView, View, StyleSheet, Image, Avatar, Text, Linking } from 'react-native';
+import React, { useState } from 'react'
+import { SafeAreaView, View, StyleSheet, Image, Text, ToastAndroid } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { AntDesign } from 'react-native-vector-icons';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import AsyncStorage from '@react-native-community/async-storage';
+
 const DrawerContainer = (props) => {
-    const proileImage = '../../../assets/s1.png';
+    const [userData, setuser] = useState(null);
+    async function getUserDetails() {
+        var getUser = await AsyncStorage.getItem('@authuser')
+        if (getUser == null) {
+            setTimeout(() => {
+                this.props.navigation.replace('LoginScreen')
+            }, 5000);
+        } else {
+            setuser(JSON.parse(getUser));
+        }
+    };
+
+    if (userData == null) {
+        getUserDetails()
+    }
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Image style={styles.avatar} source={require('../../../assets/Images/userimage.jpg')} />
-                <Text style={{ fontSize: hp('2%') }}>Welcome , Mahesh Patel</Text>
+                <Text style={{ fontSize: hp('2%') }}>Welcome , {userData && userData.property.fullname}</Text>
             </View>
             <DrawerContentScrollView {...props}>
                 <DrawerItemList {...props} />
@@ -21,7 +38,11 @@ const DrawerContainer = (props) => {
                     />
                 )}
                     label="Log Out"
-                    onPress={() => { props.navigation.navigate('LoginScreen') }} />
+                    onPress={() => {
+                        AsyncStorage.removeItem('@authuser');
+                        ToastAndroid.show("Log Out Success!", ToastAndroid.SHORT);
+                        props.navigation.navigate('LoginScreen');
+                    }} />
             </DrawerContentScrollView>
         </SafeAreaView>
     );
