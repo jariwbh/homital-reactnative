@@ -202,15 +202,8 @@ class BookScreen extends Component {
                         </View>
                         <Text style={{ marginTop: hp('-2%'), marginRight: wp('21%'), color: '#ff0000' }}>{mobilenumberError && mobilenumberError}</Text>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: hp('1%'), }}>
-                        <View>
-                            <Text style={{ fontSize: hp('2%'), }}>Arrival</Text>
-                        </View>
-                        <View>
-                            <Text style={{ fontSize: hp('2%'), }}>Departure</Text>
-                        </View>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', }}>
+                    <View style={{ flexDirection: 'row', marginLeft: hp('9%') }}>
+                        <Text style={{ fontSize: hp('2%'), }}>Arrival :</Text>
                         <View style={styles.date}>
                             <Fontisto name="date" size={27} color="#737373" style={{ paddingLeft: hp('1%') }} />
                             <TextInput
@@ -219,11 +212,11 @@ class BookScreen extends Component {
                                 type='clear'
                                 defaultValue={CheckDate}
                                 placeholderTextColor="#000000"
+                                underlineColorAndroid="#B9B9B9"
                                 onTouchStart={this.showCheckDatePicker}
                                 onChangeText={(CheckDate) => this.setCheckDate(CheckDate)}
                             >
                             </TextInput>
-                            <Text style={{ marginTop: hp('4%'), marginRight: wp('21%'), color: '#ff0000' }}>{CheckDateError && CheckDateError}</Text>
                             <DateTimePickerModal
                                 isVisible={this.state.isCheckDatePickerVisible}
                                 mode="date"
@@ -232,6 +225,10 @@ class BookScreen extends Component {
                                 onCancel={this.hideCheckDatePicker}
                             />
                         </View>
+                    </View>
+                    <Text style={{ marginLeft: hp('17%'), marginTop: hp('-2%'), marginBottom: hp('2%'), color: '#ff0000' }}>{CheckDateError && CheckDateError}</Text>
+                    <View style={{ flexDirection: 'row', marginLeft: hp('9%') }}>
+                        <Text style={{ fontSize: hp('2%'), }}>Departure :</Text>
                         <View style={styles.date}>
                             <Fontisto name="date" size={27} color="#737373" style={{ paddingLeft: hp('1%') }} />
                             <TextInput
@@ -239,12 +236,12 @@ class BookScreen extends Component {
                                 placeholder="YYYY-MM-DD"
                                 type='clear'
                                 defaultValue={CheckOutDate}
+                                underlineColorAndroid="#B9B9B9"
                                 placeholderTextColor="#000000"
                                 onTouchStart={this.showOutDateDatePicker}
                                 onChangeText={(CheckOutDate) => this.setCheckOutDate(CheckOutDate)}
                             >
                             </TextInput>
-                            <Text style={{ marginTop: hp('4%'), marginRight: wp('21%'), color: '#ff0000' }}>{CheckOutDateError && CheckOutDateError}</Text>
                             <DateTimePickerModal
                                 isVisible={this.state.isCheckOutDatePickerVisible}
                                 mode="date"
@@ -254,7 +251,8 @@ class BookScreen extends Component {
                             />
                         </View>
                     </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('3%'), }}>
+                    <Text style={{ marginLeft: hp('17%'), marginTop: hp('-2%'), color: '#ff0000' }}>{CheckOutDateError && CheckOutDateError}</Text>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('5%'), marginBottom: hp('5%'), }}>
                         <TouchableOpacity style={styles.bookBtn} onPress={() => this.onPressSubmit()} >
                             <Text style={styles.bookText}>Book Now </Text>
                         </TouchableOpacity>
@@ -279,10 +277,8 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
         margin: hp('1%'),
         alignItems: "center",
-
     },
     TextInput: {
-
         fontSize: hp('2%'),
         flex: 1,
         padding: hp('2%'),
@@ -298,16 +294,12 @@ const styles = StyleSheet.create({
     },
     bookText: {
         color: COLORS.black,
-
         fontSize: hp('2.5%'),
     },
     date: {
         flexDirection: 'row',
-        backgroundColor: "#F6C455",
-        borderRadius: wp('1%'),
-        width: wp('40%'),
-        height: hp('5%'),
-        marginBottom: hp('3%'),
+        margin: hp('1%'),
+        marginTop: hp('-1%'),
         alignItems: "center",
     },
     dateInput: {

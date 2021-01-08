@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { MaterialCommunityIcons, MaterialIcons, } from '@expo/vector-icons';
 import HTML from 'react-native-render-html';
@@ -66,11 +66,13 @@ export default class RoomDetailScreen extends Component {
                         <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
                             <Text style={{ fontSize: hp('2.5%') }}>Details</Text>
                         </View>
-                        <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
-                            <Text style={{ fontSize: hp('2%'), marginRight: hp('2%') }}>
-                                <HTML html={roomdescription} />
-                            </Text>
-                        </View>
+                        <ScrollView showsVerticalScrollIndicator={false} >
+                            <View style={{ marginTop: hp('2%'), marginLeft: hp('3%'), }} >
+                                <Text style={{ marginRight: hp('3%'), }} >
+                                    <HTML html={roomdescription} />
+                                </Text>
+                            </View>
+                        </ScrollView>
                         <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', }}>
                             <TouchableOpacity style={styles.bookBtn} onPress={() => { this.props.navigation.navigate('BookScreen', { roomID }) }} >
                                 <Text style={styles.bookText}>Book Now</Text>
@@ -97,11 +99,18 @@ const styles = StyleSheet.create({
         width: wp('90%'),
         height: hp('50%'),
         marginTop: hp('-0.1%'),
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
+        shadowOffset: {
+            height: 0,
+            width: 0,
+        },
+        elevation: 2,
     },
     inputview: {
         flex: 1,
         backgroundColor: "#FAB64B",
-        borderRadius: wp('2%'),
+        borderRadius: wp('1%'),
         height: hp('5%'),
         margin: hp('1%'),
         alignItems: "center",
@@ -116,12 +125,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginRight: hp('4%'),
-        marginTop: hp('2%')
-
+        marginTop: hp('2%'),
+        marginBottom: hp('5%')
     },
     bookText: {
         color: '#000000',
-
         fontSize: hp('2.5%'),
     },
 

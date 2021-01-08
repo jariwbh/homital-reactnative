@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, InteractionManager } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
+import { ScrollView } from 'react-native-gesture-handler';
 
 class ResortDetailsScreen extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class ResortDetailsScreen extends Component {
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', marginBottom: hp('2%') }}>
                     <View >
-                        <Image source={{ uri: resortImage }} style={{ width: wp('100%'), height: hp('50%') }} />
+                        <Image source={{ uri: resortImage }} style={{ width: wp('100%'), height: hp('40%') }} />
                         <TouchableOpacity style={styles.backIcon} onPress={() => this.props.navigation.goBack()} >
                             <MaterialIcons name="arrow-back" size={24} color="#FFFFFF" />
                         </TouchableOpacity>
@@ -32,7 +33,7 @@ class ResortDetailsScreen extends Component {
                 <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: hp('-10%'), }}>
                     <View style={{ position: 'absolute', flex: 1 }}>
                         <View style={styles.listview}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: hp('1%') }}>
                                 <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), }}>{resortname}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -45,27 +46,30 @@ class ResortDetailsScreen extends Component {
                                 {amenities.map((item, index) => (
                                     <View style={styles.inputview}>
                                         <View>
-                                            <Text key={index} style={{ fontSize: hp('2%'), flex: 1, marginTop: hp('1%') }}>
+                                            <Text key={index} style={{ fontSize: hp('2%'), flex: 1, textAlign: 'center' }}>
                                                 {item}
                                             </Text>
                                         </View>
                                     </View>
                                 ))}
                             </View>
+
+                            <View style={{ marginTop: hp('0%'), marginRight: hp('0%'), }}>
+                                <Text style={{ fontSize: hp('3%') }}>Details</Text>
+                            </View>
+                            <ScrollView showsVerticalScrollIndicator={false}>
+                                <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
+                                    <Text style={{ fontSize: hp('2%'), marginLeft: hp('3%'), marginRight: hp('3%') }}>
+                                        {description}
+                                    </Text>
+                                </View>
+                            </ScrollView>
+                            <View style={{ marginLeft: hp('20%'), marginTop: hp('0%'), marginBottom: hp('2%') }}>
+                                <TouchableOpacity style={styles.bookBtn} onPress={() => { this.props.navigation.navigate('RoomlistScreen', { resortDetails }) }} >
+                                    <Text style={styles.bookText}>Choose Room</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
-                    <View style={{ marginTop: hp('20%'), marginRight: hp('40%'), }}>
-                        <Text style={{ fontSize: hp('3%') }}>Details</Text>
-                    </View>
-                    <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
-                        <Text style={{ fontSize: hp('2%'), marginLeft: hp('3%'), marginRight: hp('3%') }}>
-                            {description}
-                        </Text>
-                    </View>
-                    <View style={{ marginLeft: hp('25%') }}>
-                        <TouchableOpacity style={styles.bookBtn} onPress={() => { this.props.navigation.navigate('RoomlistScreen', { resortDetails }) }} >
-                            <Text style={styles.bookText}>Choose Room</Text>
-                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
@@ -87,16 +91,25 @@ const styles = StyleSheet.create({
     },
     listview: {
         flex: 1,
-        flexDirection: 'column',
-        borderRadius: hp('2%'),
-        backgroundColor: "#FFFFFF",
-        width: wp('90%'),
-        height: hp('60%'),
+        width: wp("90%"),
+        height: hp("60%"),
+        borderRadius: wp('2%'),
+        marginTop: wp('130%'),
+        alignContent: 'center',
+        backgroundColor: '#fff',
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
+        shadowOffset: {
+            height: 0,
+            width: 0,
+        },
+        elevation: 7,
+        marginBottom: hp('15%')
     },
     inputview: {
         flex: 1,
         backgroundColor: "#FAB64B",
-        borderRadius: wp('2%'),
+        borderRadius: wp('1%'),
         height: hp('5%'),
         margin: hp('1%'),
         alignItems: "center",
