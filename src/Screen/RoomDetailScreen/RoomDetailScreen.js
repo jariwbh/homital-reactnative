@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, } from 'react-native';
-import BackButton from '../../Components/BackButton/BackButton';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { MaterialCommunityIcons, MaterialIcons, } from '@expo/vector-icons';
+import HTML from 'react-native-render-html';
 
 export default class RoomDetailScreen extends Component {
     constructor(props) {
@@ -68,7 +68,7 @@ export default class RoomDetailScreen extends Component {
                         </View>
                         <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
                             <Text style={{ fontSize: hp('2%'), marginRight: hp('2%') }}>
-                                {roomdescription}
+                                <HTML html={roomdescription} />
                             </Text>
                         </View>
                         <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', }}>
