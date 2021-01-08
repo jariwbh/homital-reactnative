@@ -45,7 +45,7 @@ class ResortDetailsScreen extends Component {
                                 {amenities.map((item, index) => (
                                     <View style={styles.inputview}>
                                         <View>
-                                            <Text key={index} style={{ fontSize: hp('2%'), flex: 1 }}>
+                                            <Text key={index} style={{ fontSize: hp('2%'), flex: 1, marginTop: hp('1%') }}>
                                                 {item}
                                             </Text>
                                         </View>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         borderRadius: hp('2%'),
-        backgroundColor: "#f2f2f2",
+        backgroundColor: "#FFFFFF",
         width: wp('90%'),
         height: hp('60%'),
     },

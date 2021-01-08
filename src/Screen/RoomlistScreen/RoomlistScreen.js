@@ -44,7 +44,7 @@ class RoomlistScreen extends Component {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {(RoomList == null) || (RoomList && RoomList.length == 0)
                         ?
-                        <Text>Not Room Available</Text>
+                        <Text style={{ textAlign: 'center', fontSize: hp('3%'), }}>Not Room Available</Text>
                         : <FlatList
                             style={{ flexDirection: 'column' }}
                             data={RoomList}

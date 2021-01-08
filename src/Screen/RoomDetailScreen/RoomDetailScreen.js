@@ -42,22 +42,24 @@ export default class RoomDetailScreen extends Component {
                         <View style={{ flexDirection: 'row', marginTop: hp('1%') }}>
                             <View style={styles.inputview}>
                                 <TouchableOpacity>
-                                    <Text style={{ fontSize: hp('2%'), flex: 1, }}>Wifi</Text>
+                                    <Text style={{ fontSize: hp('2%'), flex: 1, marginTop: hp('1%') }}>Wifi</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.inputview}>
                                 <TouchableOpacity>
-                                    <Text style={{ fontSize: hp('2%'), flex: 1, }}>TV</Text>
+                                    <Text style={{ fontSize: hp('2%'), flex: 1, marginTop: hp('1%'), }}>TV</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.inputview}>
                                 <TouchableOpacity>
-                                    <Text style={{ fontSize: hp('2%'), flex: 1, }}>Air Condition</Text>
+                                    <Text style={{ fontSize: hp('2%'), flex: 1, textAlign: 'center' }}>Air
+                                    <Text style={{ fontSize: hp('2%'), flex: 1, }}> Condition</Text></Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.inputview}>
                                 <TouchableOpacity>
-                                    <Text style={{ fontSize: hp('2%'), flex: 1, }}>Attach Bathroom</Text>
+                                    <Text style={{ fontSize: hp('2%'), flex: 1, textAlign: 'center' }}>Attach
+                                     <Text style={{ fontSize: hp('2%'), flex: 1, }}> Bathroom</Text></Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

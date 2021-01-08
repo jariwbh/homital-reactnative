@@ -67,7 +67,7 @@ class ResortlistScreen extends Component {
                     <FontAwesome5 name="search" size={24} color='#737373' style={{ alignItems: "flex-end", justifyContent: 'flex-end', marginRight: hp('2%') }} />
                 </View>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    {(ResortList == null) || (ResortList && ResortList.length == 0) ? <Text>No Resort Available</Text> :
+                    {(ResortList == null) || (ResortList && ResortList.length == 0) ? <Text style={{ textAlign: 'center', fontSize: hp('3%'), }}>No Resort Available</Text> :
                         <View style={{ marginTop: hp('1%') }}>
                             <FlatList
                                 data={ResortList}
