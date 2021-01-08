@@ -3,20 +3,26 @@ import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, Pressable } 
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
+import { RoomListService } from "../../Services/RoomService/RoomService";
 
 class RoomlistScreen extends Component {
     constructor(props) {
         super(props);
-        this.resortDetails = this.props.route.params.resortDetails;
+        this.resortID = this.props.route.params.resortDetails._id;
         this.state = {
             RoomList: []
         };
     }
 
     componentDidMount() {
-        if (this.resortDetails != null) {
-            this.setState({ RoomList: this.resortDetails.assets })
-        }
+        this.getRoomList()
+    }
+
+    getRoomList() {
+        RoomListService(this.resortID).then(response => {
+            console.log('response', response)
+            this.setState({ RoomList: response })
+        })
     }
 
     renderRoomList = ({ item }) => (

@@ -1,25 +1,35 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView, ImageBackground, StyleSheet, FlatList, ActivityIndicator, RefreshControl } from 'react-native'
+import { Text, View, ScrollView, ImageBackground, StyleSheet, FlatList, RefreshControl } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import moment from 'moment'
 import { BookHistoryService } from '../../Services/BookHistoryService/BookHistoryService';
+import AsyncStorage from '@react-native-community/async-storage'
+import Loading from '../../Components/Loader/Loading'
 
 export class BookHistory extends Component {
     constructor(props) {
         super(props);
+        this.userid = null;
         this.state = {
+            _id: null,
             BookHistoryService: [],
             refreshing: false,
             loader: true,
         }
     }
 
-    BookHistoryService() {
-        BookHistoryService().then(data => {
-            this.setState({ BookHistoryService: data })
-            this.wait(1000).then(() => this.setState({ loader: false }));
-        })
+    getdata = async () => {
+        var getUser = await AsyncStorage.getItem('@authuser')
+        if (getUser == null || getUser && getUser.length == 0) {
+            setTimeout(() => {
+                this.props.navigation.replace('LoginScreen')
+            }, 5000);
+        } else {
+            this.userid = JSON.parse(getUser)
+            this.BookHistoryService(this.userid._id)
+            this.setState({ _id: this.userid._id })
+        }
     }
 
     wait = (timeout) => {
@@ -29,21 +39,32 @@ export class BookHistory extends Component {
     }
 
     onRefresh = () => {
+        const { _id } = this.state;
         this.setState({ refreshing: true })
-        this.BookHistoryService()
+        this.BookHistoryService(_id)
         this.wait(3000).then(() => this.setState({ refreshing: false }));
     }
 
-    componentDidMount() { this.BookHistoryService() }
+    componentDidMount() {
+        this.getdata()
+    }
+
+    BookHistoryService(id) {
+        BookHistoryService(id).then(data => {
+            this.setState({ BookHistoryService: data })
+            this.wait(1000).then(() => this.setState({ loader: false }));
+        })
+    }
 
     renderBookService = ({ item }) => (
         <View style={styles.servicename}>
             <View style={{ flexDirection: 'column' }}>
-                <Text style={styles.servicetext}>Hotel Name</Text>
+                <Text style={styles.bookingtext}>Hotel Name - {item.refid.resortid.resortname}</Text>
                 <Text style={styles.bookingtext}> Booking ID - {item.prefix + item.bookingnumber}</Text>
                 <Text style={styles.bookingtext}> Booking Date - {moment(item.bookingdate).format('ll')}</Text>
-                <Text style={styles.genreltext}>Room Name - {item.refid.title}</Text>
-                <Text style={styles.genreltext}>Room charges - {item.refid.charges}</Text>
+                <Text style={styles.bookingtext}> Booking Type - {item.refid.bookingtype}</Text>
+                <Text style={styles.bookingtext}> Room Name - {item.refid.title}</Text>
+                <Text style={styles.bookingtext}> Room charges - {item.refid.charges}</Text>
             </View>
         </View>
     );
@@ -64,7 +85,7 @@ export class BookHistory extends Component {
                                     </View>
                                 </View>
                             </View>
-                            : <ActivityIndicator size="large" color="#AAAAAA" />
+                            : <Loading />
                         )
                         :
                         <>

@@ -4,6 +4,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-na
 import { FontAwesome5 } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ResortLocationService } from '../../Services/ResortService/ResortService';
+
 class SearchScreen extends Component {
     constructor(props) {
         super(props);
@@ -12,12 +13,14 @@ class SearchScreen extends Component {
             ResortLocationList: []
         };
     }
+
     getResortLocationList() {
         ResortLocationService().then(response => {
             this.setState({ ResortLocationList: response })
             this.searchproductList = response;
         })
     }
+
     componentDidMount() {
         this.getResortLocationList();
     }
@@ -31,10 +34,9 @@ class SearchScreen extends Component {
         });
         this.setState({ ResortLocationList: newData });
     };
+
     renderResortLocationList = ({ item }) => (
-
         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('2%') }}>
-
             <TouchableOpacity style={styles.slider} onPress={() => this.props.navigation.navigate('ResortlistScreen', { item })}>
                 <Image source={{ uri: item.property.image_icon ? item.property.image_icon : 'https://www.icon0.com/static2/preview2/stock-photo-photo-icon-illustration-design-70325.jpg' }}
                     style={{ alignItems: 'center', height: hp('25%'), width: wp('80%'), marginTop: hp('1%'), borderRadius: hp('2%') }} />
@@ -43,7 +45,6 @@ class SearchScreen extends Component {
                 <Text style={{ fontSize: hp('2.5%'), color: '#43434C' }}>{item.property.locationname}</Text>
             </TouchableOpacity>
         </View>
-
     )
 
     render() {
@@ -53,7 +54,7 @@ class SearchScreen extends Component {
                 <View style={styles.statusbar}>
                     <TextInput
                         style={styles.statInput}
-                        placeholder="Type here to search"
+                        placeholder="Search Resort Location.."
                         type='clear'
                         placeholderTextColor="#737373"
                         returnKeyType="next"
@@ -66,7 +67,8 @@ class SearchScreen extends Component {
 
                 <ScrollView
                     showsVerticalScrollIndicator={false}>
-                    {ResortLocationList.length == 0 ? <Text style={{ fontSize: hp('3%'), textAlign: 'center', marginTop: hp('30%') }}>No Resort Available</Text> :
+                    {ResortLocationList.length == 0 ?
+                        <Text style={{ fontSize: hp('3%'), textAlign: 'center', marginTop: hp('30%'), color: '#747474' }}>No Resort Available</Text> :
                         <View style={{ marginTop: hp('1%') }}>
                             <FlatList
                                 data={ResortLocationList}

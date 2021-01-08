@@ -1,13 +1,9 @@
 import appConfig from '../../Helpers/appConfig'
 
-const BookHistoryService = () => {
+const BookHistoryService = (id) => {
     const body =
     {
-        "search": [{
-            "searchfield": "status",
-            "searchvalue": "active",
-            "criteria": "eq"
-        }, { "searchfield": "addedby", "searchvalue": "5fec158fd8353d4d7ecec742", "criteria": "eq" }]
+        "search": [{ "searchfield": "customerid", "searchvalue": id, "criteria": "eq", "datatype": "ObjectID" }]
     }
 
     const requestOptions = {

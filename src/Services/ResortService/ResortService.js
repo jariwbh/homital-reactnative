@@ -30,7 +30,7 @@ const ResortListService = () => {
             "searchfield": "status",
             "searchvalue": "active",
             "criteria": "eq"
-        }, { "searchfield": "addedby", "searchvalue": "5fec158fd8353d4d7ecec742", "criteria": "eq" }]
+        }]
     }
 
     const requestOptions = {

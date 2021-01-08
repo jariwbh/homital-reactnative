@@ -4,6 +4,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import { ScrollView } from 'react-native-gesture-handler';
 import { ResortListByLocationService } from '../../Services/ResortService/ResortService';
 import { FontAwesome5, Foundation, AntDesign, Fontisto } from '@expo/vector-icons';
+import Loading from '../../Components/Loader/Loading'
 
 class ResortlistScreen extends Component {
     constructor(props) {
@@ -11,7 +12,8 @@ class ResortlistScreen extends Component {
         this.resortLocationID = this.props.route.params.item._id;
         this.searchproductList = [];
         this.state = {
-            ResortList: []
+            ResortList: [],
+            loader: true
         };
     }
 
@@ -20,6 +22,7 @@ class ResortlistScreen extends Component {
         ResortListByLocationService(id).then(response => {
             this.setState({ ResortList: response })
             this.searchproductList = response;
+            this.wait(1000).then(() => this.setState({ loader: false }));
         })
     }
 
@@ -27,13 +30,20 @@ class ResortlistScreen extends Component {
         this.getResortList();
     }
 
+    wait = (timeout) => {
+        return new Promise(resolve => {
+            setTimeout(resolve, timeout);
+        });
+    }
+
     searchFilterFunction(text) {
+        this.setState({ loader: true });
         const newData = this.searchproductList.filter(item => {
             const itemData = `${item.resortname.toUpperCase()}`
             const textData = text.toUpperCase();
             return itemData.indexOf(textData) > -1;
         });
-        this.setState({ ResortList: newData });
+        this.wait(1000).then(() => this.setState({ loader: false, ResortList: newData }));
     };
 
     renderResortList = ({ item }) => (
@@ -43,14 +53,14 @@ class ResortlistScreen extends Component {
                 <Text style={{ fontSize: hp('2%'), marginLeft: hp('2%'), color: '#605C5C' }}>{item.property.address.length < 40 ? `${item.property.address}` : `${item.property.address.substring(0, 40)}...`}</Text>
                 <TouchableOpacity style={{ marginLeft: hp('2%') }} onPress={() => this.props.navigation.navigate('ResortDetailsScreen', { item })}>
                     <Image source={{ uri: (item.property.images[0] ? item.property.images[0].attachment : 'https://www.icon0.com/static2/preview2/stock-photo-photo-icon-illustration-design-70325.jpg') }}
-                        style={{ alignItems: 'center', height: hp('25%'), width: wp('83%'), marginTop: hp('1%'), borderRadius: hp('2%') }} />
+                        style={{ alignItems: 'center', height: hp('30%'), width: wp('85%'), marginTop: hp('1%'), borderRadius: hp('2%') }} />
                 </TouchableOpacity>
             </TouchableOpacity>
         </View>
     )
 
     render() {
-        const { ResortList } = this.state;
+        const { ResortList, loader } = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.statusbar}>
@@ -66,8 +76,13 @@ class ResortlistScreen extends Component {
                     />
                     <FontAwesome5 name="search" size={24} color='#737373' style={{ alignItems: "flex-end", justifyContent: 'flex-end', marginRight: hp('2%') }} />
                 </View>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    {(ResortList == null) || (ResortList && ResortList.length == 0) ? <Text style={{ textAlign: 'center', fontSize: hp('3%'), }}>No Resort Available</Text> :
+                {(ResortList == null) || (ResortList && ResortList.length == 0) ?
+                    (loader == false ?
+                        <Text style={{ textAlign: 'center', fontSize: hp('2%'), color: '#747474' }}>No Resort Available</Text>
+                        : <Loading />
+                    )
+                    :
+                    <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={{ marginTop: hp('1%') }}>
                             <FlatList
                                 data={ResortList}
@@ -75,8 +90,8 @@ class ResortlistScreen extends Component {
                                 keyExtractor={item => `${item._id}`}
                             />
                         </View>
-                    }
-                </ScrollView>
+                    </ScrollView>
+                }
             </View>
         );
     }
@@ -94,8 +109,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         borderRadius: hp('2%'),
         backgroundColor: "#FFFFFF",
-        width: wp('90%'),
-        height: hp('37%'),
+        width: wp('93%'),
+        height: hp('40%'),
         shadowOpacity: 0.5,
         shadowRadius: 3,
         shadowOffset: {

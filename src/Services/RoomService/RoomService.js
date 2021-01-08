@@ -1,13 +1,14 @@
 import appConfig from '../../Helpers/appConfig'
 
-
-const RoomListService = () => {
+const RoomListService = (id) => {
+    console.log('RoomListService id', id)
     const body =
     {
         "search": [{
-            "searchfield": "status",
-            "searchvalue": "active",
-            "criteria": "eq"
+            "searchfield": "resortid",
+            "searchvalue": id,
+            "criteria": "eq",
+            "datatype": "ObjectID"
         }]
     }
 

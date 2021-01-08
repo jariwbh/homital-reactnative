@@ -7,7 +7,6 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { ScrollView, } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 import { BookService } from '../../Services/BookService/BookService'
-import HTML from 'react-native-render-html';
 import moment from 'moment';
 const { COLORS, FONTS, SIZES } = theme;
 
