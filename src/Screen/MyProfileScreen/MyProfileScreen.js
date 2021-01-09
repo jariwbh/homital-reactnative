@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground,
+    StyleSheet, Text, View, Image, TouchableOpacity,
     TextInput, ToastAndroid, ScrollView, ActivityIndicator
 } from 'react-native';
 import { FontAwesome, AntDesign, Fontisto } from '@expo/vector-icons';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { UserService, UpdateUserService } from '../../Services/UserService/UserService';
+import { UpdateUserService } from '../../Services/UserService/UserService';
 import AsyncStorage from '@react-native-community/async-storage'
+import Loading from '../../Components/Loader/Loading'
 
 class MyProfileScreen extends Component {
     constructor(props) {
@@ -83,7 +84,6 @@ class MyProfileScreen extends Component {
         }
 
         await UpdateUserService(body).then(response => {
-            console.log('response', response)
             if (response != null) {
                 ToastAndroid.show("Your Profile Update!", ToastAndroid.LONG);
                 this.props.navigation.navigate('HomeScreen')
@@ -113,75 +113,75 @@ class MyProfileScreen extends Component {
         const { fullname, username, mobilenumber, profileName } = this.state;
         return (
             <View style={styles.container}>
-                <ScrollView>
-                    {this.userData === null ?
-                        <ActivityIndicator size="large" color="#000000" />
-                        : <View style={{ marginTop: hp('5%') }}>
-                            <Image style={styles.avatar} source={require('../../../assets/Images/userimage.jpg')} />
-                            <View style={styles.body}>
-                                <View style={styles.bodyContent}>
-                                    <Text style={styles.name}>{profileName}</Text>
-                                </View>
-                                <View
-                                    style={{
-                                        flex: 1, flexDirection: 'column', alignItems: 'center'
-                                    }} >
-                                    <View style={styles.inputView}>
-                                        <AntDesign name="user" size={27} color="#000000" style={{ paddingLeft: hp('2%') }} />
-                                        <TextInput
-                                            label="Name"
-                                            defaultValue={fullname}
-                                            style={styles.TextInput}
-                                            placeholder="User Name"
-                                            type='clear'
-                                            placeholderTextColor="#737373"
-                                            returnKeyType="next"
-                                            underlineColorAndroid="#B9B9B9"
-                                            onChangeText={(fullname) => this.setFullName(fullname)}
-                                        />
-                                    </View>
-                                    <Text style={{ marginTop: hp('-3%'), marginLeft: wp('-20%'), color: '#ff0000' }}>{this.state.fullnameError && this.state.fullnameError}</Text>
-                                    <View style={styles.inputView}>
-                                        <Fontisto name="email" size={27} color="#000000" style={{ paddingLeft: hp('2%') }} />
-                                        <TextInput
-                                            defaultValue={username}
-                                            style={styles.TextInput}
-                                            placeholder="Email Id"
-                                            type='clear'
-                                            placeholderTextColor="#737373"
-                                            autoCapitalize="none"
-                                            autoCompleteType="email"
-                                            textContentType="emailAddress"
-                                            keyboardType="email-address"
-                                            returnKeyType="next"
-                                            underlineColorAndroid="#B9B9B9"
-                                            onChangeText={(username) => this.setUserName(username)}
-                                        />
-                                    </View>
-                                    <Text style={{ marginTop: hp('-3%'), marginLeft: wp('-15%'), color: '#ff0000' }}>{this.state.usernameError && this.state.usernameError}</Text>
-                                    <View style={styles.inputView} >
-                                        <FontAwesome name="mobile-phone" size={30} color="#000000" style={{ paddingLeft: hp('3%') }} />
-                                        <TextInput
-                                            defaultValue={mobilenumber}
-                                            style={styles.TextInput}
-                                            placeholder="Mobile Number"
-                                            type='clear'
-                                            placeholderTextColor="#737373"
-                                            keyboardType="numeric"
-                                            underlineColorAndroid="#B9B9B9"
-                                            onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
-                                        />
-                                    </View>
-                                    <Text style={{ marginTop: hp('-3%'), marginLeft: wp('-14%'), color: '#ff0000' }}>{this.state.mobilenumberError && this.state.mobilenumberError}</Text>
-                                    <TouchableOpacity style={styles.update_Btn} onPress={() => this.onPressSubmit()}>
-                                        <Text style={styles.update_text} >Update Profile</Text>
-                                    </TouchableOpacity>
-                                </View>
+                {this.userData === null ?
+                    <Loading />
+                    :
+                    <ScrollView><View style={{ marginTop: hp('5%') }}>
+                        <Image style={styles.avatar} source={require('../../../assets/Images/userimage.jpg')} />
+                        <View style={styles.body}>
+                            <View style={styles.bodyContent}>
+                                <Text style={styles.name}>{profileName}</Text>
                             </View>
-                        </View>}
-                </ScrollView>
+                            <View
+                                style={{
+                                    flex: 1, flexDirection: 'column', alignItems: 'center'
+                                }} >
+                                <View style={styles.inputView}>
+                                    <AntDesign name="user" size={27} color="#000000" style={{ paddingLeft: hp('2%') }} />
+                                    <TextInput
+                                        label="Name"
+                                        defaultValue={fullname}
+                                        style={styles.TextInput}
+                                        placeholder="User Name"
+                                        type='clear'
+                                        placeholderTextColor="#737373"
+                                        returnKeyType="next"
+                                        underlineColorAndroid="#B9B9B9"
+                                        onChangeText={(fullname) => this.setFullName(fullname)}
+                                    />
+                                </View>
+                                <Text style={{ marginTop: hp('-3%'), marginLeft: wp('-20%'), color: '#ff0000' }}>{this.state.fullnameError && this.state.fullnameError}</Text>
+                                <View style={styles.inputView}>
+                                    <Fontisto name="email" size={27} color="#000000" style={{ paddingLeft: hp('2%') }} />
+                                    <TextInput
+                                        defaultValue={username}
+                                        style={styles.TextInput}
+                                        placeholder="Email Id"
+                                        type='clear'
+                                        placeholderTextColor="#737373"
+                                        autoCapitalize="none"
+                                        autoCompleteType="email"
+                                        textContentType="emailAddress"
+                                        keyboardType="email-address"
+                                        returnKeyType="next"
+                                        underlineColorAndroid="#B9B9B9"
+                                        onChangeText={(username) => this.setUserName(username)}
+                                    />
+                                </View>
+                                <Text style={{ marginTop: hp('-3%'), marginLeft: wp('-15%'), color: '#ff0000' }}>{this.state.usernameError && this.state.usernameError}</Text>
+                                <View style={styles.inputView} >
+                                    <FontAwesome name="mobile-phone" size={30} color="#000000" style={{ paddingLeft: hp('3%') }} />
+                                    <TextInput
+                                        defaultValue={mobilenumber}
+                                        style={styles.TextInput}
+                                        placeholder="Mobile Number"
+                                        type='clear'
+                                        placeholderTextColor="#737373"
+                                        keyboardType="numeric"
+                                        underlineColorAndroid="#B9B9B9"
+                                        onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
+                                    />
+                                </View>
+                                <Text style={{ marginTop: hp('-3%'), marginLeft: wp('-14%'), color: '#ff0000' }}>{this.state.mobilenumberError && this.state.mobilenumberError}</Text>
+                                <TouchableOpacity style={styles.update_Btn} onPress={() => this.onPressSubmit()}>
+                                    <Text style={styles.update_text} >Update Profile</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                    </ScrollView>
+                }
             </View>
-
         );
     }
 }

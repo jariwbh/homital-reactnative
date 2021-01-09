@@ -43,7 +43,7 @@ function NavigationsDrawer(props) {
             drawerContentOptions={{ activeTintColor: '#000000', itemStyle: { marginVertical: 5 } }}
             drawerContent={(props) => <DrawerContainer {...props} />}>
 
-            <Drawer.Screen name="HomeScreen" options={{
+            <Drawer.Screen name="MainScreen" options={{
                 drawerLabel: 'Home', drawerIcon: ({ focused, size }) => (
                     <Ionicons
                         name="md-home"

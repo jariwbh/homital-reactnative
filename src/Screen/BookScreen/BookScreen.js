@@ -7,6 +7,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { ScrollView, } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 import { BookService } from '../../Services/BookService/BookService'
+import Loader from '../../Components/Loader/Loader';
 import moment from 'moment';
 const { COLORS, FONTS, SIZES } = theme;
 
@@ -27,7 +28,8 @@ class BookScreen extends Component {
             CheckOutDate: null,
             CheckOutDateError: null,
             isCheckDatePickerVisible: false,
-            isCheckOutDatePickerVisible: false
+            isCheckOutDatePickerVisible: false,
+            loading: false,
         }
         this.setFullName = this.setFullName.bind(this);
         this.setUserName = this.setUserName.bind(this);
@@ -126,12 +128,27 @@ class BookScreen extends Component {
             checkout: CheckOutDate
         }
 
-        BookService(body).then(response => {
-            if (response != null) {
-                ToastAndroid.show("Booking Sucess!", ToastAndroid.LONG);
-                this.props.navigation.navigate('ThankYouScreen', { response })
-            }
-        })
+        this.setState({ loading: true });
+        try {
+            BookService(body).then(response => {
+
+                if (response.type === "Error") {
+                    this.setState({ loading: false })
+                    ToastAndroid.show("Booking Failed!", ToastAndroid.LONG)
+                    return
+                }
+
+                if (response != null) {
+                    this.setState({ loading: false });
+                    ToastAndroid.show("Booking Sucess!", ToastAndroid.LONG);
+                    this.props.navigation.navigate('ThankYouScreen', { response })
+                }
+            })
+        }
+        catch (error) {
+            this.setState({ loading: false })
+            ToastAndroid.show("Booking Failed!", ToastAndroid.LONG)
+        }
     }
 
     getdata = async () => {
@@ -202,7 +219,7 @@ class BookScreen extends Component {
                         <Text style={{ marginTop: hp('-2%'), marginRight: wp('21%'), color: '#ff0000' }}>{mobilenumberError && mobilenumberError}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', marginLeft: hp('9%') }}>
-                        <Text style={{ fontSize: hp('2%'), }}>Arrival :</Text>
+                        <Text style={{ fontSize: hp('2.5%'), }}>Arrival :</Text>
                         <View style={styles.date}>
                             <Fontisto name="date" size={27} color="#737373" style={{ paddingLeft: hp('1%') }} />
                             <TextInput
@@ -227,7 +244,7 @@ class BookScreen extends Component {
                     </View>
                     <Text style={{ marginLeft: hp('17%'), marginTop: hp('-2%'), marginBottom: hp('2%'), color: '#ff0000' }}>{CheckDateError && CheckDateError}</Text>
                     <View style={{ flexDirection: 'row', marginLeft: hp('9%') }}>
-                        <Text style={{ fontSize: hp('2%'), }}>Departure :</Text>
+                        <Text style={{ fontSize: hp('2.5%'), }}>Departure :</Text>
                         <View style={styles.date}>
                             <Fontisto name="date" size={27} color="#737373" style={{ paddingLeft: hp('1%') }} />
                             <TextInput
@@ -253,7 +270,9 @@ class BookScreen extends Component {
                     <Text style={{ marginLeft: hp('17%'), marginTop: hp('-2%'), color: '#ff0000' }}>{CheckOutDateError && CheckOutDateError}</Text>
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('5%'), marginBottom: hp('5%'), }}>
                         <TouchableOpacity style={styles.bookBtn} onPress={() => this.onPressSubmit()} >
-                            <Text style={styles.bookText}>Book Now </Text>
+                            {this.state.loading === true ? <Loader /> :
+                                <Text style={styles.bookText}>Book Now </Text>
+                            }
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
@@ -278,16 +297,16 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     TextInput: {
-        fontSize: hp('2%'),
+        fontSize: hp('2.5%'),
         flex: 1,
         padding: hp('2%'),
     },
     bookBtn: {
         flexDirection: 'row',
-        width: wp('30%'),
+        width: wp('40%'),
         backgroundColor: "#F6C455",
         borderRadius: wp('7%'),
-        height: hp('6%'),
+        height: hp('7%'),
         alignItems: "center",
         justifyContent: "center",
     },
@@ -302,7 +321,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     dateInput: {
-        fontSize: hp('2%'),
+        fontSize: hp('2.5%'),
         padding: wp('1.5%'),
     },
 

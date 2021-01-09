@@ -81,7 +81,8 @@ class HomeScreen extends Component {
         const { ResortLocationList, ResortList } = this.state;
         return (
             <View style={styles.container}>
-                {(ResortLocationList == null) || (ResortLocationList && ResortLocationList.length == 0) ? <Loading /> :
+                {(ResortLocationList == null) || (ResortLocationList && ResortLocationList.length == 0)
+                    ? <Loading /> :
                     <ScrollView
                         showsVerticalScrollIndicator={false}>
                         <View style={styles.inputview}>

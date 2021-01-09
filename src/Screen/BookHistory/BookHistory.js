@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView, ImageBackground, StyleSheet, FlatList, RefreshControl } from 'react-native'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Text, View, ScrollView, TouchableOpacity, StyleSheet, FlatList, RefreshControl, Image, Button } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import moment from 'moment'
 import { BookHistoryService } from '../../Services/BookHistoryService/BookHistoryService';
@@ -21,7 +20,7 @@ export class BookHistory extends Component {
 
     getdata = async () => {
         var getUser = await AsyncStorage.getItem('@authuser')
-        if (getUser == null || getUser && getUser.length == 0) {
+        if (getUser == null) {
             setTimeout(() => {
                 this.props.navigation.replace('LoginScreen')
             }, 5000);
@@ -57,14 +56,24 @@ export class BookHistory extends Component {
     }
 
     renderBookService = ({ item }) => (
-        <View style={styles.servicename}>
-            <View style={{ flexDirection: 'column' }}>
-                <Text style={styles.bookingtext}>Hotel Name - {item.refid.resortid.resortname}</Text>
-                <Text style={styles.bookingtext}> Booking ID - {item.prefix + item.bookingnumber}</Text>
-                <Text style={styles.bookingtext}> Booking Date - {moment(item.bookingdate).format('ll')}</Text>
-                <Text style={styles.bookingtext}> Booking Type - {item.refid.bookingtype}</Text>
-                <Text style={styles.bookingtext}> Room Name - {item.refid.title}</Text>
-                <Text style={styles.bookingtext}> Room charges - {item.refid.charges}</Text>
+        <View style={{ alignItems: 'center', marginBottom: hp('3%'), flex: 1 }}>
+            <View style={styles.listview}>
+                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.2%') }}>{item.refid.resortid.resortname}</Text>
+                <Text style={{ fontSize: hp('2%'), marginLeft: hp('2.2%'), color: '#605C5C' }}>{item.refid.resortid.property.address.length < 40 ? `${item.refid.resortid.property.address}` : `${item.refid.resortid.property.address.substring(0, 40)}...`}</Text>
+                <Text style={styles.bookingtext}> BOOKING ID #{item.prefix + item.bookingnumber + ' ' + '(' + item.refid.title + ')'} </Text>
+                <View style={{ marginLeft: hp('2%') }}>
+                    <Image source={{ uri: (item.refid.gallery[0].attachment ? item.refid.gallery[0].attachment : 'https://www.icon0.com/static2/preview2/stock-photo-photo-icon-illustration-design-70325.jpg') }}
+                        style={{ alignItems: 'center', height: hp('30%'), width: wp('85%'), marginTop: hp('1%'), borderRadius: hp('2%') }} />
+                </View>
+                <View style={{ flexDirection: 'column' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={{ fontSize: hp('2%'), color: "black", paddingTop: hp('1%'), marginLeft: hp('2%') }}> CHECKIN - {moment(item.checkin).format('ll')}</Text>
+                        <Text style={{ marginTop: hp('1%'), marginRight: hp('5%'), fontSize: hp('3%') }}>₹ {item.refid.charges}</Text>
+                    </View>
+                    <TouchableOpacity style={styles.chargestext}>
+                        <Text style={{ fontSize: hp('2%'), color: "black", marginLeft: hp('2%'), marginTop: hp('-0.5%'), }}> CHECKOUT - {moment(item.checkout).format('ll')}</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );
@@ -74,30 +83,30 @@ export class BookHistory extends Component {
         this.wait(3000).then(() => this.setState({ refreshing: false }));
         return (
             <View style={styles.container}>
-                <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
-                    {(BookHistoryService === null) || (BookHistoryService && BookHistoryService.length == 0)
-                        ?
-                        (loader == false ?
-                            <View style={{ alignItems: "center", justifyContent: 'center' }}>
-                                <View style={styles.servicename}>
-                                    <View style={{ alignItems: "center", justifyContent: 'center' }}>
-                                        <Text style={{ alignItems: "center", justifyContent: 'center', fontSize: hp('2%'), marginLeft: hp('15%'), color: '#595959' }}>Data Not Available</Text>
-                                    </View>
+                {(BookHistoryService === null) || (BookHistoryService && BookHistoryService.length == 0)
+                    ?
+                    (loader == false ?
+                        <View style={{ alignItems: "center", justifyContent: 'center' }}>
+                            <View>
+                                <View style={{ alignItems: "center", justifyContent: 'center' }}>
+                                    <Text style={{ alignItems: "center", justifyContent: 'center', fontSize: hp('2%'), marginLeft: hp('15%'), color: '#595959' }}>Not Records Founds</Text>
                                 </View>
                             </View>
-                            : <Loading />
-                        )
-                        :
-                        <>
-                            <View style={{ alignItems: 'center', justifyContent: 'space-between', flex: 1, marginTop: hp('3.5%'), }}>
+                        </View>
+                        : <Loading />
+                    )
+                    :
+                    <>
+                        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
+                            <View style={{ flex: 1, marginTop: hp('3.5%') }}>
                                 <FlatList
                                     data={BookHistoryService}
                                     renderItem={this.renderBookService}
                                     keyExtractor={item => `${item._id}`}
                                 />
                             </View>
-                        </>}
-                </ScrollView>
+                        </ScrollView>
+                    </>}
             </View>
         )
     }
@@ -153,9 +162,16 @@ const styles = StyleSheet.create({
     servicetext: {
         fontSize: hp('2.5%'),
     },
+    chargestext: {
+        color: "#999999",
+    },
     bookingtext: {
         color: "#999999",
         paddingTop: hp('1%'),
+        marginLeft: hp('2%'),
+        color: "black",
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
     },
     genreltext: {
         paddingTop: hp('1%'),
@@ -169,5 +185,20 @@ const styles = StyleSheet.create({
     },
     lastservicetext: {
         fontSize: hp('2.5%'),
+    },
+    listview: {
+        flex: 1,
+        flexDirection: 'column',
+        borderRadius: hp('2%'),
+        backgroundColor: "#FFFFFF",
+        width: wp('93%'),
+        height: hp('50%'),
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
+        shadowOffset: {
+            height: 0,
+            width: 0,
+        },
+        elevation: 5,
     },
 })

@@ -33,7 +33,7 @@ export default class ThankYouScreen extends Component {
                         <Text style={{ fontSize: hp('2.5%'), color: '#605C5C' }}>BookingID : {prefix + bookingnumber} </Text>
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center', }}>
-                        <TouchableOpacity style={styles.Continueview} onPress={() => { this.props.navigation.navigate('MainScreen') }}>
+                        <TouchableOpacity style={styles.Continueview} onPress={() => { this.props.navigation.replace('HomeScreen') }}>
                             <Text style={styles.ContinueText}>Continue</Text>
                         </TouchableOpacity>
                     </View>

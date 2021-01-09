@@ -78,7 +78,7 @@ class ResortlistScreen extends Component {
                 </View>
                 {(ResortList == null) || (ResortList && ResortList.length == 0) ?
                     (loader == false ?
-                        <Text style={{ textAlign: 'center', fontSize: hp('2%'), color: '#747474' }}>No Resort Available</Text>
+                        <Text style={{ textAlign: 'center', fontSize: hp('2%'), color: '#747474', marginTop: hp('10%') }}>No Resort Available</Text>
                         : <Loading />
                     )
                     :

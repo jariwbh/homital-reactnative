@@ -4,19 +4,21 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-na
 import { FontAwesome5 } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ResortLocationService } from '../../Services/ResortService/ResortService';
+import Loading from '../../Components/Loader/Loading'
 
 class SearchScreen extends Component {
     constructor(props) {
         super(props);
         this.searchproductList = [];
         this.state = {
-            ResortLocationList: []
+            ResortLocationList: [],
+            loader: true,
         };
     }
 
     getResortLocationList() {
         ResortLocationService().then(response => {
-            this.setState({ ResortLocationList: response })
+            this.setState({ ResortLocationList: response, loader: false })
             this.searchproductList = response;
         })
     }
@@ -25,14 +27,21 @@ class SearchScreen extends Component {
         this.getResortLocationList();
     }
 
+    wait = (timeout) => {
+        return new Promise(resolve => {
+            setTimeout(resolve, timeout);
+        });
+    }
+
     async searchFilterFunction(text) {
+        this.setState({ loader: true });
         const newData = this.searchproductList.filter(item => {
             const itemData = `${item.locationname.toUpperCase()}`
             const textData = text.toUpperCase();
             console.log('itemData', itemData)
             return itemData.indexOf(textData) > -1;
         });
-        this.setState({ ResortLocationList: newData });
+        this.wait(1000).then(() => this.setState({ ResortLocationList: newData, loader: false, }));
     };
 
     renderResortLocationList = ({ item }) => (
@@ -48,7 +57,7 @@ class SearchScreen extends Component {
     )
 
     render() {
-        const { ResortLocationList } = this.state
+        const { ResortLocationList, loader } = this.state
         return (
             <View style={styles.container}>
                 <View style={styles.statusbar}>
@@ -64,20 +73,28 @@ class SearchScreen extends Component {
                     />
                     <FontAwesome5 name="search" size={24} color='#737373' style={{ alignItems: "flex-end", justifyContent: 'flex-end', marginRight: hp('2%') }} />
                 </View>
-
-                <ScrollView
-                    showsVerticalScrollIndicator={false}>
-                    {ResortLocationList.length == 0 ?
-                        <Text style={{ fontSize: hp('3%'), textAlign: 'center', marginTop: hp('30%'), color: '#747474' }}>No Resort Available</Text> :
-                        <View style={{ marginTop: hp('1%') }}>
-                            <FlatList
-                                data={ResortLocationList}
-                                renderItem={this.renderResortLocationList}
-                                keyExtractor={item => `${item._id}`}
-                            />
-                        </View>
-                    }
-                </ScrollView>
+                {(ResortLocationList == null) || (ResortLocationList && ResortLocationList.length == 0) ?
+                    (loader == false ?
+                        <Text style={{ textAlign: 'center', fontSize: hp('2%'), color: '#747474', marginTop: hp('10%') }}>No ResortLocation Available</Text>
+                        : <Loading />
+                    )
+                    :
+                    <>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}>
+                            {ResortLocationList.length == 0 ?
+                                <Text style={{ fontSize: hp('3%'), textAlign: 'center', marginTop: hp('30%'), color: '#747474' }}>No Resort Available</Text> :
+                                <View style={{ marginTop: hp('1%') }}>
+                                    <FlatList
+                                        data={ResortLocationList}
+                                        renderItem={this.renderResortLocationList}
+                                        keyExtractor={item => `${item._id}`}
+                                    />
+                                </View>
+                            }
+                        </ScrollView>
+                    </>
+                }
 
             </View>
         );
