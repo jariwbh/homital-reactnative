@@ -145,7 +145,7 @@ function homeScreenStack({ navigation }) {
                 name="HomeScreen"
                 component={HomeScreen}
                 options={{
-                    title: '',
+                    title: 'Tour & Hotel Booking',
                     headerLeft: () =>
                         <NavigationDrawerStructure
                             navigationProps={navigation}

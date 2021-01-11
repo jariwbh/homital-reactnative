@@ -14,9 +14,9 @@ export default class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: 'HOTEL-69711',
+            username: null,
             usererror: null,
-            password: 'HOTEL-69711',
+            password: null,
             passworderror: null,
             loading: false,
         };
@@ -120,7 +120,7 @@ export default class LoginScreen extends Component {
                                     onChangeText={(email) => this.setEmail(email)}
                                 />
                             </View>
-                            <Text style={{ marginTop: hp('-3%'), marginLeft: wp('10%'), color: '#ff0000' }}>{this.state.usererror && this.state.usererror}</Text>
+                            <Text style={{ marginTop: hp('-3%'), marginLeft: hp('-7%'), color: '#ff0000' }}>{this.state.usererror && this.state.usererror}</Text>
                             <View style={styles.inputView}>
                                 <AntDesign name="unlock" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
                                 <TextInput
@@ -136,7 +136,7 @@ export default class LoginScreen extends Component {
                                     onChangeText={(password) => this.setPassword(password)}
                                 />
                             </View>
-                            <Text style={{ marginTop: hp('-3%'), marginLeft: wp('10%'), color: '#ff0000' }}>{this.state.passworderror && this.state.passworderror}</Text>
+                            <Text style={{ marginTop: hp('-3%'), marginLeft: hp('-7%'), color: '#ff0000' }}>{this.state.passworderror && this.state.passworderror}</Text>
                         </View>
                         {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginLeft: hp('6%'), marginTop: hp('1%'), marginRight: hp('5%') }}>
                             <View >
@@ -166,11 +166,9 @@ export default class LoginScreen extends Component {
     }
 }
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
     },
     backgroundImage: {
         flex: 1,

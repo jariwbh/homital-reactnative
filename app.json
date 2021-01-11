@@ -1,14 +1,17 @@
 {
   "expo": {
-    "name": "hotel",
+    "name": "Membroz - Tour & Hotel booking",
     "slug": "homital-reactnative",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "ios": {
+      "bundleIdentifier": "com.app.tourandhotelbooking",
+      "buildNumber": "1.0.0"
+    },
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/Images/splashxxxhdpi.png",
+      "resizeMode": "cover"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,9 +20,19 @@
       "**/*"
     ],
     "android": {
+      "package": "com.app.tourandhotelbooking",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "splash": {
+        "mdpi": "./assets/Images/splashmdpi.png",
+        "hdpi": "./assets/Images/splashhdpi.png",
+        "xhdpi": "./assets/Images/splashxhdpi.png",
+        "xxhdpi": "./assets/Images/splashxxhdpi.png",
+        "xxxhdpi": "./assets/Images/splashxxxhdpi.png",
+        "resizeMode": "cover"
       }
     }
   }

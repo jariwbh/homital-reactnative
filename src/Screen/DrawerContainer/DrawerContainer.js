@@ -32,7 +32,7 @@ const DrawerContainer = (props) => {
                 <DrawerItem icon={({ color, size }) => (
                     <AntDesign
                         name="logout"
-                        color={color}
+                        color='#ccc'
                         size={size}
                     />
                 )}

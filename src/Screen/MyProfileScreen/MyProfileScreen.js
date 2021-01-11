@@ -8,6 +8,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import { UpdateUserService } from '../../Services/UserService/UserService';
 import AsyncStorage from '@react-native-community/async-storage'
 import Loading from '../../Components/Loader/Loading'
+import Loader from '../../Components/Loader/Loader';
 
 class MyProfileScreen extends Component {
     constructor(props) {
@@ -22,7 +23,8 @@ class MyProfileScreen extends Component {
             mobilenumber: null,
             mobilenumberError: null,
             userProfile: null,
-            profileName: null
+            profileName: null,
+            loading: false,
         }
 
         this.setFullName = this.setFullName.bind(this);
@@ -72,6 +74,7 @@ class MyProfileScreen extends Component {
             this.setMobileNumber(mobilenumber)
             return;
         }
+        this.setState({ loading: true })
 
         const body = {
             _id: _id,
@@ -83,12 +86,19 @@ class MyProfileScreen extends Component {
             }
         }
 
-        await UpdateUserService(body).then(response => {
-            if (response != null) {
-                ToastAndroid.show("Your Profile Update!", ToastAndroid.LONG);
-                this.props.navigation.navigate('HomeScreen')
-            }
-        })
+        try {
+            await UpdateUserService(body).then(response => {
+                if (response != null) {
+                    this.setState({ loading: false })
+                    ToastAndroid.show("Your Profile Update!", ToastAndroid.LONG);
+                    this.props.navigation.navigate('HomeScreen')
+                }
+            })
+        }
+        catch (error) {
+            this.setState({ loading: false })
+            ToastAndroid.show("Your Profile Not Update!", ToastAndroid.LONG)
+        }
     }
 
     getdata = async () => {
@@ -141,7 +151,7 @@ class MyProfileScreen extends Component {
                                         onChangeText={(fullname) => this.setFullName(fullname)}
                                     />
                                 </View>
-                                <Text style={{ marginTop: hp('-3%'), marginLeft: wp('-20%'), color: '#ff0000' }}>{this.state.fullnameError && this.state.fullnameError}</Text>
+                                <Text style={{ marginTop: hp('-3%'), marginLeft: wp('-14%'), color: '#ff0000' }}>{this.state.fullnameError && this.state.fullnameError}</Text>
                                 <View style={styles.inputView}>
                                     <Fontisto name="email" size={27} color="#000000" style={{ paddingLeft: hp('2%') }} />
                                     <TextInput
@@ -159,7 +169,7 @@ class MyProfileScreen extends Component {
                                         onChangeText={(username) => this.setUserName(username)}
                                     />
                                 </View>
-                                <Text style={{ marginTop: hp('-3%'), marginLeft: wp('-15%'), color: '#ff0000' }}>{this.state.usernameError && this.state.usernameError}</Text>
+                                <Text style={{ marginTop: hp('-3%'), marginLeft: wp('-22%'), color: '#ff0000' }}>{this.state.usernameError && this.state.usernameError}</Text>
                                 <View style={styles.inputView} >
                                     <FontAwesome name="mobile-phone" size={30} color="#000000" style={{ paddingLeft: hp('3%') }} />
                                     <TextInput
@@ -173,9 +183,11 @@ class MyProfileScreen extends Component {
                                         onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                                     />
                                 </View>
-                                <Text style={{ marginTop: hp('-3%'), marginLeft: wp('-14%'), color: '#ff0000' }}>{this.state.mobilenumberError && this.state.mobilenumberError}</Text>
+                                <Text style={{ marginTop: hp('-3%'), marginLeft: wp('-12%'), color: '#ff0000' }}>{this.state.mobilenumberError && this.state.mobilenumberError}</Text>
                                 <TouchableOpacity style={styles.update_Btn} onPress={() => this.onPressSubmit()}>
-                                    <Text style={styles.update_text} >Update Profile</Text>
+                                    {this.state.loading === true ? <Loader /> :
+                                        <Text style={styles.update_text} >Update Profile</Text>
+                                    }
                                 </TouchableOpacity>
                             </View>
                         </View>

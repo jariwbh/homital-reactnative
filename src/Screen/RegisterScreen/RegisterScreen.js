@@ -116,7 +116,7 @@ class RegisterScreen extends Component {
                                     onChangeText={(fullname) => this.setFullName(fullname)}
                                 />
                             </View>
-                            <Text style={{ marginTop: hp('-4%'), marginLeft: wp('7%'), color: '#ff0000', marginBottom: hp('2%') }}>{this.state.fullnameError && this.state.fullnameError}</Text>
+                            <Text style={{ marginTop: hp('-4%'), marginLeft: hp('-5%'), color: '#ff0000', marginBottom: hp('2%') }}>{this.state.fullnameError && this.state.fullnameError}</Text>
                             <View style={styles.inputview}>
                                 <Fontisto name="email" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
                                 <TextInput
@@ -134,7 +134,7 @@ class RegisterScreen extends Component {
                                     onChangeText={(username) => this.setUserName(username)}
                                 />
                             </View>
-                            <Text style={{ marginTop: hp('-4%'), marginLeft: wp('7%'), color: '#ff0000', marginBottom: hp('2%') }}>{this.state.usernameError && this.state.usernameError}</Text>
+                            <Text style={{ marginTop: hp('-4%'), marginLeft: hp('-7%'), color: '#ff0000', marginBottom: hp('2%') }}>{this.state.usernameError && this.state.usernameError}</Text>
                             <View style={styles.inputview} >
                                 <AntDesign name="unlock" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
                                 <TextInput
@@ -151,8 +151,8 @@ class RegisterScreen extends Component {
                                     onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                                 />
                             </View>
+                            <Text style={{ marginTop: hp('-4%'), marginLeft: hp('-1.5%'), color: '#ff0000', marginBottom: hp('1%') }}>{this.state.mobilenumberError && this.state.mobilenumberError}</Text>
                         </View>
-                        <Text style={{ marginTop: hp('-4%'), marginLeft: wp('7%'), color: '#ff0000', marginBottom: hp('1%') }}>{this.state.mobilenumberError && this.state.mobilenumberError}</Text>
                         <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', }}>
                             <TouchableOpacity style={styles.sineBtn} onPress={() => this.onPressSubmit()}>
                                 <Text style={styles.sineText}>Sign Up</Text>
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     TextInput: {
-        fontSize: hp('2%'),
+        fontSize: hp('2.5%'),
         flex: 1,
         padding: hp('2%'),
     },
