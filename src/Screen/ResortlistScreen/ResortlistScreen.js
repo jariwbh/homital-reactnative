@@ -66,7 +66,7 @@ class ResortlistScreen extends Component {
                 <View style={styles.statusbar}>
                     <TextInput
                         style={styles.statInput}
-                        placeholder="Type here to search resort"
+                        placeholder="Type here to search resort & hotels"
                         type='clear'
                         placeholderTextColor="#737373"
                         returnKeyType="done"

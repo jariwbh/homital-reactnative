@@ -48,7 +48,7 @@ class SearchScreen extends Component {
         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('2%') }}>
             <TouchableOpacity style={styles.slider} onPress={() => this.props.navigation.navigate('ResortlistScreen', { item })}>
                 <Image source={{ uri: item.property.image_icon ? item.property.image_icon : 'https://www.icon0.com/static2/preview2/stock-photo-photo-icon-illustration-design-70325.jpg' }}
-                    style={{ alignItems: 'center', height: hp('25%'), width: wp('80%'), marginTop: hp('1%'), borderRadius: hp('2%') }} />
+                    style={{ alignItems: 'center', height: hp('25%'), width: wp('92%'), marginTop: hp('1%'), borderRadius: hp('2%') }} />
             </TouchableOpacity>
             <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', }}>
                 <Text style={{ fontSize: hp('2.5%'), color: '#43434C' }}>{item.property.locationname}</Text>
@@ -63,7 +63,7 @@ class SearchScreen extends Component {
                 <View style={styles.statusbar}>
                     <TextInput
                         style={styles.statInput}
-                        placeholder="Search Resort Location.."
+                        placeholder="Search Resort & Hotels Location.."
                         type='clear'
                         placeholderTextColor="#737373"
                         returnKeyType="next"

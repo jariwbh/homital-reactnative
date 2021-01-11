@@ -43,7 +43,7 @@ function NavigationsDrawer(props) {
             drawerContentOptions={{ activeTintColor: '#000000', itemStyle: { marginVertical: 5 } }}
             drawerContent={(props) => <DrawerContainer {...props} />}>
 
-            <Drawer.Screen name="MainScreen" options={{
+            <Drawer.Screen name="HomeScreen" options={{
                 drawerLabel: 'Home', drawerIcon: ({ focused, size }) => (
                     <Ionicons
                         name="md-home"
@@ -164,7 +164,7 @@ function homeScreenStack({ navigation }) {
                 name="RoomlistScreen"
                 component={RoomlistScreen}
                 options={{
-                    title: '',
+                    title: 'Choose Room',
                     headerLeft: () =>
                         <NavigationDrawerStructure
                             navigationProps={navigation}
@@ -173,6 +173,7 @@ function homeScreenStack({ navigation }) {
                         backgroundColor: '#F6C455'
                     },
                     headerTintColor: '#000000',
+                    headerTitleAlign: 'center'
                 }}
             />
 
@@ -216,7 +217,7 @@ function homeScreenStack({ navigation }) {
                 name="ResortlistScreen"
                 component={ResortlistScreen}
                 options={{
-                    title: '',
+                    title: 'Resort/Hotels',
                     headerLeft: () =>
                         <NavigationDrawerStructure
                             navigationProps={navigation}
@@ -225,6 +226,8 @@ function homeScreenStack({ navigation }) {
                         backgroundColor: '#F6C455'
                     },
                     headerTintColor: '#000000',
+                    headerTitleAlign: 'center'
+
                 }}
             />
             <Stack.Screen
