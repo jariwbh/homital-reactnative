@@ -104,20 +104,21 @@ class MyProfileScreen extends Component {
                 fullname: this.userData.property.fullname,
                 username: this.userData.property.email,
                 mobilenumber: this.userData.property.mobile_number,
-                profileName: this.userData.fullname
+                profileName: this.userData.fullname,
+                userProfile: this.userData.profilepic
             })
         }
     }
 
     render() {
-        const { fullname, username, mobilenumber, profileName } = this.state;
+        const { fullname, username, mobilenumber, profileName, userProfile } = this.state;
         return (
             <View style={styles.container}>
                 {this.userData === null ?
                     <Loading />
                     :
                     <ScrollView><View style={{ marginTop: hp('5%') }}>
-                        <Image style={styles.avatar} source={require('../../../assets/Images/userimage.jpg')} />
+                        <Image style={styles.avatar} source={{ uri: userProfile !== null ? userProfile : require('../../../assets/Images/userimage.jpg') }} />
                         <View style={styles.body}>
                             <View style={styles.bodyContent}>
                                 <Text style={styles.name}>{profileName}</Text>
@@ -227,7 +228,7 @@ const styles = StyleSheet.create({
 
     },
     TextInput: {
-        fontSize: hp('2%'),
+        fontSize: hp('2.5%'),
         flex: 1,
         padding: hp('1%'),
     },

@@ -21,11 +21,10 @@ const DrawerContainer = (props) => {
     if (userData == null) {
         getUserDetails()
     }
-
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <Image style={styles.avatar} source={require('../../../assets/Images/userimage.jpg')} />
+                <Image style={styles.avatar} source={{ uri: userData && userData !== null ? userData.profilepic : '../../../assets/Images/userimage.jpg' }} />
                 <Text style={{ fontSize: hp('2%') }}>Welcome , {userData && userData.property.fullname}</Text>
             </View>
             <DrawerContentScrollView {...props}>

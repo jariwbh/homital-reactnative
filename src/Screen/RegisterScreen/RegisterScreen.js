@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, TextInput, T
 import { ScrollView } from 'react-native-gesture-handler';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import theme from "../../Constants/theme";
-import { FontAwesome5, AntDesign, Fontisto } from '@expo/vector-icons';
+import { Ionicons, AntDesign, Fontisto } from '@expo/vector-icons';
 import { RegisterService } from '../../Services/RegisterService/RegisterService';
 const { COLORS, FONTS, SIZES } = theme;
 
@@ -156,7 +156,7 @@ class RegisterScreen extends Component {
                         <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', }}>
                             <TouchableOpacity style={styles.sineBtn} onPress={() => this.onPressSubmit()}>
                                 <Text style={styles.sineText}>Sign Up</Text>
-                                <FontAwesome5 name="arrow-right" size={24} color="#000000" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
+                                <Ionicons name="md-arrow-forward" size={24} color="#000000" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
                             </TouchableOpacity>
                         </View>
                         <View style={{ marginTop: hp('7%'), justifyContent: 'center', flexDirection: 'row' }} >

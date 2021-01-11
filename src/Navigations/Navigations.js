@@ -86,13 +86,11 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
                 <Stack.Screen name="NavigationsDrawer" component={NavigationsDrawer} />
                 <Stack.Screen name="MyProfileScreen" component={MyProfileScreenStack} />
-                <Stack.Screen name="ThankYouScreen" component={ThankYouScreen} />
                 <Stack.Screen name="SearchScreen" component={SearchScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
 };
-
 
 function MyProfileScreenStack({ navigation }) {
     return (
@@ -161,6 +159,7 @@ function homeScreenStack({ navigation }) {
                     headerTitleAlign: 'center',
                 }}
             />
+
             <Stack.Screen
                 name="RoomlistScreen"
                 component={RoomlistScreen}
@@ -176,6 +175,7 @@ function homeScreenStack({ navigation }) {
                     headerTintColor: '#000000',
                 }}
             />
+
             <Stack.Screen
                 name="RoomDetailScreen"
                 component={RoomDetailScreen}
@@ -236,20 +236,11 @@ function homeScreenStack({ navigation }) {
                 }}
             />
             <Stack.Screen
-                name="MainScreen"
-                component={HomeScreen}
+                name="ThankYouScreen"
+                component={ThankYouScreen}
                 options={{
                     title: '',
-                    headerLeft: () =>
-                        <NavigationDrawerStructure
-                            navigationProps={navigation}
-                        />,
-                    headerRight: () =>
-                        <FontAwesome5 name="search" size={24} color='#262626' style={{ marginRight: hp('2%') }} onPress={() => navigation.navigate("SearchScreen")} />,
-                    headerStyle: {
-                        backgroundColor: '#F6C455'
-                    },
-                    headerTintColor: '#000000',
+                    headerShown: false
                 }}
             />
         </Stack.Navigator>

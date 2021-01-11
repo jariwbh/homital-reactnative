@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import theme from "../../Constants/theme";
-import { FontAwesome5, AntDesign } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { View, Text, ScrollView, TextInput, StyleSheet, TouchableOpacity, ImageBackground, ToastAndroid } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -138,18 +138,18 @@ export default class LoginScreen extends Component {
                             </View>
                             <Text style={{ marginTop: hp('-3%'), marginLeft: wp('10%'), color: '#ff0000' }}>{this.state.passworderror && this.state.passworderror}</Text>
                         </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginLeft: hp('6%'), marginTop: hp('1%'), marginRight: hp('5%') }}>
+                        {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginLeft: hp('6%'), marginTop: hp('1%'), marginRight: hp('5%') }}>
                             <View >
                                 <TouchableOpacity onPress={() => { this.props.navigation.navigate('ForgotPassword') }}>
                                     <Text style={{ fontSize: SIZES.body3, color: '#F4AE3A', marginTop: hp('0.5%') }}>Forgot password?</Text>
                                 </TouchableOpacity>
                             </View>
-                        </View>
+                        </View> */}
                         <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', }}>
                             <TouchableOpacity style={styles.loginBtn} onPress={() => this.onPressSubmit()}>
                                 {this.state.loading === true ? <Loader /> : <>
                                     <Text style={styles.loginText}>Sign In</Text>
-                                    <FontAwesome5 name="arrow-right" size={24} color="#000000" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
+                                    <Ionicons name="md-arrow-forward" size={24} color="#000000" style={{ paddingLeft: hp('1%'), marginTop: hp('0.5%') }} />
                                 </>}
                             </TouchableOpacity>
                         </View>
