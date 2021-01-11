@@ -75,7 +75,7 @@ class ResortDetailsScreen extends Component {
                                             </Text>
                                         </View>
                                     </ScrollView>
-                                    <View style={{ marginLeft: hp('27%'), marginTop: hp('0%'), marginBottom: hp('2%') }}>
+                                    <View style={{ justifyContent: 'center', marginLeft: hp('2%'), alignItems: 'center', marginBottom: hp('2%') }}>
                                         <TouchableOpacity style={styles.bookBtn} onPress={() => { this.props.navigation.navigate('RoomlistScreen', { resortDetails }) }} >
                                             <Text style={styles.bookText}>Choose Room</Text>
                                         </TouchableOpacity>
