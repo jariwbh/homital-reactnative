@@ -90,7 +90,8 @@ export default class LoginScreen extends Component {
         }
         catch (error) {
             this.setState({ loading: false })
-            ToastAndroid.show("SignIn Failed!", ToastAndroid.LONG)
+            ToastAndroid.show("Username and Password Invalid!", ToastAndroid.LONG);
+            this.resetScreen();
         }
     }
 
