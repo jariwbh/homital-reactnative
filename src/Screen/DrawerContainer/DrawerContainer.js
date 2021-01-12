@@ -24,7 +24,7 @@ const DrawerContainer = (props) => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <Image style={styles.avatar} source={{ uri: userData && userData !== null ? userData.profilepic : '../../../assets/Images/userimage.jpg' }} />
+                <Image style={styles.avatar} source={{ uri: userData && userData !== null ? userData.profilepic : 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1610428971/userimage_qif8wv.jpg' }} />
                 <Text style={{ fontSize: hp('2%') }}>Welcome , {userData && userData.property.fullname}</Text>
             </View>
             <DrawerContentScrollView {...props}>

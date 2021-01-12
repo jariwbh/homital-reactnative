@@ -128,7 +128,7 @@ class MyProfileScreen extends Component {
                     <Loading />
                     :
                     <ScrollView><View style={{ marginTop: hp('5%') }}>
-                        <Image style={styles.avatar} source={{ uri: userProfile !== null ? userProfile : '../../../assets/Images/userimage.jpg' }} />
+                        <Image style={styles.avatar} source={{ uri: userProfile !== null ? userProfile : 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1610428971/userimage_qif8wv.jpg' }} />
                         <View style={styles.body}>
                             <View style={styles.bodyContent}>
                                 <Text style={styles.name}>{profileName}</Text>
