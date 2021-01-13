@@ -37,7 +37,7 @@ class MyProfileScreen extends Component {
 
     setFullName(fullname) {
         if (!fullname || fullname.length <= 0) {
-            return this.setState({ fullnameError: 'User Name cannot be empty' });
+            return this.setState({ fullnameError: 'User Name cannot be empty', fullname: null });
         }
         return this.setState({ fullname: fullname, fullnameError: null })
     }
@@ -45,7 +45,7 @@ class MyProfileScreen extends Component {
     setUserName(email) {
         const re = /\S+@\S+\.\S+/;
         if (!email || email.length <= 0) {
-            return this.setState({ usernameError: 'Email cannot be empty' });
+            return this.setState({ usernameError: 'Email cannot be empty', username: null });
         }
         if (!re.test(email)) {
             return this.setState({ usernameError: 'Ooops! We need a valid email address' });
@@ -56,7 +56,7 @@ class MyProfileScreen extends Component {
     setMobileNumber(mobilenumber) {
         const reg = /^[0]?[789]\d{9}$/;
         if (!mobilenumber || mobilenumber.length <= 0) {
-            return this.setState({ mobilenumberError: 'Mobile Number cannot be empty' });
+            return this.setState({ mobilenumberError: 'Mobile Number cannot be empty', mobilenumber: null });
         }
         if (!reg.test(mobilenumber)) {
             return this.setState({ mobilenumberError: 'Ooops! We need a valid Mobile Number' });
