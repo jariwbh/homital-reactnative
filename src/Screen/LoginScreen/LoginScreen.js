@@ -161,7 +161,10 @@ export default class LoginScreen extends Component {
                         </View>
                         <View style={{ marginTop: hp('20%'), justifyContent: 'center', flexDirection: 'row' }} >
                             <Text style={styles.innerText}> Don't have an account? </Text>
-                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('RegisterScreen') }} >
+                            <TouchableOpacity onPress={() => {
+                                this.props.navigation.navigate('RegisterScreen');
+                                this.resetScreen();
+                            }} >
                                 <Text style={styles.baseText}>Signup</Text>
                             </TouchableOpacity>
                         </View>
