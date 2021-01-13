@@ -3,7 +3,8 @@ import appConfig from '../../Helpers/appConfig'
 const BookHistoryService = (id) => {
     const body =
     {
-        "search": [{ "searchfield": "customerid", "searchvalue": id, "criteria": "eq", "datatype": "ObjectID" }]
+        "search": [{ "searchfield": "customerid", "searchvalue": id, "criteria": "eq", "datatype": "ObjectID" }],
+        "sort": { "bookingnumber": -1 }
     }
 
     const requestOptions = {
