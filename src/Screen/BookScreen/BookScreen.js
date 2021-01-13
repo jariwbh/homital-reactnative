@@ -74,7 +74,7 @@ class BookScreen extends Component {
             return this.setState({ usernameError: 'Email cannot be empty', username: null });
         }
         if (!re.test(email)) {
-            return this.setState({ usernameError: 'Ooops! We need a valid email address' });
+            return this.setState({ usernameError: 'Ooops! We need a valid email address', username: null });
         }
         return this.setState({ username: email, usernameError: null })
     }
