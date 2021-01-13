@@ -187,6 +187,7 @@ class MyProfileScreen extends Component {
                                         keyboardType="numeric"
                                         keyboardType="number-pad"
                                         underlineColorAndroid="#B9B9B9"
+                                        ref={this.thirdTextInputRef}
                                         onSubmitEditing={() => this.onPressSubmit()}
                                         onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                                     />
