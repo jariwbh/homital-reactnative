@@ -172,7 +172,7 @@ class BookScreen extends Component {
         const { fullname, fullnameError, username, usernameError, mobilenumber, mobilenumberError, CheckOutDate, CheckOutDateError, CheckDate, CheckDateError } = this.state;
         return (
             <View style={styles.container}>
-                <ScrollView Vertical showsVerticalScrollIndicator={false}>
+                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('2%') }}>
                         <View style={styles.inputview}>
                             <AntDesign name="user" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
@@ -209,7 +209,7 @@ class BookScreen extends Component {
                                 placeholder="Phone Number"
                                 type='clear'
                                 placeholderTextColor="#656565"
-                                returnKeyType="done"
+                                returnKeyType="next"
                                 underlineColorAndroid="#B9B9B9"
                                 keyboardType="numeric"
                                 defaultValue={mobilenumber}
@@ -227,6 +227,7 @@ class BookScreen extends Component {
                                 placeholder="YYYY-MM-DD"
                                 type='clear'
                                 defaultValue={CheckDate}
+                                returnKeyType="next"
                                 placeholderTextColor="#000000"
                                 underlineColorAndroid="#B9B9B9"
                                 onTouchStart={this.showCheckDatePicker}
@@ -251,10 +252,12 @@ class BookScreen extends Component {
                                 style={styles.dateInput}
                                 placeholder="YYYY-MM-DD"
                                 type='clear'
+                                returnKeyType="done"
                                 defaultValue={CheckOutDate}
                                 underlineColorAndroid="#B9B9B9"
                                 placeholderTextColor="#000000"
                                 onTouchStart={this.showOutDateDatePicker}
+                                onSubmitEditing={() => this.onPressSubmit()}
                                 onChangeText={(CheckOutDate) => this.setCheckOutDate(CheckOutDate)}
                             >
                             </TextInput>

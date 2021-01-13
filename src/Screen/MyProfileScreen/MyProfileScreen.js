@@ -31,6 +31,8 @@ class MyProfileScreen extends Component {
         this.setUserName = this.setUserName.bind(this);
         this.setMobileNumber = this.setMobileNumber.bind(this);
         this.onPressSubmit = this.onPressSubmit.bind(this);
+        this.secondTextInputRef = React.createRef();
+        this.thirdTextInputRef = React.createRef();
     }
 
     setFullName(fullname) {
@@ -127,7 +129,7 @@ class MyProfileScreen extends Component {
                 {this.userData === null ?
                     <Loading />
                     :
-                    <ScrollView><View style={{ marginTop: hp('5%') }}>
+                    <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}><View style={{ marginTop: hp('5%') }}>
                         <Image style={styles.avatar} source={{ uri: userProfile && userProfile !== null ? userProfile : 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1610428971/userimage_qif8wv.jpg' }} />
                         <View style={styles.body}>
                             <View style={styles.bodyContent}>
@@ -148,6 +150,8 @@ class MyProfileScreen extends Component {
                                         placeholderTextColor="#737373"
                                         returnKeyType="next"
                                         underlineColorAndroid="#B9B9B9"
+                                        blurOnSubmit={false}
+                                        onSubmitEditing={() => { this.secondTextInputRef.current.focus() }}
                                         onChangeText={(fullname) => this.setFullName(fullname)}
                                     />
                                 </View>
@@ -161,11 +165,13 @@ class MyProfileScreen extends Component {
                                         type='clear'
                                         placeholderTextColor="#737373"
                                         autoCapitalize="none"
-                                        autoCompleteType="email"
                                         textContentType="emailAddress"
                                         keyboardType="email-address"
                                         returnKeyType="next"
                                         underlineColorAndroid="#B9B9B9"
+                                        ref={this.secondTextInputRef}
+                                        blurOnSubmit={false}
+                                        onSubmitEditing={() => { this.thirdTextInputRef.current.focus() }}
                                         onChangeText={(username) => this.setUserName(username)}
                                     />
                                 </View>
@@ -179,7 +185,9 @@ class MyProfileScreen extends Component {
                                         type='clear'
                                         placeholderTextColor="#737373"
                                         keyboardType="numeric"
+                                        keyboardType="number-pad"
                                         underlineColorAndroid="#B9B9B9"
+                                        onSubmitEditing={() => this.onPressSubmit()}
                                         onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                                     />
                                 </View>

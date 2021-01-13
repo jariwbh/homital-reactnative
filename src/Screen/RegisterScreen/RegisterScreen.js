@@ -136,7 +136,6 @@ class RegisterScreen extends Component {
                                     placeholderTextColor="#656565"
                                     underlineColorAndroid="#B9B9B9"
                                     returnKeyType="next"
-                                    autoCapitalize="none"
                                     autoCompleteType="email"
                                     textContentType="emailAddress"
                                     keyboardType="email-address"
@@ -155,7 +154,6 @@ class RegisterScreen extends Component {
                                     placeholder="Mobile Number"
                                     type='clear'
                                     placeholderTextColor="#656565"
-                                    secureTextEntry={true}
                                     keyboardType="number-pad"
                                     underlineColorAndroid="#B9B9B9"
                                     returnKeyType="done"
