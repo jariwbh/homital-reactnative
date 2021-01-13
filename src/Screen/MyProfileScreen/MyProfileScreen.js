@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
         padding: hp('1%'),
     },
     update_Btn: {
-        width: wp('40%'),
+        width: wp('50%'),
         backgroundColor: "#FFBA00",
         borderRadius: wp('7%'),
         height: hp('6%'),
