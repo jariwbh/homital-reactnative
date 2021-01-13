@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const DrawerContainer = (props) => {
     const [userData, setuser] = useState(null);
     async function getUserDetails() {
-        var getUser = await AsyncStorage.getItem('@authuser')
+        const getUser = await AsyncStorage.getItem('@authuser')
         if (getUser == null) {
             setTimeout(() => {
                 this.props.navigation.replace('LoginScreen')
@@ -24,7 +24,7 @@ const DrawerContainer = (props) => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <Image style={styles.avatar} source={{ uri: userData && userData !== null ? userData.profilepic : 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1610428971/userimage_qif8wv.jpg' }} />
+                <Image style={styles.avatar} source={{ uri: userData !== null ? (userData.profilepic == null ? 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1610428971/userimage_qif8wv.jpg' : userData.profilepic) : 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1610428971/userimage_qif8wv.jpg' }} />
                 <Text style={{ fontSize: hp('2%') }}>Welcome , {userData && userData.property.fullname}</Text>
             </View>
             <DrawerContentScrollView {...props}>

@@ -9,6 +9,7 @@ import Loading from '../../Components/Loader/Loading'
 class ResortlistScreen extends Component {
     constructor(props) {
         super(props);
+        this.searchInputRef = React.createRef()
         this.resortLocationID = this.props.route.params.item._id;
         this.searchproductList = [];
         this.state = {
@@ -71,10 +72,15 @@ class ResortlistScreen extends Component {
                         placeholderTextColor="#737373"
                         returnKeyType="done"
                         autoCapitalize="none"
+                        blurOnSubmit={false}
+                        ref={this.searchInputRef}
                         autoCorrect={false}
                         onChangeText={(value) => this.searchFilterFunction(value)}
                     />
-                    <FontAwesome5 name="search" size={24} color='#737373' style={{ alignItems: "flex-end", justifyContent: 'flex-end', marginRight: hp('2%') }} />
+                    <TouchableOpacity onPress={() => this.searchInputRef.current.focus()}>
+                        <FontAwesome5 name="search" size={24} color='#737373'
+                            style={{ alignItems: "flex-end", justifyContent: 'flex-end', marginRight: hp('2%') }} />
+                    </TouchableOpacity>
                 </View>
                 {(ResortList == null) || (ResortList && ResortList.length == 0) ?
                     (loader == false ?

@@ -8,11 +8,13 @@ import { LoginService } from "../../Services/LoginService/LoginService"
 import Loader from '../../Components/Loader/Loader';
 import AsyncStorage from '@react-native-community/async-storage';
 import appConfig from '../../Helpers/appConfig'
+import { MaterialIcons, } from '@expo/vector-icons';
 const { COLORS, FONTS, SIZES } = theme;
 
 export default class LoginScreen extends Component {
     constructor(props) {
         super(props);
+        this.secondTextInputRef = React.createRef()
         this.state = {
             username: null,
             usererror: null,
@@ -71,7 +73,7 @@ export default class LoginScreen extends Component {
         try {
             await LoginService(body)
                 .then(response => {
-                    if (response.type === "Error") {
+                    if (response.error) {
                         this.setState({ loading: false })
                         ToastAndroid.show("Username and Password Invalid!", ToastAndroid.LONG);
                         this.resetScreen()
@@ -106,7 +108,7 @@ export default class LoginScreen extends Component {
                         <Text style={styles.sineText}>Please sign in to Continue</Text>
                     </View>
                     <ScrollView
-                        showsVerticalScrollIndicator={false}>
+                        showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                             <View style={styles.inputView}>
                                 <FontAwesome name="user-o" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
@@ -116,6 +118,8 @@ export default class LoginScreen extends Component {
                                     defaultValue={this.state.username}
                                     type='clear'
                                     returnKeyType="next"
+                                    blurOnSubmit={false}
+                                    onSubmitEditing={() => { this.secondTextInputRef.current.focus() }}
                                     placeholderTextColor="#656565"
                                     underlineColorAndroid="#B9B9B9"
                                     onChangeText={(email) => this.setEmail(email)}
@@ -132,6 +136,7 @@ export default class LoginScreen extends Component {
                                     placeholderTextColor="#656565"
                                     secureTextEntry={true}
                                     returnKeyType="done"
+                                    ref={this.secondTextInputRef}
                                     underlineColorAndroid="#B9B9B9"
                                     onSubmitEditing={() => this.onPressSubmit()}
                                     onChangeText={(password) => this.setPassword(password)}
@@ -185,7 +190,6 @@ const styles = StyleSheet.create({
         color: '#605C5C',
         fontSize: hp('2%'),
     },
-
     inputView: {
         flexDirection: 'row',
         width: wp('80%'),
@@ -193,7 +197,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginLeft: 'auto',
         marginRight: 'auto',
-
     },
     TextInput: {
         fontSize: hp('2%'),
@@ -209,12 +212,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginRight: hp('4%')
-
     },
     loginText: {
         color: COLORS.black,
         fontSize: hp('2.5%'),
-
     },
     baseText: {
         fontWeight: 'normal',
@@ -225,5 +226,4 @@ const styles = StyleSheet.create({
         color: '#ABAFB3',
         fontSize: hp('2%'),
     },
-
 })

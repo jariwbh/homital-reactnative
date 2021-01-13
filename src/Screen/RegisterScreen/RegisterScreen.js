@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, TextInput, T
 import { ScrollView } from 'react-native-gesture-handler';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import theme from "../../Constants/theme";
-import { Ionicons, AntDesign, Fontisto } from '@expo/vector-icons';
+import { Ionicons, AntDesign, Fontisto, MaterialIcons } from '@expo/vector-icons';
 import { RegisterService } from '../../Services/RegisterService/RegisterService';
 const { COLORS, FONTS, SIZES } = theme;
 
@@ -23,6 +23,8 @@ class RegisterScreen extends Component {
         this.setUserName = this.setUserName.bind(this);
         this.setMobileNumber = this.setMobileNumber.bind(this);
         this.onPressSubmit = this.onPressSubmit.bind(this);
+        this.secondTextInputRef = React.createRef()
+        this.thirdTextInputRef = React.createRef()
     }
 
     setFullName(fullname) {
@@ -98,11 +100,16 @@ class RegisterScreen extends Component {
         return (
             <ImageBackground source={require('../../../assets/Images/BG.png')} style={styles.backgroundImage}>
                 <View style={styles.container}>
+                    <View >
+                        <TouchableOpacity style={styles.categoryIcon} onPress={() => this.props.navigation.goBack()} >
+                            <MaterialIcons name="arrow-back" size={24} color="#F6C455" />
+                        </TouchableOpacity>
+                    </View>
                     <View style={styles.sineupview}>
                         <Text style={{ fontSize: SIZES.body1, color: COLORS.black, }}>Create Account </Text>
                     </View>
                     <ScrollView
-                        showsVerticalScrollIndicator={false}>
+                        showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                             <View style={styles.inputview}>
                                 <AntDesign name="user" size={27} color="#000000" style={{ paddingLeft: hp('3%') }} />
@@ -113,6 +120,8 @@ class RegisterScreen extends Component {
                                     placeholderTextColor="#656565"
                                     underlineColorAndroid="#B9B9B9"
                                     returnKeyType="next"
+                                    blurOnSubmit={false}
+                                    onSubmitEditing={() => { this.secondTextInputRef.current.focus() }}
                                     onChangeText={(fullname) => this.setFullName(fullname)}
                                 />
                             </View>
@@ -131,6 +140,9 @@ class RegisterScreen extends Component {
                                     autoCompleteType="email"
                                     textContentType="emailAddress"
                                     keyboardType="email-address"
+                                    ref={this.secondTextInputRef}
+                                    blurOnSubmit={false}
+                                    onSubmitEditing={() => { this.thirdTextInputRef.current.focus() }}
                                     onChangeText={(username) => this.setUserName(username)}
                                 />
                             </View>
@@ -144,9 +156,10 @@ class RegisterScreen extends Component {
                                     type='clear'
                                     placeholderTextColor="#656565"
                                     secureTextEntry={true}
-                                    returnKeyType="done"
+                                    keyboardType="number-pad"
                                     underlineColorAndroid="#B9B9B9"
                                     returnKeyType="done"
+                                    ref={this.thirdTextInputRef}
                                     onSubmitEditing={() => this.onPressSubmit()}
                                     onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                                 />
@@ -184,9 +197,18 @@ const styles = StyleSheet.create({
         height: hp('100%'),
         width: wp('100%')
     },
+    categoryIcon: {
+        width: wp("7%"),
+        height: wp("7%"),
+        borderRadius: hp('6%'),
+        marginTop: hp('5%'),
+        marginLeft: hp('3%'),
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     sineupview: {
         marginLeft: hp('5%'),
-        marginTop: SIZES.padding + 100
+        marginTop: SIZES.padding + 20
     },
     inputview: {
         flexDirection: 'row',

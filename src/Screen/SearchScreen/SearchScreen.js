@@ -10,6 +10,7 @@ class SearchScreen extends Component {
     constructor(props) {
         super(props);
         this.searchproductList = [];
+        this.searchInputRef = React.createRef()
         this.state = {
             ResortLocationList: [],
             loader: true,
@@ -63,15 +64,20 @@ class SearchScreen extends Component {
                 <View style={styles.statusbar}>
                     <TextInput
                         style={styles.statInput}
-                        placeholder="Search Resort & Hotels Location.."
+                        placeholder="Resort & Hotels Location.."
                         type='clear'
                         placeholderTextColor="#737373"
-                        returnKeyType="next"
+                        returnKeyType="done"
                         autoCapitalize="none"
                         autoCorrect={false}
+                        blurOnSubmit={false}
+                        ref={this.searchInputRef}
                         onChangeText={(value) => this.searchFilterFunction(value)}
                     />
-                    <FontAwesome5 name="search" size={24} color='#737373' style={{ alignItems: "flex-end", justifyContent: 'flex-end', marginRight: hp('2%') }} />
+                    <TouchableOpacity onPress={() => this.searchInputRef.current.focus()}>
+                        <FontAwesome5 name="search" size={24} color='#737373'
+                            style={{ alignItems: "flex-end", justifyContent: 'flex-end', marginRight: hp('2%') }} />
+                    </TouchableOpacity>
                 </View>
                 {(ResortLocationList == null) || (ResortLocationList && ResortLocationList.length == 0) ?
                     (loader == false ?
